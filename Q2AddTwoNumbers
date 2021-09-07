@@ -3,3 +3,50 @@ You are given two non-empty linked lists representing two non-negative integers.
 Add the two numbers and return the sum as a linked list.
 You may assume the two numbers do not contain any leading zero, except the number 0 itself.
 
+思路：
+342 + 465 = 807
+2 -> 4 -> 3
+5 -> 6 -> 4
+7 -> 0 -> 8
+
+直接求和 7 -> 10 -> 7
+%10得到数字与进位
+ 7 -> 0 -> 8
+ 0 -> 1 -> 0
+求和方法：从第一个节点加即可 注意进位
+
+代码：
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution(object):
+    def addTwoNumbers(self, l1, l2):
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+        
+c = 0 //进位符
+s = 0 //和
+dummy = ListNode() 
+curr = dummy
+	while l1 or l2 or c:
+	s = c
+	if l1:
+		s += l1.val
+		l1 = l1.next
+	if l2:
+		s += l2.val
+		l2 = l2.next
+	c = s/10
+	s = s % 10
+	curr.next = List.Node(s)
+	curr = curr.next
+ return dummy.next
+ 
+知识点：链表 linked list  
+例子2 -> 4 -> 3
+每个节点为数值与下一节点的指针
