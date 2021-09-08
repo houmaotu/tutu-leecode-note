@@ -1,2 +1,31 @@
-题目
+题目：
 Given a string s, find the length of the longest substring without repeating characters.
+
+思路：
+找到前置相同字母的index
+               a   b  c  d  a  c  b  d
+index          0   1  2  3  4  5  6  7
+index prev     0   0  0  0  1  3  1  4
+
+差为长度     0 1 2 3 3 3 5 4
+注意 b c d a c b 此段起始位置不是见到的c 而因为c已经重复  更改为上一段 的起始位置后以为 即d a c的初始位置d
+
+代码：
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+longest = 0
+l = 0
+lib = {}
+for r,c in enumerate(s)
+  if c in lib:
+    l = max(l,lib[c] + 1)
+    lib[c] = r
+  length = r - l + 1
+  longest = max(length, longest)
+return(longest)
+
+知识点：用哈希表存起来最后见到字母的时间 (dictionary)
