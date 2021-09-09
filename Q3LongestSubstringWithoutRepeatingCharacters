@@ -17,15 +17,15 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
-longest = 0
-l = 0
-lib = {}
-for r,c in enumerate(s)
-  if c in lib:
-    l = max(l,lib[c] + 1)
-    lib[c] = r
-  length = r - l + 1
-  longest = max(length, longest)
-return(longest)
+    longest = 0
+    l = 0
+    lib = {}
+    for r, c in enumerate(s)
+        if c in lib:
+            l = max(l,lib[c] + 1)
+        lib[c] = r
+    length = r - l + 1
+    longest = max(length, longest)
+    return(longest)
 
 知识点：用哈希表存起来最后见到字母的时间 (dictionary)
