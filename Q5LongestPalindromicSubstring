@@ -1,0 +1,50 @@
+题目
+Given a string s, return the longest palindromic substring in s.
+
+palindromic 回文 正反一样
+
+思路：中心展开
+
+b a b a d c b b d
+
+奇数
+b为中心查看 就是b
+a为中心查看 bab
+偶数
+略
+记录首末位置
+
+注意奇偶
+
+代码：
+class Solution(object):
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        def LongestAtIndex(s,l,r):
+            while l>=0 and r < len(s) and s[l] == s[r]:
+                l -= 1
+                r += 1
+            l += 1
+            s -= 1
+            return(r - l + 1, l, r) //最后再提取字符串即可
+            
+       longest = 0
+       left = 0
+       right = -1
+       for i in xrange(len(s)):
+            length, l, r = longestAtIndex(s, i, i)
+            if length > longest:
+                longest = length
+                left = l
+                right = r
+            length, l, r = longestAtIndex(s, i, i+1)
+            if length > longest:
+                longest = length
+                left = l
+                right = r         
+        
+
+知识点：暴力解决一切！
