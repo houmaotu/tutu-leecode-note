@@ -29,23 +29,23 @@ class Solution(object):
         :rtype: ListNode
         """
         
-c = 0 //进位符
-s = 0 //和
-dummy = ListNode() 
-curr = dummy
-	while l1 or l2 or c:
-	s = c
-	if l1:
-		s += l1.val
-		l1 = l1.next
-	if l2:
-		s += l2.val
-		l2 = l2.next
-	c = s/10
-	s = s % 10
-	curr.next = List.Node(s)
-	curr = curr.next
- return dummy.next
+    c = 0 //进位符
+    s = 0 //和
+    dummy = ListNode() 
+    curr = dummy
+	    while l1 or l2 or c:
+	    s = c
+	    if l1:
+		    s += l1.val
+		    l1 = l1.next
+	    if l2:
+		    s += l2.val
+		    l2 = l2.next
+	    c = s/10
+	    s = s % 10
+	    curr.next = List.Node(s)
+	    curr = curr.next
+    return dummy.next
  
 知识点：链表 linked list  
 例子2 -> 4 -> 3
