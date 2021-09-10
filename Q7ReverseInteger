@@ -1,0 +1,48 @@
+题目：
+Given a signed 32-bit integer x, return x with its digits reversed. If reversing x causes the value to go outside the signed 32-bit integer range [-231, 231 - 1], then return 0.
+
+Assume the environment does not allow you to store 64-bit integers (signed or unsigned).
+
+思路：
+
+123456 前面除10 后面乘10
+
+第一步 12345 6
+第二步 1234 5+6*10
+第三步 123 4 + 65*10
+
+代码：
+class Solution(object):
+    def reverse(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
+     def divide(number, divider)
+         return int(number * 1.0 / divider)
+     def mod(number， m)：
+          if number < 0:
+              return number % -m
+           return number
+           
+      MAX_INT = 2 ** 31 -1  #2147483647
+      MIN_INT = -2 ** 31   #-2147483648
+      
+      res = 0
+      while x:
+            pop = mod(x, 10)
+            x = divide(x,10)
+            if res > divide(MAX_INT, 10) or res == divide(MAX_INT, 10) and pop > 7:
+                return 0
+            if res < divide(MIN_INT, 10) or res == divide(MIN_INT, 10) and pop < -8:
+                return 0
+            res = res * 10 + pop
+      
+      return res
+            
+       
+
+知识点：
+注意一下除的语法 也可以通过提取符号绕开
+
+查看Overflow
