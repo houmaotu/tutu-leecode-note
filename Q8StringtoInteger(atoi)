@@ -24,13 +24,8 @@ Do not ignore any characters other than the leading whitespace or the rest of th
 
 代码：
 
-class Solution(object):
-    def myAtoi(self, s):
-        """
-        :type s: str
-        :rtype: int
-        """
-        
+class Solution:
+    def myAtoi(self, s: str) -> int:
         MAX_INT = 2 **31 - 1
         MIN_INT = -2**31
         i = 0
@@ -59,6 +54,7 @@ class Solution(object):
         if res < 0:
             return max(MIN_INT, res )
         return min(MAX_INT, res)
+        
    
    知识点：
    用set查看是否为数字 也可以用上题方法进行overflow检测
