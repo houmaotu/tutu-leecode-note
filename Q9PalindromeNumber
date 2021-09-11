@@ -1,0 +1,52 @@
+题目：
+Given an integer x, return true if x is palindrome integer.
+
+An integer is a palindrome when it reads the same backward as forward. For example, 121 is palindrome while 123 is not.
+
+思路：
+法1
+找到倒过来的数字
+
+1234  -> 123 4 -> 12 3+4 * 10 —> 1  2 + 43 * 10
+
+法2
+用字符串查一个 滚一个
+
+代码：
+
+class Solution(object):
+    def isPalindrome(self, x):
+        """
+        :type x: int
+        :rtype: bool
+        """
+        #1
+        if x < 0:
+            return False
+        
+        c = x
+        b = 0
+        
+        while c:
+            b = b * 10 + c % 10
+            c /=  10
+        return b == x
+        
+        
+        #2
+        if x < 0:
+            return False
+        
+        if x == 0:
+            return True
+        
+        ss = str(x)
+        l = len(str(x))
+        
+        while ss:
+            if ss[0] != ss[l-1]:
+                return False
+            ss = ss[1:l-1]
+            l -= 2
+        return True
+知识点：能不转换类型尽量别
