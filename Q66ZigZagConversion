@@ -46,47 +46,40 @@ numRows=n
 
 
 代码：
-class Solution(object):
-    def convert(self, s, numRows):
-        """
-        :type s: str
-        :type numRows: int
-        :rtype: str
-        ""“
-        #method 1
+class Solution:
+    def convert(self, s: str, numRows: int) -> str:
+         #method 1
         
         if numRows == 1 or numRows >= len(s):
             return s
         delta = -1 #方向
         row = 0 #行号
-        res = [[] for i in xrange(Numrows)]
+        res = [[] for i in range(numRows)]
         
         for c in s:
             res[row].append(c)
-            if row == 0 or row == numRows - 1：
+            if row == 0 or row == numRows - 1:
                 delta *= -1
             row += delta
             
        #合成
-       for i in xrange(len(res)):
-          res[i] = ''.join(res[i])
-       return ''.join(res)
+        for i in range(len(res)):
+            res[i] = ''.join(res[i])
+        return ''.join(res)
        
        #法2
-       if numRows == 1:
+        if numRows == 1:
               return s
               
-       cycle = 2 * numRows - 2
-       res = []
-       for i in xrange(numRows):
-            for j in xrange(i,len(s),cycle):
-                  res.append(s[j])
-                  k = j + cycle - 2 * i
-                  if i != 0 and i != numRows -1 and k < len(s):
-                       res.append(s[k])
-              
-       return ''.join(res)                   
-       
+        cycle = 2 * numRows - 2
+        res = []
+        for i in range(numRows):
+            for j in range(i,len(s),cycle):
+                res.append(s[j])
+                k = j + cycle - 2 * i
+                if i != 0 and i != numRows -1 and k < len(s):
+                    res.append(s[k])
+        return ''.join(res)  
        
             
         
