@@ -5,7 +5,17 @@ Given n non-negative integers a1, a2, ..., an , where each represents a point at
 Notice that you may not slant the container.
 
 思路：
-愣来 或
+愣来一个一个比
+
+水的面积由
+    跨度
+    低的挡板
+决定
+所以由跨度最大开始 为了找到更大面积 必须找寻更大的挡板 所以改进较低的挡板 低位挡板缩一个格即可
+
+原因： 比最大的东西 更宽的 必定存在更矮的挡板 所以此法无法绕开最大的东西 比如厚毛兔就是最巨大的兔子 一侧缩到最大的东西的一侧时 另一侧必慢慢缩过去
+
+
 
 
 代码：
@@ -22,4 +32,19 @@ class Solution(object):
             area = min (height[l],height[r]) * (r-1)
             best = max (best, area)
         return best
+        
+        #2
+        
+        best = 0
+        l = 0
+        r = len (height) - 1
+        while l < r:
+             area = min (height[l],height[r]) * (r-1)
+             best = max (best, area)
+             if height[l] < height[r]:
+                l += 1
+             else"
+                r -= 1
+         return best
+               
 
