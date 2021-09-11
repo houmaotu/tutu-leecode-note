@@ -7,17 +7,12 @@ You can return the answer in any order
 思路：硬来 哈希表
 
 代码：
-class Solution(object):
-    def twoSum(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: List[int]
-        """
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
 \\硬搞：
-        for i in xrange(len(nums)):
-            for j in xrange(i+1,len(nums)):
-                if nums[i] + nums[j] == traget:
+        for i in range(0,len(nums)):
+            for j in range(i+1,len(nums)):
+                if nums[i] + nums[j] == target:
                     return [i,j]
         return[]
 
@@ -25,8 +20,8 @@ class Solution(object):
         lib={}
         for i,n in enumerate(nums):
             if n in lib:
-                return[lin[n],i] 为了简便可以先行判断 n 是否在哈希表中 在直接找到 否则入哈希表 建立完整哈希表后寻找也可
-            lib[target - n] = i //哈希表的索引是 要找的第二个数字 数值是nums的索引 这样只需哈希表的索引在num中即可
+                return[lib[n],i] #为了简便可以先行判断 n 是否在哈希表中 在直接找到 否则入哈希表 建立完整哈希表后寻找也可
+            lib[target - n] = i #哈希表的索引是 要找的第二个数字 数值是nums的索引 这样只需哈希表的索引在num中即可
         return[]
 
 知识点：
