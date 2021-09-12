@@ -41,6 +41,8 @@ class Solution:
                   num -= values[i]
                   res += numerals[i]
          return res
+
+知识点：把诡异9和4的拿出来 几位不重要
             
         
         
