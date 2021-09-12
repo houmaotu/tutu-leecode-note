@@ -4,7 +4,47 @@ Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]]
 Notice that the solution set must not contain duplicate triplets.
 
 思路：
+还是找 注意 剪短循环长度 以及不重复
+
+1用sort排序
+2 因为排过顺序了 如果这三个挨着的加起来大于0了 不玩了
+                如果这个加上最大的两个数都不够0 不找了
+                如果这个数字和上一个一样 重复了 再见
+3 搜索的时候两头凑凑能快
 
 代码：
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+
+        n = len(nums)
+        res = []
+        if n<3:
+            return[]
+        nums.sort()
+        for i in range(n-2):
+            if nums[i]+nums[i+1]+nums[i+2] > 0:
+                break
+            if nums[i] + nums[n-2] + nums[n-1] < 0:
+                continue
+            if 0<i and nums[i] == nums [i-1]:
+                continue
+            
+            l, r = i+1, n-1
+            while l<r:
+                tmp = nums[i] + nums[l]+ nums[r]
+                if tmp == 0:
+                    res.append([nums[i],nums[l],nums[r]])
+                    while l+1<r and nums[l] == nums[l+1]:
+                        l += 1
+                    l += 1
+                    while l+1<r and nums[r] == nums[r-1]:
+                        r -= 1
+                    r -= 1
+                elif tmp < 0:
+                    l += 1
+                else:
+                    r -= 1
+        return res
 
 知识点：
+其实和直接搜差不多 就是少搜一点而已 厚毛兔尝试过楞搜 时间就超了 难受
