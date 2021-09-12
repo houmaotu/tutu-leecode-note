@@ -1,0 +1,45 @@
+题目：
+Write a function to find the longest common prefix string amongst an array of strings.
+
+If there is no common prefix, return an empty string "".
+
+思路：第一个词放进去 一个一个比较 不一样的删除
+或者利用集合求 把每个单词的第一个字母放在集合中 一样责集合只有一个元素 需要用try 使当下标超过某一单词长度报错的时候直接跳出
+
+代码：
+class Solution:
+    def longestCommonPrefix(self, strs: List[str]) -> str:
+    
+        #法1
+        if not strs:
+            return ''
+        if '' in strs:
+            return ''
+        common = strs[0]
+        for s in strs[1:]:
+            for i in range(min(len(common),len(s))):
+                if common[i] != s[i]:
+                    common = common[:i]
+                    break
+                common = common[:min(len(common),len(s))]
+        return common
+        
+        #法2
+        
+        common = ''
+        i = 0
+        
+        while True:
+            try:
+                sets = set(s[i] for s in strs)
+                if len(sets) == 1:
+                    common += sets.pop()
+                    i+=1
+                else:
+                    break
+            except Exception as e:
+                break
+        return common
+
+
+注意：用集合更牛逼 第一个方法把循环调过来可能更简单 但是不如集合牛逼 厚毛兔是个强大的兔子
