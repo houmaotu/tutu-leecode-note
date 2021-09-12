@@ -1,0 +1,38 @@
+题目：
+Given an integer array nums of length n and an integer target, find three integers in nums such that the sum is closest to target.
+
+Return the sum of the three integers.
+
+You may assume that each input would have exactly one solution.
+
+思路：
+定第一个 后面的慢慢搜 两头更新 要是不够target 就要小的大一点点 否则让大的小一点点
+
+代码：
+class Solution:
+    def threeSumClosest(self, nums: List[int], target: int) -> int:
+        
+        n = len(nums) #假设n>3
+        nums.sort()
+        res = nums[0] + nums[1] + nums[n-1]
+        
+        for i in range(len(nums) - 2):
+            if i>0 and nums[i] == nums[i-1]:
+                continue
+            l = i+1
+            r = len(nums) - 1
+            while l < r:
+                val = nums[i] + nums[l] + nums[r]
+                if abs(val - target) < abs(res - target):
+                    res = val
+                if val < target:
+                    l += 1
+                elif val > target:
+                    r -= 1
+                else:
+                    return target
+        return res
+
+知识点：
+厚毛兔终于明白咧 一点一点改进比楞搜好一点点 这是针对我愣头青兔兔呀
+
