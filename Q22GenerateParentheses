@@ -1,0 +1,25 @@
+题目：
+Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+
+思路： 
+左括号更多就行了：
+搞递归 剩余左括号数量 剩余左括号数量 目前写了的东西 以及结果
+左括号有剩就可以加左括号 右括号剩的更多就可以加右括号 都放在目前写了的东西 里面 写完了放在结果里面
+
+代码：
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        if n == 0:
+            return []
+        res = []
+        self.helpler(n,n,'',res)
+        return res
+    def helpler(self, l, r, item, res):
+        if l == 0 and r == 0:
+            res.append(item)
+        if l>0:
+            self.helpler(l-1, r, item + '(', res)
+        if r>l:
+            self.helpler(l, r-1, item + ')',res)
+            
+ 知识点：递归 厚毛兔写r写多了 下意识的绕开递归 这是不行的！
