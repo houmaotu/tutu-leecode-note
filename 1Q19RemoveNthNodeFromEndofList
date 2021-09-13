@@ -1,0 +1,41 @@
+题目：
+Given the head of a linked list, remove the nth node from the end of the list and return its head.
+
+Follow up: Could you do this in one pass?
+
+思路：
+slow and fast pointer
+   dummy -> 1 -> 2 -> 3 -> 4 -> 5
+   s
+                 f
+slow 和 fast一起跑 fast跑不掉了就到低了
+
+
+代码：
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        dummy = ListNode(0)
+        dummy.next = head
+        slow = fast = dummy
+    
+        for _ in range(n):
+            fast = fast.next
+ 
+        while fast.next:
+            slow = slow.next
+            fast = fast.next
+        slow.next = slow.next.next
+        
+        return dummy.next
+ 
+ 
+知识点：
+linked list 再不熟悉就自己写一个
+
+     
