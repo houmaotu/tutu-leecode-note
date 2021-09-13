@@ -1,0 +1,27 @@
+题目：
+Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+An input string is valid if:
+
+Open brackets must be closed by the same type of brackets.
+Open brackets must be closed in the correct order.
+
+思路：用stack 寨？？？ 这个诡异的汉字tm怎么写 我找不到！
+挨个看 发现左边的 进stack
+发现右边的 stack的最后一个要是对的 就pop掉
+这个思路叫做开心消消乐！
+
+代码：
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack = []
+        lib = {'(':')','{':'}', '[':']'}
+        for ch in s:
+            if ch in lib:
+                stack.append(ch)
+            elif stack == [] or lib[stack.pop()] != ch:
+                    return False
+        return stack == []
+        
+ 知识点:
+ stack的利用
