@@ -7,7 +7,39 @@ nums[a] + nums[b] + nums[c] + nums[d] == target
 You may return the answer in any order.
 
 思路：
+和3sum一样 还是两头凑着找 注意查重
 
 代码：
 
+class Solution:
+    def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
+        nums.sort()
+        res = []
+        n=len(nums)
+        for i in range(n-3):
+            if nums[i] + nums[i+1] + nums[i+2] + nums[i+3] > target:
+                break
+            if nums[i] + nums[n-3] + nums[n-2] + nums[n-1] < target:
+                continue
+            for j in range(i+1,n-2):
+                if nums[i] + nums[j] + nums[j+1] + nums[j+2] > target:
+                    break
+                if nums[i] + nums[j] + nums[n-2] + nums[n-1] < target:
+                    continue
+                l = j + 1
+                r = n-1
+                while l < r:
+                    if nums[i] + nums[j]+nums[l] + nums[r] == target:
+                        if [nums[i] , nums[j],nums[l] , nums[r]] not in res:
+                            res.append([nums[i] , nums[j],nums[l] , nums[r]])
+                        l += 1
+                        r -= 1
+                    elif nums[i] + nums[j]+nums[l] + nums[r] <target:
+                        l += 1
+                    else:
+                        r -= 1
+        return res
+
 知识点：
+做代码题的时候千万别玩手机 万一大兔子突然发一个微信 神奇的脑电波过来了就会把elif不小心写成了if就很麻烦 有时候会莫名其妙的少几个 找问题要好久的
+
