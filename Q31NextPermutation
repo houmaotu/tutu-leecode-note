@@ -1,0 +1,62 @@
+题目：
+
+Implement next permutation, which rearranges numbers into the lexicographically next greater permutation of numbers.
+
+If such an arrangement is not possible, it must rearrange it as the lowest possible order (i.e., sorted in ascending order).
+
+The replacement must be in place and use only constant extra memory.
+
+思路：
+
+0 1 2 3
+0 1 3 2
+0 2 1 3
+0 2 3 1
+0 3 1 2
+0 3 2 1
+1 0 2 3
+1 0 3 2
+1 2 0 3
+1 2 3 0
+1 3 0 2
+1 3 2 0
+2 .。。
+...
+
+例如 0 2 3 1   后二位 3 1 降序了 所以找比2大的3 放在2 的位置 后面升序 下一个就是 0 3 1 2
+所以 找到后______是最多的降序 X______就不是降序 在______里面找到比X大的最小的数字 Y 下一个前面不变 Y 后面升序列
+
+这个X叫做pivit
+
+代码：
+class Solution:
+    def nextPermutation(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        n = len(nums)
+        if n == 1:
+            return nums
+        pivit = 0
+        
+        for i in range(n-1,0,-1):
+            if nums[i-1] < nums[i]:
+                pivit = i
+                break
+        if pivit == 0:
+            return nums.sort()
+            
+        pivit -= 1
+        ind = n-1
+
+        while nums[pivit] >= nums[ind]:
+            ind -= 1
+            
+        nums[ind],nums[pivit] = nums[pivit], nums[ind]
+        nums[pivit+1:] = sorted(nums[pivit+1:])
+        
+        return nums
+
+
+知识点：
+找呀找呀找规律~
