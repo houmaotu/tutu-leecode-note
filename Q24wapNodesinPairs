@@ -1,0 +1,41 @@
+题目：
+Given a linked list, swap every two adjacent nodes and return its head. You must solve the problem without modifying the values in the list's nodes (i.e., only nodes themselves may be changed.)
+
+ 思路：
+ 
+ 换12： 存下来12 后面的一串 2 —> 3 4
+        结果的下一个是2 (temp) 2后面是1(head) 1 后面是存下来的一串
+        
+ 初始
+            0  —>  1 —> 2 —> 3 —> 4
+            d
+            h    
+                  a
+                       b
+赋值：
+    h后面是b：
+            0  —>  1 —> 2 —> 3 —> 4
+            d
+            h    
+                  a
+                       b
+    
+    先把b后面给a：
+    
+    
+    b后面是a 以及 b后面 (先把b后面给a)
+    
+    h移动到h后面 (已经是a了)
+    
+    head     0  —>  1 —> 2 —> 3 —> 4
+        a   1 —> 2 —> 3 —> 4
+        b   2 —> 3 —> 4
+    dummy    0  —>  1 —> 2 —> 3 —> 4
+    
+    
+    
+    
+
+  换12： 存下来12 后面的一串 2 —> 3 4
+        结果的下一个是2 (temp) 2后面是1(head) 1 后面是存下来的一串
+       
