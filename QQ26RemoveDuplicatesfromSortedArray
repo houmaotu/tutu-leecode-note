@@ -1,0 +1,31 @@
+题目：
+Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place such that each unique element appears only once. The relative order of the elements should be kept the same.
+
+Since it is impossible to change the length of the array in some languages, you must instead have the result be placed in the first part of the array nums. More formally, if there are k elements after removing the duplicates, then the first k elements of nums should hold the final result. It does not matter what you leave beyond the first k elements.
+
+Return k after placing the final result in the first k slots of nums.
+
+思路：
+把重复的删了 + 计数
+
+注意到计数就是下标 所以一个一个找就行了
+ct计数下标 i遍历下标 走起
+例子 [1 2 2 4 5]
+找到不一样的ct才增加并且赋值
+
+代码：
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        if not nums:
+            return 0
+        
+        ct = 0
+        for i in range(len(nums)):
+            if nums[ct] != nums[i]:
+                ct += 1
+                nums[ct] = nums[i]
+        return ct + 1
+ 
+知识点：
+实际上还是slow and fast pointer呀
+            
