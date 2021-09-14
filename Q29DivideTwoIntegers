@@ -1,0 +1,50 @@
+题目：
+Given two integers dividend and divisor, divide two integers without using multiplication, division, and mod operator.
+
+Return the quotient after dividing dividend by divisor.
+
+The integer division should truncate toward zero, which means losing its fractional part. For example, truncate(8.345) = 8 and truncate(-2.7335) = -2.
+
+Note: Assume we are dealing with an environment that could only store integers within the 32-bit signed integer range: [−231, 231 − 1]. For this problem, assume that your function returns 231 − 1 when the division result overflows.
+
+思路：
+首先移除符号
+
+做除法 其实就是一个一个去减 但是太慢 砍掉了一此除数 除数可以通过自相加变为乘以2 这样能快点诶 然后长大到了减不了了 就回复
+
+
+代码：
+
+
+class Solution:
+    def divide(self, dividend: int, divisor: int) -> int:
+        if dividend == 0:
+            return 0
+        if dividend == -2147483648 and divisor == -1:
+            return 2147483647
+            
+        if (dividend > 0 and divisor > 0) or (dividend < 0 and divisor < 0):
+            sgn = 1
+        else:
+            sgn = -1
+        dividend, divisor = abs(dividend), abs(divisor)
+        
+
+        res = 0
+        while dividend >= divisor:
+            temp = divisor
+            mul = 1
+            while dividend >= temp:
+                dividend -= temp
+                res += mul
+                
+                temp += temp
+                mul += mul
+
+        if sgn > 0:
+            return res
+        else:
+            return -res
+            
+  知识点：
+  注意自适应 减少循环的程度 还有注意edge case
