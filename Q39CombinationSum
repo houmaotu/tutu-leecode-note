@@ -1,0 +1,49 @@
+题目：
+Given an array of distinct integers candidates and a target integer target, return a list of all unique combinations of candidates where the chosen numbers sum to target. You may return the combinations in any order.
+
+The same number may be chosen from candidates an unlimited number of times. Two combinations are unique if the frequency of at least one of the chosen numbers is different.
+
+It is guaranteed that the number of unique combinations that sum up to target is less than 150 combinations for the given input.
+
+思路：
+Input: candidates = [2,3,6,7], target = 7
+Output: [[2,2,3],[7]]
+找到加起来是7的 可以重复用东西 但是找的时候别重复了
+那先找带2的
+2 后面不要了
+2 2 后面不要了
+2 2 2 后面不要了
+2 2 2 2 超了 boom！
+干脆不要  
+
+剩下的这不就短了一截么 可以递归了
+
+代码：
+
+class Solution:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        res = []
+        
+        def dfs(i,cur,total):
+            if total== target:
+                res.append(cur.copy())
+                return
+            if i >= len(candidates) or total>target:
+                return
+            
+            cur.append(candidates[i])
+            dfs(i,cur, total + candidates[i])
+            
+            cur.pop()
+            dfs(i + 1, cur, total)
+            
+        dfs(0,[],0)
+        
+        return res
+
+知识点：
+这玩意叫backtracking
+
+在第几个数字        现在的一串是啥    和是啥
+
+这玩意一直走        这玩意记住        这玩意到了或者报了就把记住的一串扔进答案或者扔进垃圾堆
