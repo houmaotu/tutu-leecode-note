@@ -1,0 +1,27 @@
+题目：
+Implement pow(x, n), which calculates x raised to the power n (i.e., xn).
+
+思路:
+一个一个乘 自适应
+
+代码：
+class Solution:
+    def myPow(self, x: float, n: int) -> float:
+        if n == 0:
+            return 1
+        if n < 0:
+            x = 1/x
+            n  = -n
+        res = 1
+        while n > 0:
+            mul = x
+            rep = 1
+            while n >= rep:
+                res = res * mul
+                n = n - rep
+                
+                mul = mul * mul
+                rep = rep + rep
+        return res
+        
+ 注意：还可以分奇偶？？貌似更快
