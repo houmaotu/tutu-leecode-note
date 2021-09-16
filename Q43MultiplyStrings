@@ -1,0 +1,53 @@
+题目：
+
+Given two non-negative integers num1 and num2 represented as strings, return the product of num1 and num2, also represented as a string.
+
+Note: You must not use any built-in BigInteger library or convert the inputs to integer directly.
+
+
+思路：
+因为数字可能超了所以不能直接抓换 想一下兔兔还是个小豆丁的时候学的竖式 一位一位搞 进位啊 
+
+       1 2 3
+*      1 2 3
+________________________
+       3 6 9
+     2 4 6
+   1 2 3
+________________________
+
+
+代码：
+class Solution:
+    def multiply(self, num1: str, num2: str) -> str:
+        if num1 == '0' or num2=='0':
+            return '0'
+        num1 , num2 = num1[::-1],num2[::-1]
+    
+        res = [0] * (len(num1) + len(num2))
+        print(res)
+    
+        for i1 in range(len(num1)):
+            for i2 in range(len(num2)):
+                digit = int(num1 [i1]) * int(num2[i2])
+            
+                
+                res [i1 + i2] += digit
+                res [i1 + i2 + 1] += res [i1 + i2] // 10
+                res [i1 + i2] = res [i1 + i2] % 10
+                
+                #print(res)
+                            
+        while res[-1] == 0:
+            res.pop()
+        
+        res = map(str, res[::-1])
+        return ''.join(res)
+        
+  知识点：
+  顺者凡，逆者仙，只在其中颠倒颠 翻译过来就是字符串来回倒能简单点
+  
+  还有兔兔想了很久才明白滴 发视频的大兄弟也没讲滴 就是代码处理的进位 但是没处理进位再进位 或者进进进进进位置 其实没所谓
+  只要先处理完毕低位数字 后处理完高位数字 进位再进位的情况在处理高位的时候自动搞定了
+  
+  所以！字符串可以来回倒处理下标方便 但是必须先循环完低位后高位！ 不可以拧过来！ 否则还需一道工序
