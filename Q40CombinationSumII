@@ -1,0 +1,43 @@
+题目：
+
+Given a collection of candidate numbers (candidates) and a target number (target), find all unique combinations in candidates where the candidate numbers sum to target.
+
+Each number in candidates may only be used once in the combination.
+
+Note: The solution set must not contain duplicate combinations.
+
+
+思路：
+和上一个一样 注意边界条件以及如何不重复就行了
+
+class Solution:
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+        
+        candidates.sort()
+        print(candidates)
+        res = []
+        
+        def dfs(i, cur, total):
+            #print(cur)
+            if total == target:
+                res.append(cur.copy())
+                return
+            if i >= len(candidates) or total>target:
+                return
+            
+            cur.append(candidates[i])
+            
+            dfs(i + 1, cur, total + candidates[i])
+            
+            cur.pop()
+            
+            while i+1 < len(candidates) and candidates[i+1] == candidates[i]:
+                i += 1
+            
+            dfs(i + 1, cur, total)
+            
+        dfs(0,[],0)
+            
+        return res
+        
+知识点：睡午觉需要上闹钟
