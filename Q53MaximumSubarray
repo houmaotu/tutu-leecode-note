@@ -1,0 +1,27 @@
+题目：
+Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.
+
+A subarray is a contiguous part of an array.
+
+思路：
+
+局部和全局的最优 局部的最优就是之前的最优 和现在的攒起来 或者干脆不要
+
+代码：
+
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        
+        if max(nums) < 0:
+            return max(nums)
+        
+        local_max, global_max = 0,0
+        
+        for num in nums:
+            local_max = max(0, local_max + num)
+            global_max = max(global_max, local_max)
+        
+        return global_max
+        
+知识点：虽然是easy 但是兔兔不会 哎 会者不难 难着不会 嗷呜呜
+        
