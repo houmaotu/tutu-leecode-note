@@ -1,0 +1,61 @@
+题目：
+Given a positive integer n, generate an n x n matrix filled with elements from 1 to n2 in spiral order.
+
+思路：
+到边上拐弯
+
+代码：
+class Solution:
+    def generateMatrix(self, n: int) -> List[List[int]]:
+        matrix = [ [0 for _ in range(n)] for __ in range(n)]
+
+        rowBegin ,rowEnd, colBegin, colEnd = 1,n-1, 0, n-1
+        
+        i,j = 0, 0
+        num = 1
+        direction = 'r'
+        
+        while num <= n*n:
+            matrix[i][j] = num
+            #print(num,[i, j])
+            if direction == 'r':
+                #print(direction)
+                j += 1
+                if j == colEnd:
+                    colEnd -= 1
+                    direction = 'd'
+                num += 1
+                continue
+                    
+                
+            if direction == 'd':
+                #print(direction)
+                i += 1
+                if i == rowEnd:
+                    rowEnd -=1
+                    direction = 'l'
+                num += 1
+                continue
+                
+            if direction == 'l':
+                #print(direction)
+                j -= 1
+                if j == colBegin:
+                    colBegin += 1
+                    direction = 'u'
+                num += 1
+                continue
+                
+            if direction == 'u':
+                #print(direction)
+                i -= 1
+                if i == rowBegin:
+                    rowBegin += 1
+                    direction = 'r'
+                num += 1
+                continue
+            
+        return matrix
+
+知识点：
+不写错好难呀哎
