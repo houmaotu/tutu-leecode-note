@@ -1,0 +1,36 @@
+题目：
+Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, 
+and return an array of the non-overlapping intervals that cover all the intervals in the input.
+
+思路：
+先整理 保证区间左边是增加的 然后一点一点地扩大  [     ]
+                                              [       ]
+                                              
+                                              [       ]
+                                                  [  ]
+                                                  
+                                             [     ]
+                                                       [      ]
+考虑全这三种情况
+
+代码:
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        if len(intervals)== 0:
+            return [[]]
+        intervals.sort()     
+        res = []
+        cur = intervals[0]
+        for interval in intervals:
+            if interval[0] <= cur[1]:
+                if cur[1] < interval[1]:
+                    cur[1] = interval[1]
+            else:
+                res.append(cur)
+                cur = interval
+        res.append(cur)
+        return res
+        
+   知识点：
+   考虑全面
+   吃一堑长一智 还好没得瑟 否则又打脸还可能被抓到
