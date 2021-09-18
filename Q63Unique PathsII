@@ -1,0 +1,33 @@
+题目：
+A robot is located at the top-left corner of a m x n grid (marked 'Start' in the diagram below).
+
+The robot can only move either down or right at any point in time. The robot is trying to reach the bottom-right corner of the grid (marked 'Finish' in the diagram below).
+
+Now consider if some obstacles are added to the grids. How many unique paths would there be?
+
+An obstacle and space is marked as 1 and 0 respectively in the grid.
+
+思路： 和上一个一样 到这一点的方法数量是上一点和左一点的和 如果有阻碍设置为0 注意边界就好了
+
+
+代码：
+class Solution:
+    def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
+        m = len(obstacleGrid)
+        n = len(obstacleGrid[0])
+        ct = [[1] + [0 for _ in range(n-1)]] + [ [0 for _ in range(n)] for __ in range(m)]
+        for i in range(1, m+1):
+            for j in range(0,n):
+                if obstacleGrid[i-1][j] == 1:
+                    ct[i][j] = 0
+                elif j == 0:
+                    ct[i][j] = ct[i-1][j]
+                else:
+                    ct[i][j] = ct[i-1][j] + ct[i][j-1]
+        print(ct)
+                
+        return ct[-1][-1]
+        
+ 知识点：
+ 我自己写滴！比94%滴快！哇我好巨大啊！
+                
