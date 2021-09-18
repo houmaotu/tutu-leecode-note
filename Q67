@@ -1,0 +1,53 @@
+题目：
+Given two binary strings a and b, return their sum as a binary string.
+
+思路：
+一个一个读 进位符号c
+
+代码：
+class Solution:
+    def addBinary(self, a: str, b: str) -> str:
+        if len(a)<len(b):
+            a,b = b,a
+            
+        n, m = len(a), len(b) #a is longer
+        i = 1
+        res = ''
+        c = 0
+        while i <= m:
+            tmp = c + int(a[-i]) + int(b[-i])
+            if tmp == 3:
+                res = '1' + res
+                c = 1
+                
+            elif tmp == 2:
+                res = '0' + res
+                c = 1
+            
+            else:
+                res = str(tmp) + res
+                
+                c = 0
+            i += 1
+            #print(res)
+        
+        if c == 0:
+            return a[-n:-i+1] + res
+        
+        while i <= n:
+            tmp = 1 + int(a[-i])
+            print(tmp)
+            if tmp == 2:
+                res =  '0' + res
+                c = 1
+                i += 1
+                #print(res)
+            else:
+                res =  str(tmp) + res
+                #print(res)
+                break      
+        if i == n + 1 and c == 1:
+            return '1' + res
+        else:
+            return a[-n:-i] + res
+知识点：边边角角好烦人
