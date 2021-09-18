@@ -1,0 +1,33 @@
+题目：
+
+Given an m x n integer matrix matrix, if an element is 0, set its entire row and column to 0's, and return the matrix.
+
+You must do it in place.
+
+思路：就是搜索一下 然后赋值一下
+
+代码：
+class Solution:
+    def setZeroes(self, matrix: List[List[int]]) -> None:
+        """
+        Do not return anything, modify matrix in-place instead.
+        """
+        n = len(matrix)
+        m = len(matrix[0])
+        col = []
+        row = []
+        
+        for i in range(n):
+            for j in range(m):
+                if matrix[i][j] == 0:
+                    row.append(i)
+                    col.append(j)
+                    
+        for i in range(n):
+            for j in range(m):
+                if i in row or j in col:
+                    matrix[i][j] = 0
+        
+        return matrix
+  
+  知识点：在第0行列保存可以节约空间 然后再来两个数字存0行列是否归零
