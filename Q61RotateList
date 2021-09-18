@@ -1,0 +1,76 @@
+题目：
+Given the head of a linked list, rotate the list to the right by k places
+
+思路：
+
+快慢指针
+兔兔 -> 兔兔 -> 兔兔 -> 兔兔 -> 兔兔 -> 兔兔 -> 兔兔 ->。。。
+s               f
+一起跑
+
+代码：
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        if not head or not head.next:
+            return head
+        
+        n = 0
+        p = head
+        while p:
+            n += 1
+            p = p.next
+            
+        k = k % n
+        if k == 0:
+            return head
+        
+        p1, p2 = head, head
+        for _ in range(k):
+            p2 = p2.next
+        
+        while p2.next:
+            p1 = p1.next
+            p2 = p2.next
+            
+        output = p1.next
+        
+        p1.next = None
+        p2.next = head
+        
+        return output
+        
+        
+     也有一下一下挪动的笨方法（笨蛋厚毛兔想出来滴）
+     
+     class Solution:
+    def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        if not head or not head.next:
+            return head
+        
+        n = 1
+        p = head
+        while p.next:
+            n += 1
+            p = p.next
+ 
+            
+        k = k % n
+        if k == 0:
+            return head
+        #print(n,k)
+        for _ in range(n-k):
+            p.next = ListNode(head.val)
+            p = p.next
+            head = head.next
+        
+        return head
+        
+        
+知识点：兔兔不是笨蛋
+        
