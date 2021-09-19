@@ -1,0 +1,21 @@
+题目：
+Given an integer array nums of unique elements, return all possible subsets (the power set).
+
+The solution set must not contain duplicate subsets. Return the solution in any order.
+
+ 思路：
+ backtrack
+ 
+ 代码:
+ class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        if not nums:
+            return [[]]
+        
+        last = nums.pop()
+        prevs = self.subsets(nums)
+        #print(last,nums,prevs)
+        
+        return prevs + [prev + [last] for prev in prevs]
+ 
+ 知识点：这种玩意最简单了
