@@ -4,8 +4,8 @@ Given an integer array nums of unique elements, return all possible subsets (the
 The solution set must not contain duplicate subsets. Return the solution in any order.
 
  思路：
- backtrack
- 
+递归
+
  代码:
  class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
@@ -18,4 +18,4 @@ The solution set must not contain duplicate subsets. Return the solution in any 
         
         return prevs + [prev + [last] for prev in prevs]
  
- 知识点：这种玩意最简单了
+ 知识点：这种玩意最简单了 还有backtrack也可以的
