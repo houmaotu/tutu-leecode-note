@@ -1,0 +1,41 @@
+题目：
+Given an m x n grid of characters board and a string word, return true if word exists in the grid.
+
+The word can be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. 
+The same letter cell may not be used more than once.
+
+思路：
+就是个dfs 存储 面板 位置 word以及word的位置 然后挨个查看：
+不行：位置超限或者字母不对
+行：继续搜索 上下左右的字母 同时word位置 + 1 因为不可以重复 所以字母用完之后换成# 此分支搜索完成后换回
+
+
+代码：
+class Solution:
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                if self.helper(board,i,j,word,0):
+                    return True
+        return False
+        
+    def helper(self,board, i, j, word, wordIndex):
+        if wordIndex == len(word):
+            return True
+        
+        if i < 0 or j < 0 or i >=len(board) or j>= len(board[0]) or word[wordIndex] != board[i][j]:
+            return False
+        
+        board[i][j] = '#'
+        
+
+        found = self.helper(board, i+1,j,word,wordIndex + 1) \
+        or self.helper(board, i-1,j,word,wordIndex + 1) \
+        or self.helper(board, i,j + 1,word,wordIndex + 1) \
+        or self.helper(board, i,j - 1,word,wordIndex + 1) 
+        
+        board[i][j] =  word[wordIndex]
+        
+        return found
+        
+  知识点：dfs
