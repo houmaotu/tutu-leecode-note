@@ -1,0 +1,26 @@
+题目：
+Given two integers n and k, return all possible combinations of k numbers out of the range [1, n].
+
+You may return the answer in any order.
+
+思路：
+最后一个在不在 在就是放最后 n-1 k-1 不在就是n k-1
+
+代码：
+class Solution:
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        if k == 1:
+            return [[i] for i in range(1, n+1)]
+        
+        prevs = self.combine(n -1,k -1)
+        
+        if n - 1 >= k:
+            return self.combine(n - 1,k) + [prev + [n] for prev in prevs]
+        else:
+            return [prev + [n] for prev in prevs]
+        
+        
+ 知识点：
+ 
+ 洗个澡清醒很多
+ 
