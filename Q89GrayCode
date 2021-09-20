@@ -1,0 +1,34 @@
+题目：
+An n-bit gray code sequence is a sequence of 2n integers where:
+
+Every integer is in the inclusive range [0, 2n - 1],
+The first integer is 0,
+An integer appears no more than once in the sequence,
+The binary representation of every pair of adjacent integers differs by exactly one bit, and
+The binary representation of the first and last integers differs by exactly one bit.
+Given an integer n, return any valid n-bit gray code sequence.
+
+思路：
+找呀找呀找规律
+
+        n=  1 [ 0 1]            [ 0 1]   len = 2^1
+        n=  2 [ 0, 1, 3 ,2]     [ 00 01 11 10  ]  [3 2] = [1 0] + 2
+        
+        n = 3   [ 1 2 3 2, 6 7 5 4]  [000 001 011 010 110]  
+        
+        0   ______full digit 满足 _________ 2? + 2?
+        
+代码：
+class Solution:
+    def grayCode(self, n: int) -> List[int]:
+        
+        res = [0, 1]
+        i = 1
+        while i < n:
+            res = res + [2**i + num for num in res[::-1]]
+            i += 1
+            
+        return res
+        
+知识点：循环比反复call好一丢丢
+
