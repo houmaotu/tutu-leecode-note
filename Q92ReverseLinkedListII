@@ -1,0 +1,42 @@
+Question:
+Given the head of a singly linked list and two integers left and right where left <= right, 
+reverse the nodes of the list from position left to position right, and return the reversed list.
+
+Idea:
+
+There are three parts, the first part and thet hird past remain the same as the input, to we store pointers for these two parts.
+For the second part, we have to reverse the link (storing them out in a list is a way, but needs more space), the way of reversing links is to
+store the next, point the current to the previous, and move on. Below is an illustractrion:
+
+        1 ->  2 -> 3  -> 4 -> 5  ->6  ->7  -> 8 ->9
+                   L                    R
+             
+ goal   1  -> 2  3  <-4 <- 5  <-6 <- 7   8 ->  9
+                 L                  R
+       link three parts save pointers:
+       p1                           p2
+       
+       p1-> r    l -> p1
+            
+            
+      reverse arrow:
+           3 -> 4 ->5
+           p    c   t  store what's next
+           p <- c         reverse link
+           move on 
+                p   c
+     
+     summary of the steps
+      d ->  1 ->  2 -> 3  -> 4 -> 5  ->6  ->7  -> 8 ->9
+                       L                    R       
+     p      c                                                initialize
+           
+                  p    c                                     store
+                       p    c                                start to reverse
+                                      p    c                 last step of reversing
+                                           p     c           finish reversing store
+                                           
+                                           
+ comment:
+ Doing the leetcode in school is annoying, I must write in English. But a good thing is jutu won't see this line. Houmaotu is the biggest rabbit
+ in the world. His wide jutu is a very cute rabbit, you can tell from her name. The smallest rabbit claimes she is huge. What a dumb cute little rabbit!
