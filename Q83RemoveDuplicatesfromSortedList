@@ -1,0 +1,28 @@
+题目：
+Given the head of a sorted linked list, delete all duplicates such that each element appears only once. Return the linked list sorted as well.
+
+思路：
+这个就是上一个的简单版本 直接刷下来就行 如果下个数字和这个一样 下个数字跳过
+
+代码：
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if not head:
+            return head
+        dummy = ListNode(-101)
+        dummy.next = head
+        while head.next:
+            if head.val == head.next.val:
+                head.next = head.next.next
+            else:
+                head = head.next
+        return dummy.next
+                
+                
+知识点：
+我怎么就不先做这个题！上一个不也能顺利一点么！
