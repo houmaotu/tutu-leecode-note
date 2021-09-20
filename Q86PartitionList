@@ -1,0 +1,37 @@
+题目：
+Given the head of a linked list and a value x, partition it such that all nodes less than x come before nodes greater than or equal to x.
+
+You should preserve the original relative order of the nodes in each of the two partitions.
+
+思路：
+分别存储
+
+代码：
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def partition(self, head: Optional[ListNode], x: int) -> Optional[ListNode]:
+        if not head:
+            return head
+        ldummy = ListNode(0)
+        rdummy = ListNode(0)
+        l = ldummy
+        r = rdummy
+        while head:
+            if head.val < x:
+                l.next = ListNode(head.val)
+                l = l.next
+            else:
+                r.next = ListNode(head.val)
+                r = r.next
+            head = head.next
+        l.next = rdummy.next
+        
+        return ldummy.next
+            
+
+知识点：
+存的时候不用ListNode直接赋值能好一丢丢
