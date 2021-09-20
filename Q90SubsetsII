@@ -1,0 +1,29 @@
+题目：
+Given an integer array nums that may contain duplicates, return all possible subsets (the power set).
+
+The solution set must not contain duplicate subsets. Return the solution in any order.
+
+ 
+ 思路：
+ dfs 注意查重
+ 
+ 代码：
+ class Solution:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        res = [[]]
+        self.dfs(nums,0,[],res)
+        return res
+        
+    def dfs(self,nums,i,cur,res):
+        cur = cur + [nums[i]]
+        res.append(cur.copy())
+        if i + 1 < len(nums):
+            self.dfs(nums,i + 1, cur, res)
+        num = cur.pop()
+        while i <= len(nums) - 1 and nums[i] == num:
+            i += 1
+        if i <= len(nums) - 1:
+            self.dfs(nums,i, cur, res)
+
+知识点：第一次自己搞dfs不是跟着视频搞或者绕过去 开森
