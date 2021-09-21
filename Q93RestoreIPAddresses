@@ -1,0 +1,43 @@
+题目：
+Given a string s containing only digits, return all possible valid IP addresses that can be obtained from s. You can return them in any order.
+
+A valid IP address consists of exactly four integers, each integer is between 0 and 255, separated by single dots and cannot have leading zeros. For example, "0.1.2.201" and "192.168.1.1" are valid IP addresses and "0.011.255.245", "192.168.1.312" and "192.168@1.1" are invalid IP addresses. 
+
+ 思路：
+ 搞什么dfs反正都要玩楞的 就楞搜
+ 
+ 代码：
+ class Solution:
+    def restoreIpAddresses(self, s: str) -> List[str]:
+        n = len(s)
+        res = []
+        
+        for i1 in range(1,4):
+            p1 = s[0:i1]
+            if i1>n or not self.in_range(p1):
+                continue
+            for i2 in range(1,4):
+                p2 = s[i1:i1+i2]
+                if i1 + i2 >n or not self.in_range(p2):
+                    continue                
+                for i3 in range(1,4):
+                    i4 = n - i1 - i2 - i3
+                    if i4 < 1 or i4>3:
+                        continue
+                    p3 = s[i1 + i2:i1 + i2 +i3]                    
+                    if not self.in_range(p3):
+                        continue
+                    p4 = s[i1 + i2+ i3: n] 
+                    if not self.in_range(p4):
+                        continue
+                    res.append('.'.join([p1,p2,p3,p4]))
+        return res
+                               
+    def in_range(self,block: str):
+        if len(block) > 1 and block[0] == '0':
+            return False
+        return 0 <= int(block) and int(block) <= 255
+        
+   知识点：
+   厚毛大兔兔带不动四个菜狗嘿嘿嘿
+  
