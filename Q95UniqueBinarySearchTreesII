@@ -1,0 +1,58 @@
+题目
+Given an integer n, return all the structurally unique BST's (binary search trees), which has exactly n nodes of unique values from 1 to n. 
+Return the answer in any order.
+
+思路：
+首先明确 BST的定义 对于任意一个节点 左边的玩意都比他小 右边的都比他大 比如如果一个节点是厚毛兔 其他的兔兔就都在她的左边 这样子就可以递归了
+
+
+                                         * （这个节点有了） 
+              *                                                               *
+            左边的就在比它小的循环                                            右面的就在比他大的循环
+            
+并且注意到每个子树都必须是闭区间    
+                                            
+                                           * 根root
+                          *                                  *
+                    比根小的都在这                          比根大的都在这   这一盘选了数值l r 之后
+               *               
+          比l小的都在这 比l大的比root小的都在这 
+  下略
+  
+  所以可以用闭区间作为一个helper函数 生成此区间的可能的子树
+  
+ 代码：
+ # Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def generateTrees(self, n: int) -> List[Optional[TreeNode]]:
+        return self.helper(1,n)
+    def helper(self,l,r):
+        if l > r:
+            return [None]
+        res = []
+        for root in range(l, r+ 1):
+            for left in self.helper(l, root - 1):
+                for right in self.helper(root + 1, r):
+                    node = TreeNode(root)
+                    node.left = left
+                    node.right = right
+                    res.append(node)
+        return res
+        
+知识点：
+binary search tree的定义  注意搜索区间的开闭以及完成时间
+               
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                 
