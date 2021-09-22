@@ -1,0 +1,20 @@
+题目：
+Given the root of a binary tree, return the inorder traversal of its nodes' values.
+
+思路：
+其实就是明白什么叫做inorder traversal 对于一个node 先左所有 再数值 再右所有 然后就可以递归(recursive)了
+
+代码：
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        if not root:
+            return []
+        return self.inorderTraversal(root.left) + [root.val] + self.inorderTraversal(root.right)
+        
+知识点：迭代(iterative)也可以 用stack存储结点 在走到尽头的时候pop掉 因为存储了节点 达到了在树上逆行的效果
