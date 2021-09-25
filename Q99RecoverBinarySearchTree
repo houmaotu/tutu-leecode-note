@@ -1,0 +1,36 @@
+题目：
+You are given the root of a binary search tree (BST), where the values of exactly two nodes of the tree were swapped by mistake. 
+Recover the tree without changing its structure.
+
+思路：
+in order traversal :先左后右的遍历 然后修正数值
+
+代码：
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def recoverTree(self, root: Optional[TreeNode]) -> None:
+        """
+        Do not return anything, modify root in-place instead.
+        """
+        self.temp = []
+        def dfs(node):
+            if not node:
+                return
+            dfs(node.left)
+            self.temp.append(node)
+            dfs(node.right)
+        
+        dfs(root)
+        
+        srt = sorted(n.val for n in self.temp)
+        for i in range(len(srt)):
+            self.temp[i].val = srt[i]
+            
+知识点：
+其实可以有O(1)空间的解法 这个是O(n) 需要用stack的玩意 因为兔兔已经学了in order traversal咧，这里就算咧
+因为厚毛兔是个轮滑都不会玩的弱鸡，后面熟悉了stack的操作再说吧
