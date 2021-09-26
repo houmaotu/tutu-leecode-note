@@ -1,8 +1,15 @@
+题目：
+Given two integer arrays preorder and inorder where preorder is the preorder traversal of a binary tree and inorder is the inorder traversal of the same tree, 
+construct and return the binary tree.
 
 
 
+思路：
+递归
 
-愚蠢的想法：每次都叫同一个函数 找index太慢列
+
+代码：
+
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -15,11 +22,20 @@ class Solution:
             return None
         
         root = TreeNode(preorder[0])
-        index = 0
-        while inorder[index] != preorder[0]:
-            index += 1
+        index = inorder.index(preorder[0])
+        #while inorder[index] != preorder[0]:
+        #    index += 1
         
         root.left = self.buildTree(preorder[1:index+1],inorder[0:index])
         root.right = self.buildTree(preorder[index + 1:],inorder[index + 1:])
         
         return root
+        
+知识点：
+.index 可以找到index
+
+inorder: 左 根 右
+preorder： 根 做 右
+postorder: 左 右 根
+前面的词缀为根的位置 
+postorder
