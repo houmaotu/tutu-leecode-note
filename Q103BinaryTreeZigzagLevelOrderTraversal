@@ -41,4 +41,32 @@ class Solution:
         return res
         
  法二：
- 
+ # Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def zigzagLevelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        res = []
+        self.dfs(root,0,res)
+        return res
+    
+    def dfs(self,node, level ,res):
+        if node == None:
+            return
+        if level >= len(res):
+            res.append([])
+        
+        if level%2 == 0:
+            res[level].append(node.val)
+        else:
+            res[level].insert(0,node.val)
+            
+        self.dfs(node.left, level + 1 ,res)
+        self.dfs(node.right, level + 1,res)
+        
+知识点：
+array.insert(index,value)实现在index位前插入数值 可以达成zigzag 从而无需倒置
+pop(0) 实现先进先出的stack
