@@ -1,0 +1,42 @@
+题目：
+Given the root of a binary tree and an integer targetSum, return all root-to-leaf paths where the sum of the node values in the path equals targetSum. Each path should be returned as a list of the node values, not node references.
+
+A root-to-leaf path is a path starting from the root and ending at any leaf node. A leaf is a node with no children.
+
+ 
+ 思路：
+ dfs 记录好东西
+ 
+ 代码：
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> List[List[int]]:
+        if root is None:
+            return []
+        
+        res=[]
+        self.dfs(root,targetSum,[],res)
+        return res
+        
+        
+        
+        
+    def dfs(self,node,s,temp,res):
+        if node.left is not None:
+            self.dfs(node.left, s - node.val, temp + [node.val],res)
+            
+        if node.right is not None:
+            self.dfs(node.right, s - node.val, temp + [node.val],res)
+                
+        if node.left is None and node.right is None:
+            if s == node.val:
+                res.append(temp + [s])
+            return
+            
+  知识点：
+  传下去的可以直接temp+ 就无需append pop这样子操作了
