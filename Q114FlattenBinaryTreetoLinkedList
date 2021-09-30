@@ -1,0 +1,61 @@
+题目：
+Given the root of a binary tree, flatten the tree into a "linked list":
+
+The "linked list" should use the same TreeNode class where the right child pointer points to the next node in the list and the left child pointer is always null.
+The "linked list" should be in the same order as a pre-order traversal of the binary tree.
+
+思路:
+   2
+  / \
+ 3   4
+ 
+   2
+  /
+ 3
+  \
+   4
+   
+   2
+    \
+     3
+      \
+       4
+       
+ 把右边甩到左边的最右的右面 然后整个挪到右边 像绕口令一样……
+ 
+ 通过deep copy指针操纵 左右分支的起始通过root.left root.right访问 （这就是厚毛兔没想到的地方） 终结指针需要保存再helper function里面
+ 然后递归就好了
+
+代码：
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def flatten(self, root: Optional[TreeNode]) -> None:
+        """
+        Do not return anything, modify root in-place instead.
+        """
+        
+        self.helper(root)
+    
+    def helper(self,root):
+        if root is None:
+            return None
+        
+        left_last = self.helper(root.left)
+        right_last = self.helper(root.right)
+        
+        if left_last is not None:
+            left_last.right = root.right
+            root.right = root.left
+            root.left = None
+            
+        return right_last or left_last or root
+        
+ 知识点：
+ 指针操作每次都把厚毛兔搞成了一直晕头转向迷糊兔
+ 
+ 注意return right_last or left_last or root 这种返回方式 一大串or返回了不是None的 神奇
