@@ -1,0 +1,49 @@
+题目：
+
+Given a binary tree
+Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL.
+
+Initially, all next pointers are set to NULL
+
+思路：
+用一个[]来纪录层数 左pop的同时右面附上leaf并完成连线
+
+可能简单一点的 不存储所有的 通过记录最左侧结点的方式达到存储层数的目的 然后扫过改节点所有的next的方式来建立下一层连线
+
+代码：
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val: int = 0, left: 'Node' = None, right: 'Node' = None, next: 'Node' = None):
+        self.val = val
+        self.left = left
+        self.right = right
+        self.next = next
+"""
+
+class Solution:
+    def connect(self, root: 'Node') -> 'Node':
+        if not root:
+            return None
+        
+        queue = deque([root])
+        
+        while queue:
+            pre = None
+            for _ in range(len(queue)):
+                cur = queue.popleft()
+                if pre:
+                    pre.next = cur
+                    
+                if cur.left:
+                    queue.append(cur.left)
+                    
+                if cur.right:
+                    queue.append(cur.right)
+                    
+                pre = cur
+        
+        return root
+        
+  知识点：
+  deque 其实就是list 但是可以快速的弹出首尾
