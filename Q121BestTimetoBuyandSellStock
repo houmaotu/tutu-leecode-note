@@ -1,0 +1,25 @@
+题目：
+You are given an array prices where prices[i] is the price of a given stock on the ith day.
+
+You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
+
+Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
+
+思路：
+存出来min price然后循环
+
+代码：
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        max_profit,min_price = 0,float("inf")
+        
+        for price in prices:
+            min_price = min(min_price,price)
+            max_profit = max(max_profit, price - min_price)
+            
+        return max_profit
+        
+知识点：
+兔兔想多咧 以为需要贪心 但是不知道怎么用 哇 把自己绕进去了 难受
+然后就看了一个视频抄下来的代码 人家打败了99% 我打败了5% 哎 大兔子克制运行速度实锤 控制变量咧
+
