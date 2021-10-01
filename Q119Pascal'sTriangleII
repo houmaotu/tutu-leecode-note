@@ -1,0 +1,22 @@
+题目：
+Given an integer rowIndex, return the rowIndexth (0-indexed) row of the Pascal's triangle.
+
+In Pascal's triangle, each number is the sum of the two numbers directly above it as shown:
+
+思路：
+一层一层换
+
+代码：
+class Solution:
+    def getRow(self, rowIndex: int) -> List[int]:
+        if rowIndex== 0:
+            return [1]
+        res = [1,1]
+        for _ in range(rowIndex-1):
+            for i in range(len(res)-1):
+                res[i] += res[i+1]
+            res = [1] + res
+        return res
+ 
+ 知识点：
+ 厚毛兔今天有了新的人生体悟 水煮鱼一份饭最多吃半分 
