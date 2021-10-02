@@ -1,0 +1,24 @@
+题目：
+Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.
+
+You must write an algorithm that runs in O(n) time.
+
+思路：
+set
+
+代码：
+class Solution:
+    def longestConsecutive(self, nums: List[int]) -> int:
+        numSet = set(nums)
+        longest = 0
+        
+        for n in nums:
+            if n-1 not in numSet:
+                length = 0
+                while (n+length) in numSet:
+                    length += 1
+                longest = max(length,longest)
+        return longest
+        
+知识点：
+可以用sort 但是nlogn复杂度 没必要 换成set做
