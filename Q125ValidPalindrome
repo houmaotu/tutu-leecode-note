@@ -1,0 +1,26 @@
+题目：
+Given a string s, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
+
+知识点：
+还是挨个查 查到守卫交叉
+
+代码：
+
+class Solution:
+    def isPalindrome(self, s: str) -> bool:
+        i, j = 0, len(s)-1
+        
+        while i<j:
+            while i<j and not s[i].isalnum():
+                i += 1
+            while i<j and not s[j].isalnum():
+                j -= 1
+        
+            if s[i].lower()!= s[j].lower():
+                return False
+            i += 1
+            j -= 1
+        return True
+        
+   知识点： 字母操作 是否为字母 大小写转换isalnum lower
+      讲题的小姐姐讲的真的好！对于比较简单的题目考虑复杂度就好了 我知道运行效率可以 这就足够了 毕竟有玄学因素嘛
