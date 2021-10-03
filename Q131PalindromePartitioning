@@ -1,0 +1,33 @@
+题目：
+
+Given a string s, partition s such that every substring of the partition is a palindrome. Return all possible palindrome partitioning of s.
+
+A palindrome string is a string that reads the same backward as forward.
+
+ 思路：
+ backtracking 其实就是楞搜索 _____[]这个格子加进去 继续走 删了 加别的 继续走 用pop达到返回的目的 所以叫做backtracking
+ 其实还是暴力方法 没啥简单的 
+
+代码：
+class Solution:
+    def partition(self, s: str) -> List[List[str]]:
+        self.res = []
+        self.dfs(s,[])
+        return self.res
+    
+    def dfs(self,s,temp):
+        if not s:
+            self.res.append(temp[:])
+            return
+        
+        for i in range(1,len(s)+1):
+            if self.isPali(s[:i]):
+                temp.append(s[:i])
+                self.dfs(s[i:],temp)
+                temp.pop()
+    
+    def isPali(self,s):
+        return s == s[::-1]
+        
+   知识点：
+   复杂度其实没必要用那么多诡异的方法求 就思考最烂的 aaaaaaa全一样 那么所有的分割都是
