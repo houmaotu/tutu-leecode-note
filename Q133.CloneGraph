@@ -1,0 +1,45 @@
+题目：
+Given a reference of a node in a connected undirected graph.
+
+Return a deep copy (clone) of the graph.
+
+Each node in the graph contains a value (int) and a list (List[Node]) of its neighbors.
+
+思路：
+傻逼题目 
+因为完全图 所以可以找遍neighbor
+用一个字典存储 复制 字典里的东西用Node新建
+
+
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val = 0, neighbors = None):
+        self.val = val
+        self.neighbors = neighbors if neighbors is not None else []
+"""
+
+class Solution:
+    def cloneGraph(self, node: 'Node') -> 'Node':
+        if not node:
+            return node
+        
+        visited = {}
+        
+        queue = deque([node])
+        
+        visited[node] = Node(node.val,[])
+        
+        while queue:
+            n = queue.popleft()
+            for neighbor in n.neighbors:
+                if neighbor not in visited:
+                    visited[neighbor] = Node(neighbor.val,[])
+                    queue.append(neighbor)
+                    
+                visited[n].neighbors.append(visited[neighbor])
+                
+        return visited[node]
+        
+ 知识点：
+ 傻逼题目
