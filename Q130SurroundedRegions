@@ -1,0 +1,44 @@
+题目·：
+Given an m x n matrix board containing 'X' and 'O', capture all regions that are 4-directionally surrounded by 'X'.
+
+A region is captured by flipping all 'O's into 'X's in that surrounded region.
+
+思路：
+小小的解释一下 被x围住了就变成X 就等于是不挨着边边就变成X 那么就等于是找到挨着边边的O 然后从边上开始 一个一个蔓延
+用T记录一下 然后换换换
+
+
+
+class Solution:
+    def solve(self, board: List[List[str]]) -> None:
+        """
+        Do not return anything, modify board in-place instead.
+        """
+        row, col = len(board), len(board[0])
+        
+        def cap(r,c):
+            if r<0 or c<0 or r == row or c == col or board[r][c] !="O":
+                return
+            board[r][c] ="T"
+            cap(r+1,c)
+            cap(r,c+1)
+            cap(r-1,c)
+            cap(r,c-1)
+                
+        for r in range(row):
+            for c in range(col):
+                if board[r][c] == "O" and (r in  [0,row-1] or c in [0,col-1]):
+                    cap(r,c)
+                    
+        for r in range(row):
+            for c in range(col):
+                if board[r][c] == "O":
+                    board[r][c] ="X"
+                    
+        for r in range(row):
+            for c in range(col):
+                if board[r][c] == "T":
+                    board[r][c] ="O"
+                    
+ 知识点：
+ in place的东西可以用其他符号表示记录
