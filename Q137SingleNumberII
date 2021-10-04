@@ -1,0 +1,17 @@
+题目：
+Given an integer array nums where every element appears three times except for one, which appears exactly once. Find the single element and return it.
+
+You must implement a solution with a linear runtime complexity and use only constant extra space.
+
+知识点：
+set去掉重复
+
+代码：
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        s1 = sum(set(nums))
+        s2 = sum(nums)
+        return (3*s1 - s2)//2
+        
+知识点：
+妈蛋蛋思维定势了
