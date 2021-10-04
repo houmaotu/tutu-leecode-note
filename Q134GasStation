@@ -1,0 +1,40 @@
+题目：
+There are n gas stations along a circular route, where the amount of gas at the ith station is gas[i].
+
+You have a car with an unlimited gas tank and it costs cost[i] of gas to travel from the ith station to its next (i + 1)th station. 
+You begin the journey with an empty tank at one of the gas stations.
+
+Given two integer arrays gas and cost, return the starting gas station's index if you can travel around the circuit once in the clockwise direction, 
+otherwise return -1. If there exists a solution, it is guaranteed to be unique
+
+思路：
+找到开始就行了
+比较绕的点就是如果gas的总增加 大于总消耗 则会存在起点
+       
+不是起点 等价与 [  ]一段加负号
+如果不存在起点 则
+[   ][     ][      ][  到头了
+  ] 
+  重新分段
+  [ ][     ][      ][  到头了
+  ]
+  和就是负的了
+
+代码：
+class Solution:
+    def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
+        if sum(gas) < sum(cost):
+            return -1
+        
+        start = 0
+        remain = 0
+        for i in range(len(gas)):
+            if gas[i] + remain < cost[i]:
+                start = i + 1
+                remain = 0
+            else:
+                remain += gas[i] - cost[i]
+                
+        return start
+知识点：
+好烦人 我就找不到proof妈蛋蛋
