@@ -1,0 +1,26 @@
+题目：
+Given a non-empty array of integers nums, every element appears twice except for one. Find that single one.
+
+You must implement a solution with a linear runtime complexity and use only constant extra space.
+
+思路:
+^
+XOR operation
+
+代码：
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        ans = 0
+        
+        for num in nums:
+            ans ^= num
+        return ans
+        
+        
+ 知识点：
+ 亦或XOR 也记为^：
+ 1 1 —>0
+ 0 0 ->0
+ 0 1 ->1
+ 1 0 ->1
+ 一样的就是0 不一样的就是1 这样子变成二进制bitwise操作的话：重复的相同的数字 就都是0了 0和谁操作白玩 所以单的剩下了
