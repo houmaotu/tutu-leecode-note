@@ -1,0 +1,31 @@
+题目：
+Given head, the head of a linked list, determine if the linked list has a cycle in it.
+
+There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail's next pointer is connected to. Note that pos is not passed as a parameter.
+
+Return true if there is a cycle in the linked list. Otherwise, return false.
+
+思路：
+因为folow up有一个O(1) 空间 所以不用hash存储 用slow and fast pointer
+那么有圈圈则slow fast可以追上 否则 fast能到尽头
+
+代码：
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def hasCycle(self, head: ListNode) -> bool:
+        
+        fast, slow = head, head
+        while fast and fast.next:
+            fast,slow = fast.next.next, slow.next
+            if fast == slow:
+                return True
+            
+        return False
+        
+ 知识点：
+ 空间的O(1)要立刻反应过来是two ointers
