@@ -1,0 +1,52 @@
+题目：
+Given the head of a linked list, return the node where the cycle begins. If there is no cycle, return null.
+
+There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail's next pointer is connected to (0-indexed). It is -1 if there is no cycle. Note that pos is not passed as a parameter.
+
+Do not modify the linked list.
+
+思路：
+还是O(1)空间 还是slow and fast pointer
+
+0 1 2 3 4  ... i ... m-1 m i    i+1 ... m-1 m  数字
+                           m+1  m+2
+
+s和f 相遇的点就是 f - s = m - i + 1 
+相遇的点就是m - i + 1
+特点就是m - i + 1 走i步就到了m + 1 于是回到了i 与此同时 如果重新出发也可以到i 所以这个新的相遇点就是循环的开始
+
+例子：
+m=7 i = 3
+0 1 2 3 4 5 6 7 3 4 5  6   7   8
+                8 9 10 11  12  13 
+                     | 相遇点为5
+     从新开始都走 3步骤 就都到了3 相遇 3就是我们要的
+代码：
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def detectCycle(self, head: ListNode) -> ListNode:
+        slow, fast = head, head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                break
+        else:
+            return None
+        
+        pointer = head
+        while pointer != fast:
+            pointer = pointer.next
+            fast = fast.next
+            
+        
+        return pointer
+        
+  知识点：
+  出脑筋急转弯你得按3呢！
