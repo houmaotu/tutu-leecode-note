@@ -1,0 +1,114 @@
+题目：
+Design a data structure that follows the constraints of a Least Recently Used (LRU) cache.
+
+Implement the LRUCache class:
+
+LRUCache(int capacity) Initialize the LRU cache with positive size capacity.
+int get(int key) Return the value of the key if the key exists, otherwise return -1.
+void put(int key, int value) Update the value of the key if the key exists. Otherwise, add the key-value pair to the cache. If the number of keys exceeds the capacity from this operation, evict the least recently used key.
+The functions get and put must each run in O(1) average time complexity.
+
+思路：
+double Linkde list + hash map
+
+     head == node1 == node2 == node3 == node4 == node5 == tail
+               |        |        |        |        |
+              key1     key2     key3     key4     key5
+              
+hash map存储key 以及对应node便于查找
+doublelinkedlist存储 value 读写顺序
+
+首先搞出来DLinkedNode的class 两个箭头 key value
+然后LRUCache里面：
+__init__ 搞出来现有的size 为了以后判断是否超过容量 hash map{} 为了方便的doublelinkedlist的 head tail
+
+get可以直接在hash map里面用get 没有就算了 有就return出来 这个点先删除（该点的前后建立链接）在放在首位 （插入head和head.next中间） 删除 插入用function简单一点
+
+put直接在hash map里面用get 没有就新建一个Node 直接插在首位 然后判断是否超容量 超了就删除末尾 同样写出来一个function
+   要是有就更新value 然后同get的操作
+
+
+代码：
+class DLinkedNode():
+    def __init__(self):
+        self.key = 0
+        self.value = 0
+        self.prev = None
+        self.next = None
+        
+
+class LRUCache:
+    def _remove_node(self,node):
+        prev = node.prev
+        new = node.next
+        
+        prev.next = new
+        new.prev = prev
+        
+    def _add_node(self,node):
+        node.prev = self.head
+        node.next = self.head.next
+        
+        self.head.next.prev = node
+        self.head.next = node
+        
+    def _pop_tail(self):
+        res = self.tail.prev
+        self._remove_node(res)
+        return res
+        
+        
+
+    def __init__(self, capacity: int):
+        self.cache = {}
+        self.size = 0
+        self.capacity = capacity
+        self.head, self.tail = DLinkedNode(), DLinkedNode()
+        
+        self.head.next = self.tail
+        self.tail.prev = self.head
+        
+
+    def get(self, key: int) -> int:
+        node = self.cache.get(key,None)
+        if not node:
+            return -1
+        
+        self._remove_node(node)
+        self._add_node(node)
+        
+        return node.value
+        
+        
+
+    def put(self, key: int, value: int) -> None:
+        node = self.cache.get(key)
+        
+        if not node:
+            newNode = DLinkedNode()
+            newNode.key = key
+            newNode.value = value
+            
+            self.cache[key] = newNode
+            self._add_node(newNode)
+            
+            self.size += 1
+            if self.size > self.capacity:
+                tail = self._pop_tail()
+                del self.cache[tail.key]
+                self.size -= 1
+                
+        else:
+            node.value = value
+            self._remove_node(node)
+            self._add_node(node)
+            
+ 知识点：
+ hash map可以直接.get(val) 有数字就返回 没有就返回val
+        
+
+
+# Your LRUCache object will be instantiated and called as such:
+# obj = LRUCache(capacity)
+# param_1 = obj.get(key)
+# obj.put(key,value)
