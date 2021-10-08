@@ -1,0 +1,83 @@
+题目：
+ou are given the head of a singly linked-list. The list can be represented as:
+
+L0 → L1 → … → Ln - 1 → Ln
+Reorder the list to be on the following form:
+
+L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → …
+You may not modify the values in the list's nodes. Only nodes themselves may be changed.
+
+思路：
+第一个 倒数第一个 第二个 倒数第二个 第三个 倒数第三个
+
+1 2 3 4 5 6
+    s     f
+先用slow and fast pointer找到中间的点 分两段
+第二段先把link反过来
+
+   4 5 6
+p  c t
+
+存出来t c连到p 继续走
+
+这样就成了两个
+
+1 2 3
+6 5 4
+
+然后一个一个加塞 还是先存出来
+
+1  2   3
+f  t1
+6  5   4
+s  t2
+
+再考虑到奇数的情况
+
+1 2 3 4
+    f t1
+7 6 5
+    s  t2 确认可行
+    
+ 代码：
+ # Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def reorderList(self, head: Optional[ListNode]) -> None:
+        """
+        Do not return anything, modify head in-place instead.
+        """
+        
+        slow, fast = head, head.next
+        
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        
+        #reverse second half
+        second = slow.next
+        slow.next = None
+        
+        prev = None
+        while second:
+            tmp = second.next
+            second.next = prev
+            prev = second
+            second = tmp
+            
+       #merge
+    
+        first, second = head, prev
+        
+        while second:
+            tmp1, tmp2 = first.next, second.next
+            first.next = second
+            second.next = tmp1
+            first = tmp1
+            second = tmp2
+  知识点：
+  linked list存储出来一点点挪动是基本操作
+    
