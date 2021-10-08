@@ -1,0 +1,21 @@
+题目：
+Given the root of a binary tree, return the postorder traversal of its nodes' values.
+
+思路：
+这个和上一个差不多 换个顺序
+
+代码：
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        if not root:
+            return []
+        return self.postorderTraversal(root.left) + self.postorderTraversal(root.right) + [root.val]
+        
+ 知识点：
+ 想老公不必须因为吃撑了
