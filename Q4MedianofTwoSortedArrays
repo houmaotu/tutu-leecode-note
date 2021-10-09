@@ -1,0 +1,84 @@
+题目：
+Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays.
+
+The overall run time complexity should be O(log (m+n)).
+
+思路：
+O(log (m+n)) 想到二分法
+
+_ _ |_ _ _ _
+        
+
+_ _ _ _| _ _
+左边的玩意比右边的小
+
+从短的那边找 长的自动对应
+
+二分法 |
+
+代码：
+class Solution:
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        def getVal(arr,i):
+            if i == -1:
+                return float('-inf')
+            if i == len(arr):
+                return float('inf')
+            return arr[i]
+        
+        def getIndices(rShort, aShort, ALong):
+            midIndex = (len(aShort)+len(aLong)) //2
+            
+            rLong = midIndex - rShort
+            return (rShort-1,rShort,rLong-1,rLong)
+        
+        def getDirection(lShort,rShort,lLong,rLong):
+            if getVal(aShort,lShort) > getVal(aLong,rLong):
+                return -1
+            elif getVal(aLong, lLong) > getVal(aShort, rShort):
+                return 1
+            else:
+                return 0
+        
+        def getResult(lShort,rShort,lLong,rLong,aShort,aLong):
+            odd = (len(aShort)+len(aLong)) % 2
+            if odd:
+                return min(getVal(aShort, rShort), getVal(aLong, rLong))
+                
+            else:
+                return (max(getVal(aShort, lShort), getVal(aLong, lLong)) + min(getVal(aShort, rShort), getVal(aLong, rLong))) /2
+                
+            
+        lShort = rShort = lLong = rLong = d = 1
+            
+        
+        aShort = nums1
+        aLong = nums2
+        if len(nums1)>len(nums2):
+            aShort = nums2
+            aLong = nums1
+        l = 0
+        r = len(aShort)
+
+        while d!=0:
+
+            m = (l+r)//2
+            
+            lShort,rShort,lLong,rLong = getIndices(m, aShort, aLong)
+            d = getDirection(lShort,rShort,lLong,rLong)
+            #print(l,r,m,lShort,rShort,lLong,rLong,d)
+            
+            if d <0:
+                r = m - 1
+            elif d>0:
+                l = m + 1
+                
+ 
+    
+        return getResult(lShort,rShort,lLong,rLong,aShort,aLong)
+ 知识点：
+ 先把二分法的架子搭起来 m等于一半之类的 然后需要的是d 方向 找方向需要根据m算出来 分隔的四个数字的indice
+ 为了避免超界限 需要用再写一个函数定义超了就是无穷 最后根据四个数字分奇数偶数得出结论
+ 这样子写能清晰一点点
+ 
+ ps 再把l写成了1我就撞墙！
