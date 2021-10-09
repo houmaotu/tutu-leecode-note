@@ -1,0 +1,35 @@
+题目：
+Evaluate the value of an arithmetic expression in Reverse Polish Notation.
+
+Valid operators are +, -, *, and /. Each operand may be an integer or another expression.
+
+Note that division between two integers should truncate toward zero.
+
+It is guaranteed that the given RPN expression is always valid. That means the expression would always evaluate to a result, and there will not be any division by zero operation.
+
+思路：
+stack
+
+代码：
+class Solution:
+    def evalRPN(self, tokens: List[str]) -> int:
+        def eval(a,b,op):
+            if op == "+":
+                return a+b
+            elif op == "-":
+                return b-a
+            elif op == "*":
+                return a*b
+            else:
+                return int(b/a)
+            
+        st = []
+        for t in tokens:
+            if t in "+-*/":
+                st.append(eval(st.pop(),st.pop(),t))
+            else:
+                st.append(int(t))
+            #print(st)
+        return st.pop()
+                
+        
