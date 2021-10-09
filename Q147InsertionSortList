@@ -1,0 +1,61 @@
+题目：
+Given the head of a singly linked list, sort the list using insertion sort, and return the sorted list's head.
+
+The steps of the insertion sort algorithm:
+
+Insertion sort iterates, consuming one input element each repetition and growing a sorted output list.
+At each iteration, insertion sort removes one element from the input data, finds the location it belongs within the sorted list and inserts it there.
+It repeats until no input elements remain.
+The following is a graphical example of the insertion sort algorithm. 
+The partially sorted list (black) initially contains only the first element in the list. 
+One element (red) is removed from the input data and inserted in-place into the sorted list with each iteration.
+
+
+思路：
+因为要求in place
+
+[] -> [] -> [] -> [] -> [] -> [] -> [] -> []
+                        |
+                       sort这里的时候
+                       先判断这个数字和上个数字谁大 这玩意大就过 这玩意小就：
+                       [ ] 存出来
+[] -> [] -> [] -> []  ------> [] -> [] -> []  连上
+                ^
+                |
+存储来的        []  找到第一个比存储来的数值大的点 插进去
+
+
+
+代码
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def place(self,head,tmp):
+        value = tmp.val
+        cur = head
+        while cur.next:
+            if value <= cur.next.val:
+                tmp.next = cur.next
+                cur.next    = tmp
+                return
+            cur = cur.next
+        
+        
+    def insertionSortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        dummy = ListNode(float('-inf'), head)
+        cur = dummy
+        while cur.next:
+            if cur.next.val < cur.val:
+                tmp = cur.next
+                cur.next = cur.next.next
+                tmp.next = None
+                self.place(dummy,tmp)
+            else:
+                cur = cur.next
+        return dummy.next
+        
+知识点：
+注意另有先存储来数 sort之后再赋值回去的诡异方法 快一点点 但是占地方多
