@@ -1,0 +1,58 @@
+题目：
+You are given a string s and an integer k. You can choose any character of the string and change it to any other uppercase English character. You can perform this operation at most k times.
+
+Return the length of the longest substring containing the same letter you can get after performing the above operations.
+
+思路：
+sliding window
+合格动右 不合格动左
+
+k = 2
+        A A B C A B B B 
+        
+        A A * * A
+            B * * B B B  output 6
+            
+        A A
+        A A *
+        A A * *
+        A A * * A 
+        A A * * A *
+          A * * A *
+            B * * B
+        
+        {} 存储个数
+        i j
+        i    j
+        i       j
+        含      不含
+        长度为j - i 
+        增加j的条件为j可以增加（不超界限 替换k可行）
+        注意：
+        因为如果max_freq 不增加的话 结果不会增加 所以max_freq 不需要清零
+        
+代码：
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        counter = {}
+        res = 0
+        j = 0
+        max_freq = 0
+        for i in range(len(s)):
+            while j< len(s) and j - i - max_freq <= k:
+                counter[s[j]] = counter.get(s[j],0) + 1
+                max_freq = max(max_freq,counter[s[j]])
+                j += 1
+            
+            if j - i - max_freq > k:
+                res = max(res, j - i - 1)
+            else:
+                res = max(res, j - i)
+  
+                
+            counter[s[i]] -= 1
+        
+        return res
+        
+  知识点：
+  sliding window
