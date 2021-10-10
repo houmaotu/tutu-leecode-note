@@ -1,0 +1,36 @@
+题目：
+You are given a string s and an array of strings words of the same length. Return all starting indices of substring(s) in s that is a concatenation of each word in words exactly once, in any order, and without any intervening characters.
+
+You can return the answer in any order.
+
+思路：
+sliding window + 计数器 counter
+
+代码：
+class Solution:
+    def findSubstring(self, s: str, words: List[str]) -> List[int]:
+        
+        hashmap = Counter(words) 
+        
+        word_size, num_words = len(words[0]), len(words)
+        
+        window_len = word_size*num_words
+        
+        res = []
+        
+        for i in range(len(s) - window_len + 1):
+            substr = s[i:i+window_len] 
+            
+
+            sublist = [] 
+            for j in range(0,len(substr),word_size):
+                sublist.append(substr[j:j+word_size])
+            
+            if Counter(sublist)==hashmap:
+                res.append(i)
+        
+        return res
+   知识点：
+   嗷呜     
+
+ 
