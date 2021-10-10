@@ -55,3 +55,6 @@ class Solution:
             n = t
             t = s
         t.next = n
+
+知识点：
+做题的时候关掉微信 否则大兔子能把网站直接干崩 
