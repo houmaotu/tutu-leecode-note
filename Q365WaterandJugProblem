@@ -1,0 +1,50 @@
+Question:
+You are given two jugs with capacities jug1Capacity and jug2Capacity liters. There is an infinite amount of water supply available. Determine whether it is possible to measure exactly targetCapacity liters using these two jugs.
+
+If targetCapacity liters of water are measurable, you must have targetCapacity liters of water contained within one or both buckets by the end.
+
+Operations allowed:
+
+Fill any of the jugs with water.
+Empty any of the jugs.
+Pour water from one jug into another till the other jug is completely full, or the first jug itself is empty.
+
+idea:
+dfs use stack to record to do list, use a set to record what has been done
+
+        
+                                         c1 c2
+                                         w1  w2                                             
+        operations: dump w1               0 w2
+                    dump w2               w1 0
+                    water to w1           c1 w2
+                    water to w2           w1 c1
+                    w1 to w2          max(0, w1-(c2-w2))   min(c2,w1+w2)
+                    w2 to w1          min(c1,w1+w2)   max(0,w2-(c1-w1))
+
+code:
+class Solution:
+    def canMeasureWater(self, jug1Capacity: int, jug2Capacity: int, targetCapacity: int) -> bool:
+        c1,c2 = jug1Capacity, jug2Capacity
+        if targetCapacity > c1 + c2:
+            return False
+        record = set()
+        todo = [(0,0)]
+        while todo:
+            w1,w2 = todo.pop()
+            if w1 == targetCapacity or w2 == targetCapacity or w1 + w2 == targetCapacity:
+                return True
+            
+            ops = [(0,w2),(w1,0),(c1,w2),(w1,c2),(max(0, w1-(c2-w2)),min(c2,w1+w2)),( min(c1,w1+w2),max(0,w2-(c1-w1)))]
+            
+            for op in ops:
+                if op not in record:
+                    record.add(op)
+                    todo.append(op)
+        return False
+        
+ comments:
+This method code is not a fast way. We can use  bezou lemma: ax+by = z exixtst andswe iff gdc(a,x) | z. This is a fast mathematical way
+
+            
+ 
