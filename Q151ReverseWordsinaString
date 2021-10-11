@@ -23,4 +23,7 @@ class Solution:
         if res[0] == '':
             res.pop(0)
         return ' '.join(res)
+        
+  comments:
+  use string.split is faster that loop, huge houmaotu's code is not good
             
