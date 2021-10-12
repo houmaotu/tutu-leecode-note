@@ -1,0 +1,28 @@
+题目：
+Given an integer array nums, find a contiguous non-empty subarray within the array that has the largest product, and return the product.
+
+It is guaranteed that the answer will fit in a 32-bit integer.
+
+A subarray is a contiguous subsequence of the array.
+
+思路：
+挨个走 贪心 记录最大最小
+
+代码：
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+        res = float('-inf')
+        maxnum = 1
+        minnum = 1
+        for num in nums:
+            tmp = [num, maxnum * num, minnum * num]
+
+            maxnum = max(tmp)
+            minnum = min(tmp)
+            res = max(maxnum, res)
+        
+        return res
+            
+            
+  知识点：
+  厚毛兔好巨大
