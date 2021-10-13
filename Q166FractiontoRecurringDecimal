@@ -1,0 +1,69 @@
+题目：
+Given two integers representing the numerator and denominator of a fraction, return the fraction in string format.
+
+If the fractional part is repeating, enclose the repeating part in parentheses.
+
+If multiple answers are possible, return any of them.
+
+It is guaranteed that the length of the answer string is less than 104 for all the given inputs.
+
+ 思路：
+ 回忆一下怎么做的除法
+ 
+ 就是除 商写过去 余数字补上0 继续  如果这个余数见过 那么就循环了 如果余数是0 结束了
+ 
+ 所以用[]记录结果 hash map记录相应位数处理的余数
+ 
+                           nums               lib
+              337/333     1.    q = 4
+        判断 q = 0?
+             40 / 333     0      40          40  :  1
+        400 / 333         1      67           400 ： 2
+        670 / 333         2      6            670 : 3
+        40 / 333            40 in lib check is 1
+        1.(, 0 , 1, 2)  join all
+  
+  代码：
+   class Solution:
+    def fractionToDecimal(self, numerator: int, denominator: int) -> str:
+        if numerator == 0:
+            return '0'
+        elif numerator > 0:
+            if denominator > 0:
+                s = ''
+            else:
+                denominator = - denominator
+                s = '-'
+        else:
+            numerator  = -numerator
+            if denominator > 0:
+                s = '-'
+            else:
+                denominator = - denominator
+                s = ''
+            
+        
+        q =  10 * (numerator%denominator)
+        if q == 0:
+            return s + str(numerator//denominator)
+
+        nums = [str(numerator//denominator) + '.']
+        lib = {}
+        i = 1
+        while q not in lib:
+            #print(q)
+            if q == 0:
+                return s + ''.join(nums)
+            lib[q] = i
+            nums.append(str(q // denominator))
+            q = 10 * (q % denominator)
+            i += 1
+        
+        i = lib[q]
+        nums[i-1] += '('
+        nums[-1] += ')'
+        
+        return s + ''.join(nums)
+        
+   知识点：
+   兔兔自己写的 奥呜呜呜！果然！ ！！ 忘了负数的case了然后一点一点的补 嗷嗷嗷
