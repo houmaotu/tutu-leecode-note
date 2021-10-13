@@ -1,0 +1,40 @@
+题目：
+Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
+
+Implement the MinStack class:
+
+MinStack() initializes the stack object.
+void push(int val) pushes the element val onto the stack.
+void pop() removes the element on the top of the stack.
+int top() gets the top element of the stack.
+int getMin() retrieves the minimum element in the stack.
+
+思路：
+getmin是个问题 因为stack只有增加和减少最后一位的操作 所以可以用另一个stack记录最小值
+stack     [3 6 7 4 2 4]
+min stack [3 3 3 3 2 2]
+
+代码：
+class MinStack:
+
+    def __init__(self):
+        self.stack = []
+        self.minstack = []
+        
+
+    def push(self, val: int) -> None:
+        self.stack.append(val)
+        if self.minstack != []:
+            val = min(val,self.minstack[-1])
+        self.minstack.append(val)
+        
+            
+    def pop(self) -> None:
+        self.stack.pop()
+        self.minstack.pop()
+
+    def top(self) -> int:
+        return self.stack[-1]
+
+    def getMin(self) -> int:
+        return self.minstack[-1]
