@@ -1,0 +1,26 @@
+题目：
+iven an array nums of size n, return the majority element.
+
+The majority element is the element that appears more than ⌊n / 2⌋ times. You may assume that the majority element always exists in the array.
+
+思路：
+用hash存
+
+代码：
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        m = len(nums) // 2
+        lib = {}
+        for n in nums:
+            if n not in lib:
+                lib[n] = 0
+            else:
+                if lib[n] >= m - 1:
+                    return n 
+                else:
+                    lib[n] += 1
+        return nums[0]
+        
+  知识点：
+  按照官方的答案 最好的办法的时间复杂度就是O(n),巨大的厚毛兔用对了，但是还有一些不那么优化的方法，比如
+  sorting， 在存在这些方法的条件下，我的速度只打败了27%，哎，这哪里是施法延迟，明明是吟唱后debuff长期存在
