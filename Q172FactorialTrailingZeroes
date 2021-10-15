@@ -1,0 +1,27 @@
+question:
+Given an integer n, return the number of trailing zeroes in n!.
+
+Note that n! = n * (n - 1) * (n - 2) * ... * 3 * 2 * 1.
+
+ides:
+to get a zero in the end , we need a 2 and a 5 in its dimcoposition, it's trivial that there
+is more 2 than 5, so we can check the number of 5s
+
+class Solution:
+    def trailingZeroes(self, n: int) -> int:
+        def checkfive(n):
+            res = 0
+            while n%5 ==0:
+                res += 1
+                n /= 5
+            return res
+        
+        i = 0
+        while n > 4:
+            i += checkfive(n)
+            n -= 1
+        return i
+            
+comments:
+huge tutu huge tutu lalala huge tutu huge tutu lalala
+please call me beautitu~
