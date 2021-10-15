@@ -1,0 +1,65 @@
+题目：
+You are given a sorted array consisting of only integers where every element appears exactly twice, except for one element which appears exactly once.
+
+Return the single element that appears only once.
+
+Your solution must run in O(log n) time and O(1) space.
+
+思路：
+  
+   O(log n) time and O(1) space等价于二分法已经很熟悉了 具体一丢丢就是：
+   
+      [3,3,7,7,10,11,11]  
+       l     m        r  
+       0     3
+      [3,3,7,10,10,11,11]
+             m
+             
+             
+    [1,1,2,3,3,4,4,8,8]
+     l       m        r
+     0       4
+     
+     [1 1 2]
+      l   r
+        m
+          l= r
+      
+      [1 1 2 2 3]
+       l       r
+           m
+               l=r
+               
+  代码：
+class Solution:
+    def singleNonDuplicate(self, nums: List[int]) -> int:
+
+        l = 0
+        r = len(nums) - 1
+        while l < r:
+            #print(l,r)
+            m = (l + r) // 2
+            if (m - l) % 2 == 0:
+                if nums[m] == nums[m-1]:
+                    r = m - 2                
+                elif nums[m] == nums[m+1]:
+                    l = m + 2
+                else:
+                    return nums[m]
+            else:
+                if nums[m] == nums[m-1]:
+                    l = m + 1                 
+                elif nums[m] == nums[m+1]:
+                    r = m - 1
+                else:
+                    return nums[m]
+        return nums[l]
+        
+  知识点：
+  因为中午多吃了半个汉堡 晚上十一点多了还不饿 哎 
+
+
+
+        
+        
+        
