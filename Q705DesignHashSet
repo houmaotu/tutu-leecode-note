@@ -1,0 +1,77 @@
+题目：
+Design a HashSet without using any built-in hash table libraries.
+
+Implement MyHashSet class:
+
+void add(key) Inserts the value key into the HashSet.
+bool contains(key) Returns whether the value key exists in the HashSet or not.
+void remove(key) Removes the value key in the HashSet. If key does not exist in the HashSet, do nothing.
+
+思路：
+还是open hashing
+
+代码：
+class MyHashSet:
+
+    def __init__(self):
+        
+        self.keyRange = 769
+        self.bucketArray = [[] for i in range(self.keyRange)]
+        
+
+    def add(self, key: int) -> None:
+        bucketIndex = key % self.keyRange
+        curr = self.bucketArray[bucketIndex]
+        if not curr:
+            self.bucketArray[bucketIndex] = ListNode(key,None)
+            return
+        while curr is not None:
+            if curr.val == key:
+                return
+            if curr.next:
+                curr = curr.next
+            else:
+                curr.next = ListNode(key,None)
+            
+
+    def remove(self, key: int) -> None:
+        bucketIndex = key % self.keyRange
+        curr = self.bucketArray[bucketIndex]
+        if not curr:
+            return
+        
+        if curr.val == key:
+            self.bucketArray[bucketIndex] = curr.next
+        while curr.next:
+            if curr.next.val == key:
+                curr.next = curr.next.next
+                return
+            curr = curr.next
+            
+        
+
+    def contains(self, key: int) -> bool:
+        bucketIndex = key % self.keyRange
+        curr = self.bucketArray[bucketIndex]
+        if not curr:
+            return False
+        while curr is not None:
+            if curr.val == key:
+                return True
+            curr = curr.next
+        return False
+        
+        
+class ListNode:
+    def __init__(self,val = 0,nextnode = None):
+        self.val = val
+        self.next = nextnode
+
+# Your MyHashSet object will be instantiated and called as such:
+# obj = MyHashSet()
+# obj.add(key)
+# obj.remove(key)
+# param_3 = obj.contains(key)
+
+知识点：
+有点诡异哈
