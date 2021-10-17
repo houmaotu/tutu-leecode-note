@@ -1,0 +1,38 @@
+题目：
+
+Given the availability time slots arrays slots1 and slots2 of two people and a meeting duration duration, return the earliest time slot that works for both of them and is of duration duration.
+
+If there is no common time slot that satisfies the requirements, return an empty array.
+
+The format of a time slot is an array of two elements [start, end] representing an inclusive time range from start to end.  
+
+It is guaranteed that no two availability slots of the same person intersect with each other. That is, for any two time slots [start1, end1] and [start2, end2] of the same person, either start1 > end2 or start2 > end1.
+
+思路：
+两个pointer来去扫
+      [   ]
+     
+     [   ]
+  起点是更更晚的start 更早的end 早end的move on
+  
+代码：
+Class Solution:
+	def minAvailableDuraction(self,slots1,slots2,duration):
+		slots1.sort()
+		slots2.sort()
+		p1 = p2 = 0
+		while p1<len(slot1) and p2 M len(slots2):
+			l = max(slots1[p1][0],slots1[p2][0])
+			r = min(slots1[p1][1],slots1[p2][1])
+			if r - l >= duration:
+				return (l, l + duration)
+			if r = slots1[p1][1]:
+				p1 +=1
+			else:
+				p2 += 1
+		return []
+		
+知识点：
+其实就是扫描
+
+  
