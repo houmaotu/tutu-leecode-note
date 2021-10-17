@@ -1,0 +1,70 @@
+题目:
+There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.
+
+For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.
+Return the ordering of courses you should take to finish all courses. If there are many valid answers, return any of them. If it is impossible to finish all courses, return an empty array.
+
+ 思路：
+ bfs 这种玩意就是个蠢方法 保证可以就行了
+ 
+ 首先翻译一下
+ 什么TMD叫TMD惊喜
+ 就是每节课的先修有什么 有几个 记一下
+ 这个就是结果 修的次序[]
+ 能修的[]
+ 能修的pop一个 放在修的次序里面 看看每节课需要的先修达到否 达到了放在能修的里面
+ 最后看看修的次序的长度够不够 够了就返回 不够就gg
+
+
+代码：
+class Solution:
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        edges = {i : [] for i in range(numCourses)}
+        indegrees = [0] * numCourses
+        for i, j in prerequisites:
+            edges[j].append(i)
+            indegrees[i] += 1
+            
+        queue = deque([])
+        
+        for i in range(numCourses):
+            if indegrees[i] == 0:
+                queue.append(i)
+        
+        res = []
+        while queue:
+            node = queue.popleft()
+            res.append(node)
+            
+            
+            for next_node in edges[node]:
+                indegrees[next_node] -= 1
+                if indegrees[next_node] == 0:
+                    queue.append(next_node)
+                    
+        if len(res) == numCourses:
+            return res
+        else:
+            return []
+  
+  知识点：
+ 兔
+   兔
+     兔
+        兔
+     兔
+  兔
+兔
+  兔
+    兔
+       兔
+          兔
+   兔
+     兔
+        兔
+     兔
+  兔
+兔
+  兔
+    兔
+       兔
