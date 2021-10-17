@@ -1,0 +1,39 @@
+题目：
+Given an integer array nums sorted in non-decreasing order, return an array of the squares of each number sorted in non-decreasing order.
+
+ 思路：
+ 就是从大到小走 先把正负拿出来 在合并
+ 
+ 代码：
+class Solution:
+    def sortedSquares(self, nums: List[int]) -> List[int]:
+        r1 = []
+        r2 = []
+        for num in nums:
+            if num < 0:
+                r1 = [num * num] + r1
+            else:
+                r2 = r2 + [num * num]
+
+        res = []
+        i , j  = 0, 0
+        while i < len(r1) and j < len(r2):
+            if r1[i] < r2[j]:
+                res.append(r1[i])
+                i += 1
+            else:
+                res.append(r2[j])
+                j += 1
+      
+        if i == len(r1):
+            res = res + r2[j:]
+            
+        if j == len(r2):                
+            res = res + r1[i:]
+
+                
+        return res
+     
+     知识点：
+     不要用sort 复杂度更高
+     兔兔的方法正确 但是不如l r两个point er走
