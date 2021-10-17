@@ -1,0 +1,27 @@
+题目：
+Given a string, determine if a permutation of the string could form a palindrome.
+
+注：premium
+
+思路：
+就是用ct来记录奇数的个数 所以读进来之后发现奇数个就+1 ，偶数个就等于抹平了 -1
+
+代码：
+Class Solution:
+	def canPermutePalindrom(self, s:str) -> bool:
+		if len(s) == 0:
+			return True
+		dict = {}
+		ct = 0
+		for ch in s:
+			if ch not in dict:
+				dict[ch] = 0
+			dict[ch] += 1
+			if dict[ch] % 2 == 0:
+				ct -= 1
+			else:
+				ct += 1
+		return ct < 2
+		
+知识点：
+白嫖的快乐啦啦啦
