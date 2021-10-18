@@ -1,0 +1,31 @@
+题目：
+Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].
+
+The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
+
+You must write an algorithm that runs in O(n) time and without using the division operation.
+
+思路：
+     [1 2 3 4]
+      
+     *   2  3  4
+     1   *  3  4
+     1   2  *  4
+     1   2  3  *
+     [   1 2 6]
+     [24 12 4 ]
+     
+代码：
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        length = len(nums)
+        L, R, res = [1] *length, [1] *length, [0] *length
+        for i in range(1,length):
+            L[i] *= L[i-1] * nums[i-1]
+            R[-(i + 1)] *= R[-i] * nums[-i]
+        for i in range(length):
+            res[i] = L[i] * R[i]
+        return res
+            
+  知识点：
+  这思路有点诡异……
