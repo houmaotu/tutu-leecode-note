@@ -1,0 +1,52 @@
+题目：
+There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.
+
+For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.
+Return true if you can finish all courses. Otherwise, return false.
+
+思路：
+自找麻烦的 dfs  （bfs很直接）
+需要两个global的玩意
+visited 瞅瞅能修么
+taken 修了
+麻烦的就是循环的
+瞅瞅1能不能 哎呀1需要2 瞅瞅2能不能 哎呀2需要3 瞅瞅3能不能 卧槽3需要1 MDZZ
+
+思路：
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        listofpreq = [[] for _ in range(numCourses)]
+        for course, preq in prerequisites:
+            listofpreq[course].append(preq)
+            
+        self.taken = [False for _ in range(numCourses)]
+        self.visited = [False for _ in range(numCourses)]
+        
+        for course in range(numCourses):
+            if not self.dfs(listofpreq, course):
+                return False
+        
+        return True
+    
+    def dfs(self,listofpreq, course):
+        self.visited[course] = True
+        
+        if len(listofpreq[course])== 0 or self.taken[course]:
+            self.taken[course] = True
+            return True
+        
+        for preq in listofpreq[course]:
+            if self.visited[preq] and not self.taken[preq]:
+                return False
+            
+            if not self.dfs(listofpreq, preq):
+                return False
+            
+            else:
+                self.taken[preq] = True
+                
+        self.taken[course] = True
+        return True
+        
+   知识点：
+   强行dfs害人害己
