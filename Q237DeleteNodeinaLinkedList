@@ -1,0 +1,28 @@
+题目：
+Write a function to delete a node in a singly-linked list. You will not be given access to the head of the list, instead you will be given access to the node to be deleted directly.
+
+It is guaranteed that the node to be deleted is not a tail node in the list.
+
+思路：
+删除点 因为没有前面的指针 那么 可以改数字啊
+这这这！ 就离谱！
+让这个val是下一个的val然后不就可以删除了！
+
+代码：
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def deleteNode(self, node):
+        """
+        :type node: ListNode
+        :rtype: void Do not return anything, modify node in-place instead.
+        """
+        node.val = node.next.val
+        node.next = node.next.next
+        
+ 知识点：
+ 你这个人不讲究啊！出脑筋急转弯你得按三哪！
