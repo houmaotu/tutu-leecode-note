@@ -1,0 +1,21 @@
+题目：
+Given an integer array arr, return true if there are three consecutive odd numbers in the array. Otherwise, return false.
+
+思路：
+计数器
+
+代码：
+class Solution:
+    def threeConsecutiveOdds(self, arr: List[int]) -> bool:
+        ct = 0
+        for num in arr:
+            if num%2 == 0:
+                ct = 0
+            else:
+                ct += 1
+                if ct == 3:
+                    return True
+        return False
+        
+        知识点：
+        没啥玩意 厚毛兔大就完事了
