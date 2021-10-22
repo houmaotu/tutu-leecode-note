@@ -1,0 +1,55 @@
+题目：
+Given an array nums and an integer target.
+
+Return the maximum number of non-empty non-overlapping subarrays such that the sum of values in each subarray is equal to target.
+
+ 思路：
+ 
+ dp
+ 
+ [                ] 
+     |
+     |
+     这个玩意能不能要呢 （在屁股上）
+     想要
+   [ ] 这一段是和对了 那就是在前面一段加一
+     
+     如果能要 就是和上一个数字一样 或者 再前面一段+1
+     不能要 就和上一个数字一样
+     
+     
+ 能不能要 这一段是几
+ 搜索比较麻烦 需要一个for
+ 
+ 传统艺能 通过hash table存 部分和
+ 如果两个部分和的差值对了
+ 就能要
+ 
+ 代码：
+ class Solution:
+    def maxNonOverlapping(self, nums: List[int], target: int) -> int:  
+        
+        dp = [0 for _ in range(len(nums))]    
+
+        lib = {}
+        lib[0] = -1
+        cur = 0
+        #dict[0] = 0
+        
+        for i in range(len(nums)):
+            cur += nums[i]
+            if cur - target in lib:
+                dp[i] = 1 + dp[lib[cur - target]]
+                 
+            if i-1 >= 0:
+                dp[i] = max(dp[i],dp[i-1])
+            
+            lib[cur] = i
+        print(dp)   
+        return dp.pop()
+                
+                
+   知识点：
+   用hash存可以省一个循环
+   tm第一题two sum就学了的 我就楞没想到！
+   dp的部分倒是想到了
