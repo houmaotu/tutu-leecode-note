@@ -1,0 +1,28 @@
+题目：
+Given the root of a Binary Search Tree and a target number k, return true if there exist two elements in the BST such that their sum is equal to the given target.
+
+思路：
+dict记录
+
+代码：
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def findTarget(self, root: Optional[TreeNode], k: int) -> bool:
+        s = {root.val}
+        stack = [root.left, root.right]
+        while stack:
+            node = stack.pop()
+            if node:
+                if k - node.val in s:
+                    return True
+                s.add(node.val)
+                stack.extend([node.left,node.right])
+        return False
+        
+知识点：
+这是平凡的
