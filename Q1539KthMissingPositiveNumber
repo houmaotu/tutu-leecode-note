@@ -1,0 +1,49 @@
+题目：
+
+Given an array arr of positive integers sorted in a strictly increasing order, and an integer k.
+
+Find the kth positive integer that is missing from this array.
+
+思路：
+
+先考虑首尾
+然后binary search
+l  m  r
+找到i 满足 arr[i]  < k + i + 1 
+          arr[i+1] >= k + i + 2
+          
+         返回的是 arr[i]
+         
+         也就是最后一个满足 arr[i]  < k + i + 1 的
+   
+   举例：
+         2 3 4 9 11
+         
+         k = 5
+       返回的是8
+       4 < 5 + 3
+       9 = 5 + 4 （第四个）
+       返回了 5 + 3
+       
+代码：
+class Solution:
+    def findKthPositive(self, arr: List[int], k: int) -> int:
+        if arr[-1] - len(arr) < k:
+            return len(arr) + k
+        if arr[0] > k:
+            return k
+        
+        l = 0
+        r = len(arr) - 1
+        
+        while l + 1 < r:
+            mid = (l + r) // 2
+            if arr[mid] < mid + k + 1:
+                l = mid
+            else:
+                r = mid 
+                
+        return l + k + 1
+                
+ 知识点：
+ 严酷的监工真的可恶
