@@ -1,0 +1,23 @@
+题目：
+Given an integer n, return the number of prime numbers that are strictly less than n.
+
+思路：
+sieve 筛法
+
+代码：
+class Solution:
+    def countPrimes(self, n: int) -> int:
+        ct = 0
+        arr = list(range(0,n))
+        #print(arr)
+ 
+        for i in range(2,n):
+            if arr[i] != 0:
+                ct += 1
+                for j in range(2 * arr[i], n, arr[i]):
+                    arr[j] = 0       
+        return ct
+                    
+            
+知识点：          
+居然可能exceed time limit 方法都tm一样 我法力无边!
