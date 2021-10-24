@@ -1,0 +1,19 @@
+题目：
+Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
+
+思路：
+set
+
+代码：
+class Solution:
+    def containsDuplicate(self, nums: List[int]) -> bool:
+        s = set()
+        for num in nums:
+            if num in s:
+                return True
+            else:
+                s.add(num)
+        return False
+        
+ 知识点：
+ 查长度也行 sort也行
