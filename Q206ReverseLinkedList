@@ -1,0 +1,25 @@
+题目：
+Given the head of a singly linked list, reverse the list, and return the reversed list.
+
+思路：
+ n <- d
+      h
+      1 -> 2 -> 3 -> 4 -> 5 -> 6
+  n <-1 <- d
+           h
+           
+代码：
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        dummy = ListNode()
+        while head:
+            dummy.next, head.next,head = head, dummy.next, head.next
+        return dummy.next
+        
+ 知识点：
+ 画图绕一下就行了
