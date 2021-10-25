@@ -1,0 +1,21 @@
+题目：
+Given two strings s and t, return true if t is an anagram of s, and false otherwise.
+
+思路：
+存
+
+代码：
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        lib = {}
+        for ch in s:
+            lib[ch] = lib.get(ch,0) + 1
+        for ch in t:
+            lib[ch] = lib.get(ch,0) - 1
+        for ch in lib:
+            if lib[ch]!= 0:
+                return False
+        return True
+        
+知识点：
+easy了 有什么知识点 记得屏蔽干扰信号？
