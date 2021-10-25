@@ -1,0 +1,28 @@
+题目：
+Given an integer n, return true if it is a power of two. Otherwise, return false.
+
+An integer n is a power of two, if there exists an integer x such that n == 2x.
+
+思路：
+可以一个一个2除
+
+也可以：
+二的倍数 则
+1 0 0 0 0 0
+减一为
+  1 1 1 1 1
+ &运算则都没了
+ 
+ 不是二的倍数则不会产生
+ 
+ —————— 1
+ 右数第一个1左边的东西 还是1
+ 
+ 代码：
+ class Solution:
+    def isPowerOfTwo(self, n: int) -> bool:
+
+        return n and n & (n-1) == 0
+            
+ 知识点：
+ 与活
