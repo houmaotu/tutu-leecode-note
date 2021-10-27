@@ -1,0 +1,29 @@
+题目：
+Given an integer n, return true if it is a power of three. Otherwise, return false.
+
+An integer n is a power of three, if there exists an integer x such that n == 3x.
+
+思路：
+一直除
+
+代码：
+class Solution:
+    def isPowerOfThree(self, n: int) -> bool:
+        if n <= 0:
+            return False
+        
+        while n>1:
+            if n % 3 == 0:
+                n /= 3
+            else:
+                break
+                
+        return n == 1
+        
+知识点：
+follow up是 可不可以直接不用loop或者反复调用 是不可以的
+
+虽然可以base convert 搞成trinary number 然后直接看 
+但是本质上还是用了
+这个binary不同 因为数字的存储本来就是二进制
+        
