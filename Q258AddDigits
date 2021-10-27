@@ -1,0 +1,33 @@
+题目：
+Given an integer num, repeatedly add all its digits until the result has only one digit, and return it.
+
+思路：
+就换就行了
+
+代码：
+
+class Solution:
+    def addDigits(self, num: int) -> int:
+        while num // 10 != 0:
+            num = sum([int(ch) for ch in str(num)])
+        return num
+        
+思路：
+厚毛兔就是个傻逼 我真的蠢 啊啊啊！ 这玩意我小学就知道了！！！！ 个个数字的和 就是mod 9啊！！！
+我要爆炸了！
+十进制啊
+a * 10^n 这样子 mod9 就变成个个数字的和了啊！！！
+我tm就是脑残！
+啊啊啊！
+气死我了！
+
+嗯
+我不傻
+状态不好
+大兔子附身
+嗯
+胸不舒服
+反正
+有原因的
+嗷呜嗷呜
+        
