@@ -1,0 +1,15 @@
+题目：
+Given an integer n, return true if it is a power of four. Otherwise, return false.
+
+An integer n is a power of four, if there exists an integer x such that n == 4x
+
+思路：
+和power of 2一样 并且二进制数字的长度是2的倍数
+
+代码：
+class Solution:
+    def isPowerOfFour(self, n: int) -> bool:
+        return n >= 1 and not n & (n - 1)  and len(bin(n)) % 2
+        
+知识点：
+二进制数字的转换
