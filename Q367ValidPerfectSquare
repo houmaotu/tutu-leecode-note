@@ -1,0 +1,20 @@
+题目：
+Given a positive integer num, write a function which returns True if num is a perfect square else False.
+
+Follow up: Do not use any built-in library function such as sqrt.
+
+思路：
+就找呗
+
+代码：
+
+class Solution:
+    def isPerfectSquare(self, num: int) -> bool:
+        i = 1
+        while i*i < num:
+            i += 1
+            
+        return i*i == num
+知识点：
+binary search 貌似更简单
+        
