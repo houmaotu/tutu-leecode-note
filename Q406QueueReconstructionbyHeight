@@ -1,0 +1,47 @@
+题目：
+You are given an array of people, people, which are the attributes of some people in a queue (not necessarily in order).
+Each people[i] = [hi, ki] represents the ith person of height hi with exactly ki other people in front who have a height greater than or equal to hi.
+
+
+Reconstruct and return the queue that is represented by the input array people. 
+The returned queue should be formatted as an array queue, where queue[j] = [hj, kj] is the attributes of the jth person in the queue 
+(queue[0] is the person at the front of the queue).
+
+思路：
+先放进去高个子 后放进去矮个子
+因为队伍中记录了这个小子前面有多少人不低于他
+那么：
+后放进去的人 不影响前面已经进去人的k
+所以 直接insert到k位置即可
+
+注意 同归高度先排k小的也可满足上述条件
+
+
+代码：
+class Solution:
+    def reconstructQueue(self, people: List[List[int]]) -> List[List[int]]:
+        
+        pp = {}
+        for p in people:
+            h = p[0]
+            k = p[1]
+            pp[h] = pp.get(h, []) + [k]
+ 
+        q = []
+        
+        for h in sorted(pp.keys(),reverse = True):
+
+            for k in sorted(pp[h]):
+                q.insert(k,[h,k])
+                
+        return q
+            
+    知识点：
+    妈蛋蛋 不要出脑筋急转弯了！
+    厚毛兔只能写出来O（n^2）的！
+    哼！
+    我最可爱！
+    哼！
+        
+            
+
