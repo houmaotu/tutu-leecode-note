@@ -1,0 +1,27 @@
+题目：
+Given the root of a binary tree, return the sum of all left leaves.
+
+思路：
+用一个是不是左边的参数
+
+代码：
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def sumOfLeftLeaves(self, root: Optional[TreeNode]) -> int:
+        return self.sumofleft(root,0)
+        
+    def sumofleft(self,root,include):
+        if not root:
+            return 0
+        if root.left is None and root.right is None:
+            return root.val * include
+        
+        return self.sumofleft(root.left,1) + self.sumofleft(root.right,0)
+        
+知识点：
+厚毛兔好可爱！
