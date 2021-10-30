@@ -1,0 +1,37 @@
+题目：
+Given an integer array nums, return the third distinct maximum number in this array. If the third maximum does not exist, return the maximum number.
+
+思路：
+因为要消除重复 所以要一大串的判断
+
+代码：
+class Solution:
+    def thirdMax(self, nums: List[int]) -> int:
+        
+        f,s,t = None,None,None
+        for num in nums:
+            if num in [f,s,t]:
+                continue
+            elif not f:
+                f = num
+            elif not s:
+                s = num
+                if s > f:
+                    s, f = f , s
+            elif not t:
+                f,s,t = sorted([f,s,num],reverse = True)
+            elif num > f:
+                f,s,t = num,f,s
+            elif num > s:
+                s,t = num, s
+            elif num > t:
+                t = num
+            
+        if t is None:
+            return f
+        else:
+            return t
+        
+知识点：
+    走一次能快点
+    换成set再list去掉重复 然后sort会慢
