@@ -1,0 +1,35 @@
+题目：
+Given a non-empty string s and an abbreviation abbr, return whether the string matches with the given abbreviation.
+
+A string such as "word" contains only the following valid abbreviations:
+
+思路：
+刷一次
+
+代码：
+Class SolutionL
+	def validWordAbbreviation(self,word,abbr):
+		i,j = 0,0
+		while i < len(abbr):
+			if j >= len(word):
+				return False
+			if not abbr[i].isdigit():
+				if abbr[i] == word[j]:
+					i,j = i + 1, j + 1
+				else:
+					return False
+			else:
+				if abbr[i] == '0':
+					return False
+				n = ''
+				while i < len(abbr) and abbr[i].isdigit():
+					n += abbr[i]
+					i += 1
+				j += int(n)
+		return j == len(abbr) - 1
+		
+知识点：
+小心点 0打头 以及120这种连续数字
+
+
+
