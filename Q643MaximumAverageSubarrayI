@@ -1,0 +1,27 @@
+题目：
+You are given an integer array nums consisting of n elements, and an integer k.
+
+Find a contiguous subarray whose length is equal to k that has the maximum average value and return this value. Any answer with a calculation error less than 10-5 will be accepted.
+
+思路：
+sliding wondow
+
+代码：
+class Solution:
+    def findMaxAverage(self, nums: List[int], k: int) -> float:
+        tmp = 0
+        res = float('-inf')
+        
+        
+        for i,x in enumerate(nums):
+            tmp += x
+            if i >= k:
+                tmp -= nums[i - k]
+            if i >= k - 1:
+                print(tmp)
+                res = max(res,tmp)
+     
+        return res/k
+        
+ 知识点：
+ 殷小可爱附体！就会看错题目……
