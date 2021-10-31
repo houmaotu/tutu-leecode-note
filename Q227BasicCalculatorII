@@ -1,0 +1,72 @@
+题目：
+Given a string s which represents an expression, evaluate this expression and return its value. 
+
+The integer division should truncate toward zero.
+
+You may assume that the given expression is always valid. All intermediate results will be in the range of [-231, 231 - 1].
+
+Note: You are not allowed to use any built-in function which evaluates strings as mathematical expressions, such as eval().
+
+思路：
+还是循环过来 
+第一次读数字
+第二次读运算
+
+代码：
+class Solution:
+    def calculate(self, s: str) -> int:
+        st = ['']
+        op = '+-*/'
+
+        for ch in s:
+            if ch in op:
+                st.append(ch)
+                st.append('')
+            else:
+                st[-1] += ch
+                
+        res = 0
+        tmp = 1
+        i = 0
+        
+        print(st)
+        
+        def div(n1,n2):
+            if n1 == 0:
+                return 0
+            elif n1 > 0:
+                return n1//n2
+            else:
+                return -(abs(n1)//n2)
+            
+        while i < len(st):
+            if st[i] == "+":
+                res += tmp
+                tmp = 1
+                i += 1
+                
+            elif st[i] == "-":
+                res += tmp
+                tmp = -1
+                i += 1
+                
+            elif st[i] == "*":
+                tmp *= int(st[i+1])
+                i += 2
+                    
+            elif st[i] == "/":
+                tmp = div(tmp,int(st[i + 1]))
+                i += 2
+                
+            else:
+                tmp = tmp * int(st[i])
+                i += 1
+            
+        res += tmp
+                
+        return res
+            
+            
+知识点：
+这是比较直白地方法
+稍微麻烦一点的可以用stack来做
