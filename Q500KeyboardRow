@@ -1,0 +1,48 @@
+题目：
+Given an array of strings words, return the words that can be typed using letters of the alphabet on only one row of American keyboard like the image below.
+
+In the American keyboard:
+
+the first row consists of the characters "qwertyuiop",
+the second row consists of the characters "asdfghjkl", and
+the third row consists of the characters "zxcvbnm".
+
+思路：
+还是走一次
+
+代码：
+class Solution:
+    def findWords(self, words: List[str]) -> List[str]:
+        r1 = "qwertyuiop"
+        r2 = "asdfghjkl"
+        r3 = "zxcvbnm"
+        
+        r1 = r1 + r1.upper()
+        r2 = r2 + r2.upper()
+        r3 = r3 + r3.upper()
+        
+        res = []
+        
+        for word in words:
+            m = True
+            if word[0] in r1:
+                r = r1
+            elif word[0] in r2:
+                r = r2
+            elif word[0] in r3:
+                r = r3
+            else:
+                m = False
+                
+            for ch in word:
+                if ch not in r:
+                    m = False
+                    break
+            if m:
+                res.append(word)        
+            
+        
+        return res
+        
+  知识点：
+  好长啊嗷呜
