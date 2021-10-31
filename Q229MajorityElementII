@@ -1,0 +1,52 @@
+题目：
+Given an integer array of size n, find all elements that appear more than ⌊ n/3 ⌋ times.
+ollow up: Could you solve the problem in linear time and in O(1) space?
+
+思路：
+题目不难 但是难点在于 O(1)
+
+要比三分之一多 那么就最多两个
+就是存两个数字 n1 n 2 和计数c1 c2
+问题在于 出现新的数字n3的处理方法 就是计数-1
+想法在于 如果出现三个不一样的数字 那么他们怼了 就当没看见 就可以了
+新的问题就是因为怼掉的是什么玩意不知道 前面怼了的多 后面出现的假的东西渔翁得利了
+
+所以再来一次 验证一下好好的计数
+
+代码：
+class Solution:
+    def majorityElement(self, nums: List[int]) -> List[int]:
+        n1,n2 = 0, 0
+        c1, c2 = 0, 0
+        for i in nums:
+            if i == n1:
+                c1 += 1
+            elif i == n2:
+                c2 += 1
+            elif c1 == 0:
+                n1 = i
+                c1 = 1
+            elif c2 == 0:
+                n2 = i
+                c2 = 1
+            else:
+                c1 -= 1
+                c2 -= 1
+                
+        c1 = 0
+        c2 = 0
+        r = []
+        for j in nums:
+            if j == n1:
+                c1 += 1
+            elif j == n2:
+                c2 += 1
+        l = len(nums)
+        if c1 > l/3:
+            r.append(n1)
+        if c2 > l/3:
+            r.append(n2)
+        return r
+        
+ 知识点：
+ 还可以怼掉这么搞 我服了
