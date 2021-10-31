@@ -31,3 +31,21 @@ class Solution:
         
  知识点：
  不要不小心多写一个等于号 妈蛋蛋
+ 
+ 哎呀：
+ 不对劲 还有个follow up 不改数字 那就这样子
+ 利用只有先搜索的顺序 出现X后 确认是不是战舰的head 当他上面或者左边不是X就可以
+ 
+ class Solution:
+    def countBattleships(self, board: List[List[str]]) -> int:
+        m, n = len(board), len(board[0])
+
+        ct = 0
+        for i in range(m):
+            for j in range(n):
+                if board[i][j] == "X" and (i == 0 or board[i - 1][j] != "X") and (j == 0 or board[i][j-1] != "X"):
+                    
+                    ct += 1
+                    
+        return ct
+                
