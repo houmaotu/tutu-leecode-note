@@ -1,0 +1,37 @@
+题目：
+Given the root of a Binary Search Tree (BST), return the minimum absolute difference between the values of any two different nodes in the tree.
+
+思路：
+in order trav 一下下 出来所有的
+
+代码：
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def getMinimumDifference(self, root: Optional[TreeNode]) -> int:
+        arr = self.inordertrav(root)
+        res = float('inf')
+        for i in range(1,len(arr)):
+            res = min(res, abs(arr[i]-arr[i-1]))
+
+        return res
+        
+    def inordertrav(self,root):
+        if root == None:
+            return []
+        else:
+            return self.inordertrav(root.left) + [root.val] + self.inordertrav(root.right)
+            
+    知识点：
+    
+    气死我了
+    我把题号搞错了
+    多做了一道题
+    妈蛋蛋
+    还debug了好久
+    真么乱七八糟的
+    都怪我身上的殷小兔的照片太可爱了！
