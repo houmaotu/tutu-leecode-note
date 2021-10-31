@@ -1,0 +1,43 @@
+题目：
+Given an array of characters chars, compress it using the following algorithm:
+
+Begin with an empty string s. For each group of consecutive repeating characters in chars:
+
+If the group's length is 1, append the character to s.
+Otherwise, append the character followed by the group's length.
+The compressed string s should not be returned separately, but instead, be stored in the input character array chars. Note that group lengths that are 10 or longer will be split into multiple characters in chars.
+
+After you are done modifying the input array, return the new length of the array.
+
+You must write an algorithm that uses only constant extra space.
+
+思路：
+注意：
+1 in place
+2 按照顺序走 相同的删除 并且计数
+2 注意 12个这样子要写成1 2 两个
+
+代码：
+class Solution:
+    def compress(self, chars: List[str]) -> int:
+        i = 0
+        while i < len(chars):
+            if i + 1< len(chars) and chars[i + 1] == chars[i]:
+                ct = 1
+                while i + 1< len(chars) and chars[i + 1] == chars[i]:
+                    chars.pop(i)
+                    ct += 1
+                i += 1
+                for ch in str(ct):
+                    chars.insert(i,ch)
+                    i += 1
+
+                
+            else:
+                i += 1
+                
+        return len(chars)
+        
+ 知识点：
+ 厚毛兔好巨大啊！
+            
