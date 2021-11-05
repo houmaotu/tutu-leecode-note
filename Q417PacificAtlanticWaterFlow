@@ -1,0 +1,59 @@
+题目：
+There is an m x n rectangular island that borders both the Pacific Ocean and Atlantic Ocean. The Pacific Ocean touches the island's left and top edges, and the Atlantic Ocean touches the island's right and bottom edges.
+
+The island is partitioned into a grid of square cells. You are given an m x n integer matrix heights where heights[r][c] represents the height above sea level of the cell at coordinate (r, c).
+
+The island receives a lot of rain, and the rain water can flow to neighboring cells directly north, south, east, and west if the neighboring cell's height is less than or equal to the current cell's height. Water can flow from any cell adjacent to an ocean into the ocean.
+
+Return a 2D list of grid coordinates result where result[i] = [ri, ci] denotes that rain water can flow from cell (ri, ci) to both the Pacific and Atlantic oceans.
+
+思路：
+题目大意就是grid上面是海拔 水往低处流 上左是p 下右是c两个海 找能两个海都可以流到的坐标 同高度可以
+
+走dfs(走b也可以，先不谈)。
+
+注意从海还是走 然后上下左右能流到的
+
+从岸上开始走会出现问题
+
+比如
+
+     5 5 5 5 5
+     5 4 4 4 5
+     5 4 6 4 5
+     5 4 4 4 5
+     5 5 5 5 5
+     
+ 这样子在4走的时候就一脸问号？？？？？？？？？？
+ 
+
+代码：
+class Solution:
+    def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
+        
+        m,n = len(heights), len(heights[0])
+        
+
+        sp,sc = set(),set()
+        
+        def dfs(r,c,visit,prev):
+            if (r,c) in visit or r<0 or c<0 or r>=m or c>=n or heights[r][c]<prev:
+                return
+            visit.add((r,c))
+            dfs(r+1,c,visit,heights[r][c])
+            dfs(r-1,c,visit,heights[r][c])
+            dfs(r,c+1,visit,heights[r][c])
+            dfs(r,c-1,visit,heights[r][c])
+            
+        for r in range(m):
+            dfs(r,0,sp,heights[r][0])
+            dfs(r,n-1,sc,heights[r][n-1])
+            
+        for c in range(n):
+            dfs(0,c,sp,heights[0][c])
+            dfs(m-1,c,sc,heights[m-1][c])
+            
+        return list(sp.intersection(sc))
+        
+  知识点：
+  兔兔兔兔兔兔兔兔
