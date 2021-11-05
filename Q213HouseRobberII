@@ -1,0 +1,33 @@
+题目：
+You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed. All houses at this place are arranged in a circle. That means the first house is the neighbor of the last one. Meanwhile, adjacent houses have a security system connected, and it will automatically contact the police if two adjacent houses were broken into on the same night.
+
+Given an integer array nums representing the amount of money of each house, return the maximum amount of money you can rob tonight without alerting the police.
+
+ 思路：
+ 偷房子1 一条线 就dp好了 dp了允许偷的最大数
+ 
+ 
+         r2  r1
+             r2  r1
+             
+     新的r2是r1 新的r1是r2+数字 或者 r1 
+     
+现在是偷房子2 是个环线 首尾相连
+那么好了 要么去掉第一个 要么去掉最后一个 ok 又是一条线了 哇哈哈
+
+代码：
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        if len(nums) == 1:
+            return nums[0]
+        return max(self.helper(nums[1:]),self.helper(nums[:-1]))
+       
+    
+    def helper(self,nums):
+        r1, r2 = 0, 0
+        for num in nums:
+            r1,r2 = max(r2 + num,r1), r1   #r1 rob this house(may or may not) r2 not rob this
+        return r1
+        
+知识点：
+机智的dp
