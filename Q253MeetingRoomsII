@@ -1,0 +1,45 @@
+题目：
+Given an array of meeting time intervals consisting of start and end times [[s1,e1],[s2,e2],...] (si < ei),
+find the minimum number of conference rooms required.
+
+思路：
+还是greedy的搞
+
+一个meeting root空了 那么就 把最早开始的放进去
+
+然后就一次一次扫 就可以的
+
+只要先sort
+
+代码：
+"""
+Definition of Interval.
+class Interval(object):
+    def __init__(self, start, end):
+        self.start = start
+        self.end = end
+"""
+
+class Solution:
+    """
+    @param intervals: an array of meeting time intervals
+    @return: the minimum number of conference rooms required
+    """
+    def minMeetingRooms(self, intervals):
+        intervals.sort(key = lambda s: s.start)
+        ct = 0
+        visited = set()
+        n = len(intervals)
+
+        while len(visited) < n:
+            ct += 1
+            t = 0
+            for i in range(n):
+                if i not in visited and intervals[i].start >= t:
+                    t = intervals[i].end
+                    visited.add(i)
+  
+        return ct
+        
+ 知识点：
+ 注意别被坑了 妈蛋蛋 interval是个类 不是tuple 可恶啊
