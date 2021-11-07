@@ -26,20 +26,42 @@ class Solution:
 		visited = {}  #TF T在目前的路径里面的
 		res = []
 		
-		def dfs(c):
+		#post order的理由 就是反着来啊
+		#因为如果a b c这样子 走到a了 后面是哪个呢 傻了
+		#所以倒着来
+		#在表里面 c后面没有！ ok！
+		def dfs(c):  #return T就代表有圈了
 			if c in visited:
 				return visited[c]   #注意路径的东西 要是已经在路径里面了 然后又遇到了 那就有个圈 不行
 				
+			#c可以处理了就搞成F 那么c可以处理的条件就是 c后面的东西都处理过了 就是c后面的都是F了	
+			#跑dfs最终的结果就是 要么放进来了 要么就直接不行
+			#所以把a -> b -> c这样子 次序不重要
+			#a 进去的时候 意思就是把a后面都给老子搞定 然后再搞a
+			# 所以a先是visited 先是T 就是pending的意思 但是 处理a后面的东西的时候 发现在后面还有个a 就炸了
+			#所以炸了的意思是 遇到了visited是T
+			#而visited是F的意思就是 ok处理过了 放在res了 ok
+			
+			#这里就先把c搞成pending状态
 			visited[c] = True
+			
+			#现在处理他后面的
 			for nei in adj[c]:
+				#有不行的直接爆炸 （一直nei下去见a）
 				if dfs(nei):
 					return True
-			
-			visited[c] = False
+			#这下放心的 弄成F 放在结果
+			visited[c] = False   
 			res.append(c)
-			
+		
+		#每个字母都安全才可以
+		#都必须走是因为不知道头
 		for c in adj:
 			if dfs(c):
 				return ""
 		res.reverse()	
 		return "".join(res)
+
+知识点：
+这个post order dfs的方法
+还可以搞成graph 记录每个字母出入情况 只出不入就放在res里面
