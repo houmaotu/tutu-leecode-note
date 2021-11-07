@@ -1,0 +1,58 @@
+题目;
+Given n nodes labeled from 0 to n - 1 and a list of undirected edges (each edge is a pair of nodes), 
+write a function to find the number of connected components in an undirected graph.
+
+思路：
+dfs可以
+
+这里用Unionfind
+0 1 2 3 4
+[01] [12] [34]
+一组一组的连起来
+用parent记录 组别
+细节见代码
+代码：
+Class Solution:
+    def countCompinents(n,edges):
+        par = [i for range(m)]
+        rank = [1] * n  #这玩意也没啥用 还是简单一点 []     [] 这两团东西 rank就是这坨的大小 希望把小坨放在放在大坨后面 省事的
+        
+        def find(n1):
+            res = n1
+            while res != par[res]:
+                par[res] = par[par[res]]  #这里是这个算法优化的 找祖宗 你爹是你爷爷 你是你爹 这样子好一些
+                res = par[res]
+            return res
+            
+        def union(n1,n2):
+            p1,p2 = find(n1),find(n2)
+            
+            if p1 == p2:
+                return 0
+                
+            if rank[p2] > rank[p1]:
+                par[p1] = p2
+                rank[p2] += rank[p1]
+                
+            else:
+                par[p2] = p1
+                rank[p1] += rank[p2]
+                
+            return 1
+            
+        res =n
+        for n1,n2 in edges:
+            res -= union(n1,n2)
+        return res
+        
+        
+知识点：
+Unionfind的方法
+用parent来记录关系 用祖宗标记
+两个优化 爹是爷爷 和用rank让 代数少一点点
+
+                
+           
+           
+         
+    
