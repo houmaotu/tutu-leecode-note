@@ -1,0 +1,62 @@
+题目
+Given n nodes labeled from 0 to n-1 and a list of undirected edges (each edge is a pair of nodes), 
+write a function to check whether these edges make up a valid tree.
+
+思路：
+树： 联通 无环的图
+先搞出来adj然后 dfs
+向下走 最后走到了所有 并且 不回去（visited记录）
+
+代码：
+Class Solution:
+	def validTree(n,edges):
+		if not n:
+			return True
+		adj = {i:[] for i in range(n)}
+		
+		for n1,n2 in edges:
+			adj[n1].append(n2)
+			adj[n2].append(n1)
+		
+		visit = set()
+		def dfs(i,prev):
+			if i in visit:
+				return False
+				
+				visied.add(i):
+				for j in adj[i]:
+					if j == prev:
+						continue
+					if not dfs(j,i):
+						return False
+				return True
+				
+		return dfs(0,-1) and n == len(visited)
+		
+知识点：
+这个是标准解法 用visited记录是否访问 用dfs向下走并且在存在环（走到了visited）时候直接发现gg
+
+但是
+因为厚毛兔太机智了
+哇咔咔咔咔
+所以
+不需要哒
+哒
+哒
+哒
+哒
+哒
+直接按照一个走就行啦 奥呜呜呜！
+不需要查环
+哒
+哒
+哒
+哒
+哒
+因为连通图是树当且仅当 E = V - 1
+所以 edges的数量不是n-1 直接boom 死啦死啦滴！
+然后查是不是连通图就行了 嘟嘟嘟 嘟嘟嘟 嘟嘟嘟
+
+哦 对了 正经的知识点 记住adj mat很有用 嗯
+
+						
