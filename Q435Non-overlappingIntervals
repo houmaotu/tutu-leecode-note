@@ -1,0 +1,43 @@
+题目：
+Given an array of intervals intervals where intervals[i] = [starti, endi], 
+return the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.
+
+思路：
+先整理一下 sort 然后分三种情况： 
+现在的区间叫做c 新的叫做i
+
+cl      cr
+        il            没有overlap 更新c
+        
+cl            cr
+    il        ir       i被c 吞进去了 就像巨大的厚毛兔的大嘴吞掉殷小兔一样 那么去掉c i变成c 计数
+        
+cl      cr
+     il      ir         没吞进去 那么去掉i 不需要更新c 计数
+     
+有点greedy那个味道了 overlap了就去掉区间右端点靠左的
+
+代码：
+class Solution:
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        if len(intervals) == 1:
+            return 0
+        intervals.sort()
+        
+        
+        ct = 0
+        cl,cr = intervals[0]
+        
+        for il,ir in intervals[1:]:
+            if il >= cr:
+                cl,cr = il,ir
+            elif ir <= cr:
+                cl,cr = il,ir
+                ct += 1             
+            else:
+                ct += 1
+                
+        return ct
+  
+  知识点：
+  妈蛋蛋 我怎么还不困呀
