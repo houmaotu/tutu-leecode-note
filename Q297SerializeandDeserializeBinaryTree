@@ -1,0 +1,79 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Codec:
+
+    def serialize(self, root):
+        """Encodes a tree to a single string.
+        
+        :type root: TreeNode
+        :rtype: str
+        """
+        stack = deque([root])
+        res = []
+        while stack:
+            node = stack.popleft()
+            if node is not None:
+                res.append(str(node.val))
+                stack.append(node.left)
+                stack.append(node.right)
+            else:
+                res.append("n")
+
+        return "#".join(res)
+ 题目：
+ Serialization is the process of converting a data structure or object into a sequence of bits so that it can be stored in a file or memory buffer, or transmitted across a network connection link to be reconstructed later in the same or another computer environment.
+
+Design an algorithm to serialize and deserialize a binary tree. There is no restriction on how your serialization/deserialization algorithm should work. You just need to ensure that a binary tree can be serialized to a string and this string can be deserialized to the original tree structure.
+
+Clarification: The input/output format is the same as how LeetCode serializes a binary tree. You do not necessarily need to follow this format, so please be creative and come up with different approaches yourself.
+
+思路：
+就是把一个树 先变成str 再变成树
+str可以split成为 list 所以考虑怎么搞就行了
+树到list 
+一层一层放 None也放 用stack
+
+list到树
+一个一个放回 需要搞得node用stack记录 两个两个放回 不是none的node去stack里面排队
+        
+代码：
+    def deserialize(self, data):
+        """Decodes your encoded data to tree.
+        
+        :type data: str
+        :rtype: TreeNode
+        """
+        data = data.split("#")
+        print(data)
+        if len(data) == 0 or len(data) == 1:
+            return None
+
+        
+        root = TreeNode(int(data[0]))
+        nodes = deque([root])
+        for i in range(1,len(data),2):
+            node = nodes.popleft()
+            if data[i] != "n":
+                node.left = TreeNode(int(data[i]))
+                nodes.append(node.left)
+            if data[i+1] != "n":
+                node.right = TreeNode(int(data[i+1]))
+                nodes.append(node.right)
+      
+        return root
+                
+            
+        
+
+# Your Codec object will be instantiated and called as such:
+# ser = Codec()
+# deser = Codec()
+# ans = deser.deserialize(ser.serialize(root))
+
+知识点：
+hard？哼 ！
