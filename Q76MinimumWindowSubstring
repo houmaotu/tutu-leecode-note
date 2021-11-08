@@ -1,0 +1,59 @@
+题目：
+Given two strings s and t of lengths m and n respectively, return the minimum window substring of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string "".
+
+The testcases will be generated such that the answer is unique.
+
+A substring is a contiguous sequence of characters within the string.
+
+思路：
+        
+
+ADOBECODEBANC          找ABC
+ADOBEC
+ DOBECODEBA
+   BECODEBA
+     CODEBA
+      ODEBA
+      
+ l r 够不够 不够r走 够了或者r走不了了l走
+ 
+ 纪录够不够 hasj一下ABC 再ct一下 
+ hash纪录越过是不是恰好满足 ct纪录满足几个
+ 
+ 代码：
+ class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        lib = {ch:0 for ch in t}
+        for ch in t:
+            lib[ch] += 1
+            
+        ct = len(lib)
+        
+        r = -1
+        left,right = -1, -1
+        length = float("inf")
+
+        for l in range(len(s)):
+            if l-1>= 0 and s[l-1] in lib:
+                lib[s[l-1]] += 1
+                if lib[s[l-1]] == 1:
+                    ct += 1
+            while ct>0 and r<len(s)-1:
+                r += 1
+                if s[r] in lib:
+                    lib[s[r]] -= 1
+                    if lib[s[r]] == 0:
+                        ct -= 1
+            if ct == 0 and r - l < length:
+                left,right = l,r
+                length = r - l
+     
+        if left < 0:
+            return ""
+        else:
+            return s[left:right+1]
+                
+  知识点：
+  厚毛兔DD 殷小兔sb！
+        
+ 
