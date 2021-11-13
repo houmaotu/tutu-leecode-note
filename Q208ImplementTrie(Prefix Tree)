@@ -1,0 +1,62 @@
+题目：
+A trie (pronounced as "try") or prefix tree is a tree data structure used to efficiently store and retrieve keys in a dataset of strings. There are various applications of this data structure, such as autocomplete and spellchecker.
+
+Implement the Trie class:
+
+Trie() Initializes the trie object.
+void insert(String word) Inserts the string word into the trie.
+boolean search(String word) Returns true if the string word is in the trie (i.e., was inserted before), and false otherwise.
+boolean startsWith(String prefix) Returns true if there is a previously inserted string word that has the prefix prefix, and false otherwise.
+
+思路：
+用树来存储单词 就可以了啊
+为了便于查找 每个node的children弄成hash 数值对应下一个节点就可 
+
+代码：
+class TreeNode:
+    
+    def __init__(self,children = {},end = False):
+        self.children = children
+        self.end = end
+        
+class Trie:
+
+    def __init__(self):
+        self.root = TreeNode()
+         
+
+    def insert(self, word: str) -> None:
+        cur = self.root
+        for ch in word:
+            if ch not in cur.children:
+                cur.children[ch] = TreeNode()
+            cur = cur.children[ch]
+        cur.end = True
+                                                                                                            
+    def search(self, word: str) -> bool:
+        cur = self.root
+        for ch in word:
+            if ch not in cur.children:
+                return False
+            cur = cur.children[ch]
+        return cur.end
+        
+
+    def startsWith(self, prefix: str) -> bool:
+        cur = self.root
+        for ch in prefix:
+            if ch not in cur.children:
+                return False
+            cur = cur.children[ch]
+        return True
+        
+
+
+# Your Trie object will be instantiated and called as such:
+# obj = Trie()
+# obj.insert(word)
+# param_2 = obj.search(word)
+# param_3 = obj.startsWith(prefix)
+
+知识点：
+妈蛋 leetcode给我吞了
