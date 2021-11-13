@@ -1,0 +1,56 @@
+题目：
+Design a data structure that supports adding new words and finding if a string matches any previously added string.
+
+Implement the WordDictionary class:
+
+WordDictionary() Initializes the object.
+void addWord(word) Adds word to the data structure, it can be matched later.
+bool search(word) Returns true if there is any string in the data structure that matches word or false otherwise. word may contain dots '.' where dots can be matched with any letter.
+ 
+思路：
+ 还是用tri 一样的
+ 只是随后写一个dfs
+ 
+代码：
+class Tri():
+    def __init__(self,children = {}, end = False):
+        self.children = children
+        self.end = end
+
+class WordDictionary:
+
+    def __init__(self):
+        self.root = Tri()
+        
+
+    def addWord(self, word: str) -> None:
+        cur = self.root
+        for ch in word:
+            if ch not in cur.children:
+                cur.children[ch] = Tri()
+            cur = cur.children[ch]
+        cur.end = True
+                
+
+    def search(self, word: str) -> bool:
+        
+        def dfs(j,node):
+            cur = node
+            for i in range(j,len(word)):
+                ch = word[i]
+                if ch == '.':        
+                    for child in cur.children.values():
+                        if dfs(j+1,child):
+                            return True
+                    return False
+                else:
+                    if ch not in cur.children:
+                        return False
+                    cur = cur.children[ch]
+            return cur.end
+        
+        return dfs(0,self.root)
+    
+    知识点：
+    大兔子实在是太厉害了 又把leetcode搞炸了
+ 
