@@ -1,0 +1,31 @@
+题目：
+Given an array of integers nums and an integer k, return the total number of continuous subarrays whose sum equals to k.
+
+知识点：
+部分和
+本质上和two sum一样 用hash减小时间复杂度
+
+代码：
+class Solution:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        tmp = 0
+        lib = {}
+        for i,num in enumerate(nums):
+            tmp += num
+            nums[i] = tmp
+            lib[tmp - k] = lib.get(tmp - k, []) + [i]
+   
+
+        res = 0
+        for i,num in enumerate(nums):
+            if num == k:
+                res += 1
+            if num in lib:
+                for j in lib[num]:
+                    if j > i:
+                        res += 1
+        
+        return res
+        
+  知识点：
+  厚毛兔知识点和思路都对了 但是自己写的很差 难受了 走一次只写计数就好
