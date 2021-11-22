@@ -1,0 +1,51 @@
+题目：
+There are n cities numbered from 0 to n - 1 and n - 1 roads such that there is only one way to travel between two different cities (this network form a tree). Last year, The ministry of transport decided to orient the roads in one direction because they are too narrow.
+
+Roads are represented by connections where connections[i] = [ai, bi] represents a road from city ai to city bi.
+
+This year, there will be a big event in the capital (city 0), and many people want to travel to this city.
+
+Your task consists of reorienting some roads such that each city can visit the city 0. Return the minimum number of edges changed.
+
+It's guaranteed that each city can reach city 0 after reorder.
+
+ 
+思路：
+因为题目说了没有圈 切联通 那就省事了
+从0开始 一层一层的剥开 看看路的正反
+
+代码：
+class Solution:
+    def minReorder(self, n: int, connections: List[List[int]]) -> int:
+        res = 1
+        path,pathrev = {}, {}
+        for i,j in connections:
+            if i not in path:
+                path[i] = []
+            path[i].append(j)
+        
+            if j not in pathrev:
+                pathrev[j] = []
+            pathrev[j].append(i)
+        
+        res = 0
+        tmp = [0]
+        visited = set(tmp)
+        while tmp:
+            
+            p = tmp.pop()
+            for i in pathrev.get(p, []):
+                if i not in visited:
+                    tmp.append(i)
+                    visited.add(i)
+            
+            for j in path.get(p, []):
+                if j not in visited:
+                    tmp.append(j)
+                    visited.add(j)
+                    res += 1
+                    
+        return res
+        
+ 知识点：
+ 拒绝火鸡！
