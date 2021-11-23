@@ -1,0 +1,41 @@
+题目：
+Given an integer array nums and an integer k, return the kth largest element in the array.
+
+Note that it is the kth largest element in the sorted order, not the kth distinct element.
+
+思路：
+quick sort
+
+-------        ---------  p
+这一堆比p小     这一堆比p大
+
+-------     p   ---------  
+这一堆比p小     这一堆比p大
+
+对比p的位置继续
+
+代码;
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        k = len(nums) - k
+        
+        def quickslect(l,r):
+            pivot, p = nums[r], l
+            for i in range(l,r):
+                if nums[i] <= pivot:
+                    nums[p],nums[i] = nums[i], nums[p]
+                    p += 1
+                    
+            nums[p], nums[r] = nums[r], nums[p]
+                
+            if p > k:
+                return quickslect(l, p - 1)
+            elif p < k:
+                return quickslect(p + 1, r)
+            else:
+                return nums[p]
+                
+        return quickslect(0, len(nums) - 1)
+        
+  知识点：
+  quick sort
