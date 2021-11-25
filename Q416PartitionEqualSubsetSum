@@ -1,0 +1,29 @@
+题目：
+Given a non-empty array nums containing only positive integers, find if the array can be partitioned into two subsets such that the sum of elements in both subsets is equal.
+
+思路：
+target 是个集合
+过一个数字 集合就增加一下
+
+代码：
+class Solution:
+    def canPartition(self, nums: List[int]) -> bool:
+        s = sum(nums)
+        if s%2 == 1:
+            return False
+        s = s//2
+        targets = set([s])
+        for num in nums:
+            if num in targets:
+                return True
+            else:
+                tmp = set([])
+                for target in targets:
+                    if target - num > 0:
+                        tmp.add(target - num)
+                targets.update(tmp)
+        
+        return False
+        
+ 知识点：
+ 好麻烦哦
