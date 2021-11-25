@@ -1,0 +1,31 @@
+题目：
+Given a binary tree root, a node X in the tree is named good if in the path from root to X there are no nodes with a value greater than X.
+
+Return the number of good nodes in the binary tree.
+
+思路：
+记录目path max 向下走
+
+代码：
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def goodNodes(self, root: TreeNode) -> int:
+        res = 0
+        queue = [(root,root.val)]
+        while queue:
+            node,cur = queue.pop()
+            if node:
+                if node.val >= cur:
+                    res += 1
+                queue.append((node.left,max(node.val,cur)))
+                queue.append((node.right,max(node.val,cur)))
+                
+        return res
+        
+   知识点：
+   小火鸡希望成功的活过感恩节
