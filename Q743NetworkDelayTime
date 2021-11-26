@@ -1,0 +1,35 @@
+题目:
+You are given a network of n nodes, labeled from 1 to n. You are also given times, a list of travel times as directed edges times[i] = (ui, vi, wi), where ui is the source node, vi is the target node, and wi is the time it takes for a signal to travel from source to target.
+
+We will send a signal from a given node k. Return the time it takes for all the n nodes to receive the signal. If it is impossible for all the n nodes to receive the signal, return -1.
+
+思路:
+就是bfs pop最短路径 所以用heap 
+
+代码:
+class Solution:
+    def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
+    
+        edges = collections.defaultdict(list) #先做字典
+        
+        for u,v,w in times:
+            edges[u].append((v,w))   # 字典 u:[(v1,w1),(v2,w2)]...所有的能到的以及路径
+            
+        minHeap = [(0,k)]  #bfs用 每次pop都是最短
+        visit = set() #记录所有的
+        t = 0  #总长度
+        while minHeap:
+            w1,n1 = heapq.heappop(minHeap)  #先pop出来 这里的w1是能到的n1的总长度
+            if n1 in visit:  #要是见过了就没事了
+                continue
+            visit.add(n1) #现在见到了
+            t = w1 更新t
+            
+            for n2,w2 in edges[n1]:  #bfs的部分 没见过的就弄在minheap里面 记录总长度
+                if n2 not in visit:
+                    heapq.heappush(minHeap,(w1 + w2,n2))
+                    
+        return t if len(visit)==n else -1
+        
+  知识点：
+  这个有点难诶
