@@ -1,0 +1,43 @@
+题目：
+Given an encoded string, return its decoded string.
+
+The encoding rule is: k[encoded_string], where the encoded_string inside the square brackets is being repeated exactly k times. Note that k is guaranteed to be a positive integer.
+
+You may assume that the input string is always valid; No extra white spaces, square brackets are well-formed, etc.
+
+Furthermore, you may assume that the original data does not contain any digits and that digits are only for those repeat numbers, k. For example, there won't be input like 3a or 2[4].
+
+思路：
+就是stack
+挨个放在stack
+看到了]
+那就收起来[之前的字母
+然后诚意这个[前面的数字
+乘起来再放回stack
+
+代码：
+
+class Solution:
+    def decodeString(self, s: str) -> str:
+        
+        stack = []
+        for ch in s:
+            if ch != "]":
+                stack.append(ch)
+            else:
+                tmp = ''
+                while stack[-1] != "[":
+                    tmp = stack.pop() + tmp
+                    
+                stack.pop()
+                
+                num = ''
+                while stack and stack[-1] in digits:
+                    num = stack.pop() + num
+
+                stack.append(int(num) * tmp)
+                
+        return ''.join(stack)
+        
+知识点：
+stack
