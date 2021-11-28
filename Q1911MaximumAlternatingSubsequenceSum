@@ -1,0 +1,28 @@
+题目：
+The alternating sum of a 0-indexed array is defined as the sum of the elements at even indices minus the sum of the elements at odd indices.
+
+For example, the alternating sum of [4,2,5,3] is (4 + 5) - (2 + 3) = 4.
+Given an array nums, return the maximum alternating sum of any subsequence of nums (after reindexing the elements of the subsequence).
+
+A subsequence of an array is a new array generated from the original array by deleting some elements (possibly none) without changing the remaining elements' relative order.
+For example, [2,7,4] is a subsequence of [4,2,3,7,2,1,4] (the underlined elements), while [2,4,2] is not.
+
+思路：
+dp 记录最大 最小
+i位置的最大是 这个数字 后面的最大 这个数字减去后面的最小 三者最大
+最小同理
+
+代码：
+class Solution:
+    def maxAlternatingSum(self, nums: List[int]) -> int:
+        n = len(nums)
+        maxdp, mindp = [0] * (n+1), [0] * (n+1)
+        
+        for i in range(n-1,-1,-1):
+            maxdp[i] = max(nums[i],nums[i]-mindp[i+1],maxdp[i+1])
+            mindp[i] = min(nums[i],nums[i]-maxdp[i+1],mindp[i+1])
+            
+        return maxdp[0]
+        
+ 知识点：
+ 厚毛兔的小尾巴很可爱
