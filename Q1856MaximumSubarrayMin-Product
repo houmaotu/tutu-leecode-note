@@ -1,0 +1,45 @@
+题目：
+The min-product of an array is equal to the minimum value in the array multiplied by the array's sum.
+
+For example, the array [3,2,5] (minimum value is 2) has a min-product of 2 * (3+2+5) = 2 * 10 = 20.
+Given an array of integers nums, return the maximum min-product of any non-empty subarray of nums. Since the answer may be large, return it modulo 109 + 7.
+
+Note that the min-product should be maximized before performing the modulo operation. Testcases are generated such that the maximum min-product without modulo will fit in a 64-bit signed integer.
+
+A subarray is a contiguous part of an array.
+
+思路：
+例子 inx 0 1 2 3
+         1 2 3 2
+部分和   1 3 6 5
+stack start val
+ (0 1) (1 2) (2 3) 增加的就放进去
+ 下一个 2捡了 不行 pop (2,3) 就这个数字 因为运算的是最小的 就一个3 po的数字到这里截至了
+ 现在变成了 (0 1) (1 2) 可以放进去(3 2)了
+ 下面就是  (0 1) (1 2) (3 2) 每个数字都是start 都可以直接到头
+ 
+ 
+代码：
+
+class Solution:
+    def maxSumMinProduct(self, nums: List[int]) -> int:
+
+        N, maximum = len(nums), 0
+        cumulative, stack = [0], []
+        for num in nums:
+            cumulative.append(cumulative[-1] + num)
+            
+        for i, num in enumerate(nums + [-float(inf)]):
+            start = i
+            while stack and stack[-1][1] > num:
+                index, value = stack.pop()
+                total = cumulative[i] - cumulative[index]
+                maximum = max(value * total, maximum)
+                start = index
+            stack.append((start, num))
+            
+        return maximum % (10**9 + 7)
+        
+ 知识点：
+ monotone stack有点偏啊这个
+    
