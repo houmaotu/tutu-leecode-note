@@ -1,0 +1,47 @@
+题目：
+In this problem, a tree is an undirected graph that is connected and has no cycles.
+
+You are given a graph that started as a tree with n nodes labeled from 1 to n, with one additional edge added. The added edge has two different vertices chosen from 1 to n, and was not an edge that already existed. The graph is represented as an array edges of length n where edges[i] = [ai, bi] indicates that there is an edge between nodes ai and bi in the graph.
+
+Return an edge that can be removed so that the resulting graph is a tree of n nodes. If there are multiple answers, return the answer that occurs last in the input.
+
+思路：
+多一边连通图 找到此边
+找祖宗
+i，j要是都没爹 j就是i的爹 i的爹是自己
+一个有爹一个没爹 没爹的爹是有爹的祖宗
+两个都有爹 追查到祖宗 不是一个祖宗那么一个祖宗就是另一个祖宗的爹 要是同一个祖宗 这俩就是多余的
+
+ 
+
+代码：
+class Solution:
+    def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
+        lib = {}
+        #res = []
+        
+        def anscetor(n):
+            while lib[n] != n:
+                n = lib[n]
+            return n
+            
+        for i,j in edges:
+
+            if i in lib and j in lib:
+                ai = anscetor(i)
+                aj = anscetor(j)
+                if ai == aj:
+                    #res.append([i,j])
+                    return [i,j]
+                else:
+                    lib[aj] = ai
+            elif i in lib and j not in lib:
+                lib[j] = anscetor(i)
+            elif i not in lib and j in lib:
+                lib[i] = anscetor(j)
+            else:
+                lib[i] = i
+                lib[j] = i
+                           
+        #return res
+        
