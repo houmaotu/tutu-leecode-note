@@ -1,0 +1,32 @@
+题目：
+Given an array of integers nums and an integer target.
+
+Return the number of non-empty subsequences of nums such that the sum of the minimum and maximum element on it is less or equal to target. 
+Since the answer may be too large, return it modulo 109 + 7.
+
+ 思路：
+ 厚毛兔的想法 先sort
+ l r
+ 两个加起来多了 r左挪
+ 不够 那就保留l 然后剩下的随意 然后l涨
+ 
+ 代码：
+class Solution:
+    def numSubseq(self, nums: List[int], target: int) -> int:
+        nums.sort()
+        res = 0
+        l, r = 0, len(nums) - 1
+        while l <= r:
+
+            if nums[l] + nums[r] > target:
+                r -= 1
+            else:
+                res += 2 ** (r - l )
+                l += 1
+                
+            
+        return res % (10 ** 9 + 7)
+                    
+                
+知识点：
+厚毛兔牛逼！
