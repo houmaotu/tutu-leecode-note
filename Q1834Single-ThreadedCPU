@@ -1,0 +1,52 @@
+题目:
+You are given n tasks labeled from 0 to n - 1 represented by a 2D integer array tasks, where tasks[i] = [enqueueTimei, processingTimei] means that the i​​​​​​th​​​​ task will be available to process at enqueueTimei and will take processingTimei to finish processing.
+
+You have a single-threaded CPU that can process at most one task at a time and will act in the following way:
+
+If the CPU is idle and there are no available tasks to process, the CPU remains idle.
+If the CPU is idle and there are available tasks, the CPU will choose the one with the shortest processing time. If multiple tasks have the same shortest processing time, it will choose the task with the smallest index.
+Once a task is started, the CPU will process the entire task without stopping.
+The CPU can finish a task then start a new one instantly.
+Return the order in which the CPU will process the tasks.
+
+思路：
+heap （priority queue）
+先按照进入queue排序
+然后时间是t
+然后把东西t时间之前进入queue的都放进queue
+heap 里面有东西 跑一个 t走proc time
+      没东西t就直接变成 tasks下一个的开始时间 快进
+     
+代码：
+class Solution:
+    def getOrder(self, tasks: List[List[int]]) -> List[int]:
+        for i, t in enumerate(tasks):
+            t.append(i)
+        
+        tasks.sort(key = lambda t:t[0]) 
+        
+        res = []
+        minHeap = []
+        i, time = 0, tasks[0][0]
+        
+        while minHeap or i < len(tasks):
+            while i < len(tasks) and time >= tasks[i][0]:
+                heapq.heappush(minHeap,[tasks[i][1],tasks[i][2]])
+                i += 1
+            
+            if not minHeap:
+                time = tasks[i][0]   
+            else:
+                procTime, index = heapq.heappop(minHeap)
+                time += procTime
+                res.append(index)
+                
+        return res
+        
+ 知识点：
+ heap
+ 
+
+
+ 
+ 
