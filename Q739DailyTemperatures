@@ -1,0 +1,25 @@
+题目：
+Given an array of integers temperatures represents the daily temperatures, 
+return an array answer such that answer[i] is the number of days you have to wait after the ith day to get a warmer temperature. 
+If there is no future day for which this is possible, keep answer[i] == 0 instead.
+
+ 思路：
+ heap
+ 
+ 代码：
+ class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        n = len(temperatures)
+        res = [0] * n
+        minHeap = []
+        for i,tmp in enumerate(temperatures):
+            while minHeap and minHeap[0][0] < tmp:
+                index = heapq.heappop(minHeap)[1]
+                res[index] = i - index
+            heapq.heappush(minHeap,(tmp,i))
+        return res
+        
+ 知识点：
+ 我总算会用heap咧
+ 也可以stack
+ 来了个新的 挨个pop monotone stack
