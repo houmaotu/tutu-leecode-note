@@ -1,0 +1,31 @@
+题目：
+You are given a 0-indexed binary string s and two integers minJump and maxJump. In the beginning, you are standing at index 0, which is equal to '0'. You can move from index i to index j if the following conditions are fulfilled:
+
+i + minJump <= j <= min(i + maxJump, s.length - 1), and
+s[j] == '0'.
+Return true if you can reach index s.length - 1 in s, or false otherwise.
+
+思路：
+greedy 记录能到的东西 
+
+代码：
+class Solution:
+    def canReach(self, s: str, minJump: int, maxJump: int) -> bool:
+        n = len(s)
+        q = deque([0])  #队列
+        far = 0  # 能到的
+        while q:
+            i = q.popleft()
+            st = max(i + minJump, far + 1)
+            for j in range(st, min(i + maxJump + 1, n)):  #循环就从最远的下一个开始走 进入队列
+                if s[j] == "0":
+                    if j == n-1:
+                        return True
+                    q.append(j)
+            far = i + maxJump
+            
+        return False
+        
+        
+知识点：
+注意记录方便降低复杂度
