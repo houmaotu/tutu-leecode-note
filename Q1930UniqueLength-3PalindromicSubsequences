@@ -1,0 +1,35 @@
+题目：
+Given a string s, return the number of unique palindromes of length three that are a subsequence of s.
+
+Note that even if there are multiple ways to obtain the same subsequence, it is still only counted once.
+
+A palindrome is a string that reads the same forwards and backwards.
+
+A subsequence of a string is a new string generated from the original string with some characters (can be none) deleted without changing the relative order of the remaining characters.
+
+For example, "ace" is a subsequence of "abcde".
+
+思路：
+3回文就是首尾相同 中间随意
+那么对于每个字母 找到第一个和最后一个 中间的unique （用set得到）就是了
+
+代码：
+class Solution:
+    def countPalindromicSubsequence(self, s: str) -> int:
+        lib = {}
+        for i,ch in enumerate(s):
+            if ch not in lib:
+                lib[ch] = []
+            lib[ch].append(i)
+        
+        res = 0
+        for ch in lib:
+            f,l = lib[ch][0], lib[ch][-1]
+            #print(f,l)
+            res += len(set(s[f+1:l]))
+            
+        return res
+        
+ 知识点：
+ 兔兔兔兔兔兔兔兔
+        
