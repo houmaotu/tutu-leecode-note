@@ -1,0 +1,25 @@
+题目：
+You are given an array of strings nums and an integer k. Each string in nums represents an integer without leading zeros.
+
+Return the string that represents the kth largest integer in nums.
+
+Note: Duplicate numbers should be counted distinctly. For example, if nums is ["1","2","2"], "2" is the first largest integer, "2" is the second-largest integer, and "1" is the third-largest integer.
+
+思路：
+heap
+比order稍微快一丢丢
+
+代码：
+class Solution:
+    def kthLargestNumber(self, nums: List[str], k: int) -> str:
+        maxHeap = [-int(num) for num in nums]
+        heapq.heapify(maxHeap)
+        
+        while k>1:
+            heapq.heappop(maxHeap)
+            k -= 1
+            
+        return str(-maxHeap[0]) 
+        
+知识点：
+heapify 是linear的？
