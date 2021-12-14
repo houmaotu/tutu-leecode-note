@@ -1,0 +1,52 @@
+题目：
+You are given a m x n 2D grid initialized with these three possible values.
+
+-1 - A wall or an obstacle.
+0 - A gate.
+INF - Infinity means an empty room. We use the value 2^31 - 1 = 2147483647 to represent INF as you may assume that the distance to a gate is less than 2147483647.
+Fill each empty room with the distance to its nearest gate. If it is impossible to reach a Gate, that room should remain filled with INF
+
+思路：
+从gate开始bfs
+
+代码：
+import collections
+class Solution:
+    """
+    @param rooms: m x n 2D grid
+    @return: nothing
+    """
+    def wallsAndGates(self, rooms):
+        # write your code here
+        m,n = len(rooms),len(rooms[0])
+        visit = set()
+        q = collections.deque([])
+
+        def addRoom(i,j):
+            if i<0 or j<0 or i>=m or j>=n or (i,j) in visit or rooms[i][j] == -1:
+                return
+            visit.add((i,j))
+            q.append([i,j])
+
+        for i in range(m):
+            for j in range(n):
+                if rooms[i][j] == 0:
+                    q.append([i,j])
+                    visit.add((i,j))
+
+        dist = 0
+        while q:
+            for _ in range(len(q)):
+                i,j = q.popleft()
+
+                rooms[i][j] = dist
+
+                addRoom(i+1,j)
+                addRoom(i-1,j)
+                addRoom(i,j+1)
+                addRoom(i,j-1)
+
+            dist += 1
+            
+ 知识点：
+ 别思维定势了
