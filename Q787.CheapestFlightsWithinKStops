@@ -1,0 +1,29 @@
+题目：
+
+There are n cities connected by some number of flights. You are given an array flights where flights[i] = [fromi, toi, pricei] indicates that there is a flight from city fromi to city toi with cost pricei.
+
+You are also given three integers src, dst, and k, return the cheapest price from src to dst with at most k stops. If there is no such route, return -1.
+
+思路：
+Bellman-Ford算法 更新没课step的最小
+
+代码：
+class Solution:
+    def findCheapestPrice(self, n: int, flights: List[List[int]], src: int, dst: int, k: int) -> int:
+        prices = [float("inf")] * n
+        prices[src] = 0
+        
+        for i in range(k+1):
+            tmp = prices.copy()
+            
+            for s,d,p in flights: 
+                if prices[s] == float("inf"):
+                    continue
+                if prices[s] + p < tmp[d]:
+                    tmp[d] = prices[s] + p
+            prices = tmp      
+        return -1 if prices[dst] == float("inf") else prices[dst]
+        
+   知识点：
+   Bellman-Ford算法
+   并且复习 Dijkstra' 算法 只更新最短路径
