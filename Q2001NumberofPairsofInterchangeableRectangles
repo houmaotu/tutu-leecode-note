@@ -1,0 +1,25 @@
+题目：
+You are given n rectangles represented by a 0-indexed 2D integer array rectangles, where rectangles[i] = [widthi, heighti] denotes the width and height of the ith rectangle.
+
+Two rectangles i and j (i < j) are considered interchangeable if they have the same width-to-height ratio. More formally, two rectangles are interchangeable if widthi/heighti == widthj/heightj (using decimal division, not integer division).
+
+Return the number of pairs of interchangeable rectangles in rectangles.
+
+思路：
+就是排列组合啊 用ratio作为key
+
+代码：
+class Solution:
+    def interchangeableRectangles(self, rectangles: List[List[int]]) -> int:
+        lib = {}
+        for x,y in rectangles:
+            if x/y not in lib:
+                lib[x/y] = 1
+            else:
+                lib[x/y] += 1
+        res = 0       
+        for val in lib.values():
+            res += val * (val-1) //2
+            
+        return res
+            
