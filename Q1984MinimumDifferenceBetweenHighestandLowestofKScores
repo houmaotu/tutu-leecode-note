@@ -1,0 +1,21 @@
+题目：
+ou are given a 0-indexed integer array nums, where nums[i] represents the score of the ith student. You are also given an integer k.
+
+Pick the scores of any k students from the array so that the difference between the highest and the lowest of the k scores is minimized.
+
+Return the minimum possible difference.
+
+思路：
+sort
+
+代码：
+class Solution:
+    def minimumDifference(self, nums: List[int], k: int) -> int:
+        nums.sort()
+        n = len(nums)
+        res = float('inf')
+        for i in range(0,n+1-k):
+            res = min(res,nums[i+k-1] - nums[i])
+        return res
+       知识点：
+       嗷嗷嗷
