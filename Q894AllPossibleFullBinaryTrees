@@ -1,0 +1,93 @@
+题目：
+Given an integer n, return a list of all possible full binary trees with n nodes. Each node of each tree in the answer must have Node.val == 0.
+
+Each element of the answer is the root node of one possible tree. You may return the final list of trees in any order.
+
+A full binary tree is a binary tree where each node has exactly 0 or 2 children.
+
+思路：
+有个楞的
+
+代码：
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def allPossibleFBT(self, n: int) -> List[Optional[TreeNode]]:
+        if n%2 == 0:
+            return []
+        if n == 1:
+            return [TreeNode()]
+        i = (n-3)//2
+        
+        res = []
+        for ls in set(itertools.permutations([0] * i + [1]* i)):
+            #print(ls)
+            
+            ap = True
+            n = 2
+            for j in ls:
+                if j == 0:
+                    n -= 1
+                    if n<=0:
+                        ap = False
+                else:
+                    n += 1
+            if not ap:
+                continue
+                                                       
+            root = TreeNode(0,TreeNode(),TreeNode())
+            q = deque([root.left,root.right])
+            for j in ls:
+                node = q.popleft()
+                if j == 1:
+                    node.left = TreeNode()
+                    node.right = TreeNode()
+                    q.append(node.left)
+                    q.append(node.right)
+            res.append(root)
+        return res
+ 
+ 
+ 但是这玩意太慢了 兔兔写了半天 所以还是写上去了
+ 
+ 快一丢丢的思路：
+ 
+ recursive call
+ 
+ 
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def allPossibleFBT(self, n: int) -> List[Optional[TreeNode]]:
+        dp = {}
+        
+        def backtrack(n):
+            if n%2 == 0:
+                return []
+            if n == 1:
+                return [TreeNode()]
+            if n in dp:
+                return dp[n]
+            
+            res = []
+            
+            for l in range(n):
+                r = n - 1 - l
+                lt,rt = backtrack(l),backtrack(r)
+                for i in lt:
+                    for j in rt:
+                        res.append(TreeNode(0,i,j))
+            dp[n] = res            
+            return res
+        
+        return backtrack(n)
+知识点：
+妈蛋蛋我这都想不大气死本大兔子！
