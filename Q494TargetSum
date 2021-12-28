@@ -1,0 +1,27 @@
+题目：
+You are given an integer array nums and an integer target.
+
+You want to build an expression out of nums by adding one of the symbols '+' and '-' before each integer in nums and then concatenate all the integers.
+
+For example, if nums = [2, 1], you can add a '+' before 2 and a '-' before 1 and concatenate them to build the expression "+2-1".
+Return the number of different expressions that you can build, which evaluates to target.
+
+思路：
+就是楞来 存一下
+
+代码：
+class Solution:
+    def findTargetSumWays(self, nums: List[int], target: int) -> int:
+        dp = {} #index,tot : ways
+        
+        def backtrack(i,tot):
+            if i == len(nums):
+                return 1 if tot == target else 0
+            if (i,tot) in dp:
+                return dp[(i,tot)]
+            
+            dp[(i,tot)] = backtrack(i+1,tot + nums[i]) + backtrack(i+1,tot - nums[i])
+            
+            return dp[(i,tot)]
+        
+        return backtrack(0,0)
