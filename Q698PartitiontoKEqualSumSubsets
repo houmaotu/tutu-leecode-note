@@ -1,0 +1,36 @@
+题目：
+Given an integer array nums and an integer k, return true if it is possible to divide this array into k non-empty subsets whose sums are all equal.
+
+ 知识点：
+ 就是很愚蠢的 很复杂的backtrack 几乎等于穷举
+ 
+代码：
+class Solution:
+    def canPartitionKSubsets(self, nums: List[int], k: int) -> bool:
+        target = sum(nums) / k
+        
+        used = [False] * len(nums)
+        
+        def backtrack(i,k,subsetsum):
+            #print(i,k,used)
+            if k == 0:
+                return True
+            if subsetsum == target:
+                return backtrack(0,k - 1, 0)
+                
+            for j in range(i,len(nums)):
+                if used[j] or subsetsum + nums[j] > target:
+                    continue
+                used[j] = True
+
+                if backtrack(j + 1, k, subsetsum + nums[j]):
+
+                    return True
+                used[j] = False
+                
+            return False
+
+        return backtrack(0,k,0)
+        
+ 知识点：
+ 本巨大的厚毛兔少写了一个return debug了一万年 肯定是因为大兔子传染的！
