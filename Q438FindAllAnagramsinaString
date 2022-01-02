@@ -1,0 +1,35 @@
+题目：
+
+Given two strings s and p, return an array of all the start indices of p's anagrams in s. You may return the answer in any order.
+
+An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+
+思路：
+sliding window
+
+代码：
+class Solution:
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        m,n = len(s), len(p)
+        if n>m:
+            return []
+        ct = len(p)
+        countp,counts = {},{}
+        for i in range(n):
+            countp[p[i]] = 1 + countp.get(p[i],0)
+            counts[s[i]] = 1 + counts.get(s[i],0)
+            
+        res = [0] if countp == counts else []
+        l = 0
+        for r in range(n,m):
+            counts[s[r]] = 1 + counts.get(s[r],0)
+            counts[s[l]] -= 1
+            
+            if counts[s[l]] == 0:
+                counts.pop(s[l])
+            l += 1
+            if countp == counts:
+                res.append(l)
+                
+        return res
+                
