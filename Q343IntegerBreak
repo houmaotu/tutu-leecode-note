@@ -1,0 +1,27 @@
+题目
+Given an integer n, break it into the sum of k positive integers, where k >= 2, and maximize the product of those integers.
+
+Return the maximum product you can get.
+
+思路：
+尽可能多的3 剩下1变成4 剩下2多弄个2 不剩下就都是3
+
+class Solution:
+    def integerBreak(self, n: int) -> int:
+        if n == 2:
+            return 1
+        if n == 3:
+            return 2
+        if n == 4:
+            return 4
+        if n%3 == 0:
+            return 3 ** (n//3)
+        
+        elif n%3 == 1:
+            return 3 ** (n//3 - 1) * 4
+            
+        else:
+            return 3 ** (n//3) * 2
+            
+ 知识点：
+ 也可以很愚蠢的dp
