@@ -1,0 +1,32 @@
+题目：
+Given an integer array nums, return the number of longest increasing subsequences.
+
+Notice that the sequence has to be strictly increasing.
+
+思路：
+还是个dp 不断增长的
+
+代码：
+class Solution:
+    def findNumberOfLIS(self, nums: List[int]) -> int:
+        dp = {}
+        lenLIS, res = 0,0
+        
+        for i in range(len(nums) - 1, -1, -1):
+            maxlen,maxct = 1,1
+            for j in range(i+1,len(nums)):
+                if nums[j] > nums[i]:
+                    length,count = dp[j]
+                    if length + 1 > maxlen:
+                        maxlen,maxct = length + 1, count
+                    elif length + 1 == maxlen:
+                        maxct += count
+            if maxlen > lenLIS:
+                lenLIS, res = maxlen,maxct
+            elif maxlen == lenLIS:
+                res += maxct
+                        
+                        
+            dp[i] = [maxlen,maxct]
+            
+        return res
