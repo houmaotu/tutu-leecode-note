@@ -1,0 +1,84 @@
+题目：
+Design a simplified version of Twitter where users can post tweets, follow/unfollow another user, and is able to see the 10 most recent tweets in the user's news feed.
+
+Implement the Twitter class:
+
+Twitter() Initializes your twitter object.
+void postTweet(int userId, int tweetId) Composes a new tweet with ID tweetId by the user userId. Each call to this function will be made with a unique tweetId.
+List<Integer> getNewsFeed(int userId) Retrieves the 10 most recent tweet IDs in the user's news feed. Each item in the news feed must be posted by users who the user followed or by the user themself. Tweets must be ordered from most recent to least recent.
+void follow(int followerId, int followeeId) The user with ID followerId started following the user with ID followeeId.
+void unfollow(int followerId, int followeeId) The user with ID followerId started unfollowing the user with ID followeeId.
+
+思路：
+记录：
+时间
+ID -> tweet 时间
+ID -> fllowee
+这样 post follow unfollow可以直接操作
+
+getNewsFeed 找十个
+ID-> followeeID 拿出来 关注的人
+然后folloeewID ID -> tweet 拿出来关注的人 的tweet和时间 并且记录index
+
+以上的玩意搞一个heap 记录了 时间（用来heap的排序） folloeewID（pop之后用来放入此人的下一条tweet）index（同上）tweet（要返回的）
+
+然后pop一个 这个人的旧一丢丢的进入heap 
+直到拿出来10个或者被掏空
+
+
+
+代码：
+class Twitter:
+
+    def __init__(self):
+        self.count = 0 #time
+        self.tweetmap = defaultdict(list)
+        self.followmap = defaultdict(set)
+        
+
+    def postTweet(self, userId: int, tweetId: int) -> None:
+        self.tweetmap[userId].append([self.count,tweetId])
+        self.count -= 1 #python only have minheap so revere it
+        
+
+    def getNewsFeed(self, userId: int) -> List[int]:
+        res = []
+        minHeap = []
+        
+        self.followmap[userId].add(userId)
+        #print(self.followmap[userId])
+        for followeeId in self.followmap[userId]:
+            if followeeId in self.tweetmap:
+                index = len(self.tweetmap[followeeId]) - 1
+                count, tweetId = self.tweetmap[followeeId][index]
+                minHeap.append([count,tweetId,followeeId,index - 1])
+        heapq.heapify(minHeap)
+        while minHeap and len(res) < 10:
+            count,tweetId,followeeId,index = heapq.heappop(minHeap)
+            res.append(tweetId)
+            if index>= 0:
+                count,tweetId = self.tweetmap[followeeId][index]
+                heapq.heappush(minHeap,[count,tweetId,followeeId,index-1])
+        return res
+                
+
+    def follow(self, followerId: int, followeeId: int) -> None:
+        self.followmap[followerId].add(followeeId)
+        
+
+    def unfollow(self, followerId: int, followeeId: int) -> None:
+        if followeeId in self.followmap[followerId]:
+            self.followmap[followerId].remove(followeeId )
+            
+        
+
+
+# Your Twitter object will be instantiated and called as such:
+# obj = Twitter()
+# obj.postTweet(userId,tweetId)
+# param_2 = obj.getNewsFeed(userId)
+# obj.follow(followerId,followeeId)
+# obj.unfollow(followerId,followeeId)
+
+知识点：
+defaultdict就可以直接用了
