@@ -2,11 +2,13 @@
 Given the head of a singly linked list, reverse the list, and return the reversed list.
 
 思路：
- n <- d
-      h
+     update head headnext and dummy next
       1 -> 2 -> 3 -> 4 -> 5 -> 6
-  n <-1 <- d
-           h
+           h ->
+      1 <- d
+                h ->
+      1 <- 2 <-d
+           
            
 代码：
 # Definition for singly-linked list.
