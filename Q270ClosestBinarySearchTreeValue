@@ -11,21 +11,26 @@ You are guaranteed to have only one unique value in the BST that is closest to t
 
 代码：
 Class Solution:
-	def closestValue(self,root,target):
-		res = abs(root.val - target)
-		while root:
-		if abs(root.val - target) < res:
-			res = abs(root.val - target)
-			
-		if target == root.val:
-			break
-		elif target < root.val:
-			root = root.left
-		else:
-			root = root.right
-			
-		return res
+    def closest_value(self, root: TreeNode, target: float) -> int:
+        d = abs(root.val - target)
+        res = root.val
+        while root:
+            if root.val == target:
+                return root.val
+            elif root.val > target:
+                if abs(root.val - target) < d:
+                    d = abs(root.val - target)
+                    res = root.val
+                root = root.left
+            else:
+                if abs(root.val - target) < d:
+                    d = abs(root.val - target)
+                    res = root.val
+                root = root.right			
+        return res
 		
 注意：
 这个没跑过 兔兔自己写的 思路验证了 这中间的东西巨大的我肯定搞得定
+
+妈蛋蛋 之前写错了 这是改过来的
 	
