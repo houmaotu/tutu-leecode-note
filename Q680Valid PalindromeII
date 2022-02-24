@@ -1,0 +1,15 @@
+Given a string s, return true if the s can be palindrome after deleting at most one character from it.
+
+ class Solution:
+    def validPalindrome(self, s: str) -> bool:
+        if len(s)<=2:
+            return True
+        n = len(s)
+        if s[0] == s[n-1]:
+            return self.validPalindrome(s[1:(n-1)])
+        else:
+            return self.ispali(s[1:]) or self.ispali(s[:(n-1)])
+            
+        
+    def ispali(self,s):
+        return s == s[::-1]
