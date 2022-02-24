@@ -1,0 +1,31 @@
+Given a string expression of numbers and operators, return all possible results from computing all the different possible ways to group numbers and operators. 
+You may return the answer in any order.
+
+ 思路：
+ 分治法 divide and counquer
+ 每个 +-* 都可以展开成 （） + （）这样子 分成一坨一坨的就是 divide and counquer
+
+class Solution:
+    def diffWaysToCompute(self, expression: str) -> List[int]:
+        if expression.isdigit():
+            return [int(expression)]
+        elif not expression:
+            return []
+        
+        res = []
+        for i in range(len(expression)):
+            if expression[i] in "+-*":
+                left = self.diffWaysToCompute(expression[:i])
+                right = self.diffWaysToCompute(expression[(i+1):])
+                for l in left:
+                    for r in right:
+                        if expression[i] == "+":
+                            res.append(l+r)
+                        if expression[i] == "-":
+                            res.append(l-r)
+                        if expression[i] == "*":
+                            res.append(l*r)
+        return res
+        
+  注意：
+  可以存起来避免重复计算
