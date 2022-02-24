@@ -1,0 +1,20 @@
+class Solution:
+    """
+    @param root: the given tree
+    @return: the number of uni-value subtrees.
+    """
+    def count_unival_subtrees(self, root: TreeNode) -> int:
+        # write your code here
+        return self.iscount(root)[1]
+    
+    def iscount(self,root): #return T/F is is a UT  nums of UT
+        if not root:
+            return(True,0)
+        l = self.iscount(root.left)
+        r = self.iscount(root.right)
+        if  l[0] and r[0] and \
+        ((not root.left) or root.left.val == root.val) and \
+        ((not root.right) or root.right.val == root.val):
+           return (True,l[1]+r[1]+1)
+        else:
+            return (False,l[1]+r[1])
