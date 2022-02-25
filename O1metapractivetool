@@ -1,0 +1,75 @@
+String P1 Rotational Cipher
+
+import math
+import string
+# Add any extra import statements you may need here
+
+
+# Add any helper functions you may need here
+
+
+def rotationalCipher(input, rotation_factor):
+  # Write your code here
+  l1 = 'abcdefghijklmnopqrstuvwxyz'
+  lib1,lib2 = {},{}
+  for i,ch in enumerate(l1):
+    lib1[i] = ch
+    lib2[ch] = i
+  #print(lib1)
+  #print(lib2)
+  res = ''
+  for ch in input:
+    if ch.islower():
+      key = (lib2[ch]++rotation_factor)%26
+      res += lib1[key]
+    elif ch.isupper():
+      key = (lib2[ch.lower()]++rotation_factor)%26
+      res += lib1[key].upper()
+    elif ch.isdigit():
+      res += str ((int(ch)+rotation_factor)%10)
+    else:
+      res += ch
+  return res
+
+
+
+# These are the tests we use to determine if the solution is correct.
+# You can add your own at the bottom.
+
+def printString(string):
+  print('[\"', string, '\"]', sep='', end='')
+
+test_case_number = 1
+
+def check(expected, output):
+  global test_case_number
+  result = False
+  if expected == output:
+    result = True
+  rightTick = '\u2713'
+  wrongTick = '\u2717'
+  if result:
+    print(rightTick, 'Test #', test_case_number, sep='')
+  else:
+    print(wrongTick, 'Test #', test_case_number, ': Expected ', sep='', end='')
+    printString(expected)
+    print(' Your output: ', end='')
+    printString(output)
+    print()
+  test_case_number += 1
+
+if __name__ == "__main__":
+  input_1 = "All-convoYs-9-be:Alert1."
+  rotation_factor_1 = 4
+  expected_1 = "Epp-gsrzsCw-3-fi:Epivx5."
+  output_1 = rotationalCipher(input_1, rotation_factor_1)
+  check(expected_1, output_1)
+
+  input_2 = "abcdZXYzxy-999.@"
+  rotation_factor_2 = 200
+  expected_2 = "stuvRPQrpq-999.@"
+  output_2 = rotationalCipher(input_2, rotation_factor_2)
+  check(expected_2, output_2)
+
+  # Add your own test cases here
+  
