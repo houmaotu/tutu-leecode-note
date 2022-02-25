@@ -31,7 +31,7 @@ def rotationalCipher(input, rotation_factor):
       res += ch
   return res
   
-  String Q2
+  String P2
   Contiguous Subarrays where n is the max and the start/end
   import math
 # Add any extra import statements you may need here
@@ -58,8 +58,20 @@ def count_subarrays(arr):
     start[i] += (j-i-1)
   return[start[i] + stop[i] - 1 for i in range(n)]
   
+String P3 Pair Sums
 
 
-
-
+def numberOfWays(arr, k):
+   # Write your code here
+    c = collections.Counter(arr)
+    res = 0
+    ##print(arr)
+    #print(c)
+    for num in c:
+      if 2 * num == k:
+        res += c[num] * (c[num]-1)
+      else:
+        res += c[num] * c[k - num]
+        #print(num,res)
+    return res//2
   
