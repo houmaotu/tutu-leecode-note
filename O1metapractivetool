@@ -199,3 +199,199 @@ def matching_pairs(s, t):
         return ct
     return ct - 2
   
+string 2 Minimum Length Substrings
+
+def min_length_substring(s, t):
+  # Write your code here
+    c = collections.Counter(t)
+    ct,n = len(c),len(s)
+    l,r = 0,0
+    res = n+1
+    while r<n:
+        if s[r] in c:
+            c[s[r]] -= 1
+            if c[s[r]] == 0:
+                ct -= 1
+            if ct >0:
+                r+=1
+            else:
+                while s[l] not in c or c[s[l]]<0:
+                    if s[l] in c:
+                        s[s[l]] += 1
+                    l += 1
+                res = min(res,r-l+1)
+                r+=1
+        else:
+            r+=1
+    return res if ct == 0 else -1
+    
+ greedy 1
+ Slow Sums
+ def getTotalTime(arr):
+    if len(arr) == 1:
+        return 0
+    arr.sort()
+    res = 0
+    for i,num in enumerate(arr):
+        res += num * (i+1)
+    res -= arr[-1]
+    return res
+    
+ greedy 2 Element Swapping
+ def findMinArray(arr, k):
+    if len(arr) == 1 or k==0:
+        return arr
+
+    tmp,inx = arr[0],0
+    n = len(arr)
+    for i in range(min(k+1,n)):
+        if arr[i]<tmp:
+            tmp = arr[i]
+            inx = i
+    num = arr.pop(inx)
+    return [num] + findMinArray(arr, k - inx)
+
+ 
+ greedy 3 Seating Arrangements
+def minOverallAwkwardness(arr):
+  # Write your code here
+    arr.sort()
+    n = len(arr)    
+    if n == 1:
+        return 0
+    if n == 2:
+        return abs(arr[1]-arr[0])
+    sm = 0
+    for i in range(n-2):
+        sm = max(sm,arr[i+2]- arr[i] )
+    return sm
+    
+   tree 1 Number of Visible Nodes
+   
+   def visible_nodes(root):
+  # Write your code here
+    if not root:
+        return 0
+    q = deque([(root,1)])
+    while q:
+        node,lv = q.popleft()
+        if node.left:
+            q.append((node.left,lv+1))
+        if node.right:
+            q.append((node.right,lv+1))
+    return lv
+
+tree 2
+Nodes in a Subtree
+def count_of_nodes(root, queries, s):
+    num2node = {}
+    q = [root]
+    while q:
+        node = q.pop()
+        num2node[node.val] = node      
+        for child in node.children:
+            q.append(child)
+    
+    def count(num,ch):
+        q = [num2node[num]]
+        ct = 0
+        while q:
+            node=q.pop()
+            if s[node.val-1] == ch:
+                ct += 1
+            for child in node.children:
+                q.append(child)
+        return ct
+                
+    return [count(num,ch) for num,ch in queries]
+    
+    
+search 1 
+Revenue Milestones
+
+
+def getMilestoneDays(revenues, milestones):
+  # Write your code here
+    smilestones = sorted(milestones)
+    index = [smilestones.index(_) for _ in milestones]
+    res = []
+    i,j = 0,0
+    cumsum = 0
+    while i< len(revenues) and j<len(smilestones):
+        cumsum += revenues[i]
+        while j<len(smilestones) and cumsum >= smilestones[j]:
+            j+=1
+            res.append(i+1)
+        i+=1
+    return [res[i] for i in index] if res else [-1]
+    
+  search 2 Billion Users
+  
+  def getBillionUsersDay(growthRates):
+  # Write your code here
+    n = len(growthRates)
+    goal = 1000000000
+    p = 0
+    cur = [1] * n
+    rate, k = growthRates, 1
+    while sum(cur) < goal:
+        if sum( [c * r for c,r in zip(cur,rate)]) > goal:
+            rate, k = growthRates, 1          
+        while sum( [c * r * r for c,r in zip(cur,rate)]) < goal:
+            rate = [r*r for r in rate]
+            k *= 2
+        cur = [c * r for c,r in zip(cur,rate)]
+        p += k
+    return p
+    
+  recursion 1 Encrypted Words
+  
+  def findEncryptedWord(s):
+  # Write your code here
+    if len(s) <= 1:
+        return s
+    index = (len(s)-1)//2
+    return s[index] + findEncryptedWord(s[:index]) + findEncryptedWord(s[index+1:])
+    
+   recursion 2 Change in a Foreign Currency
+   
+   def canGetExactChange(targetMoney, denominations):
+  # Write your code here
+    dp = [True] + [False] * targetMoney
+    for t in range(1,len(dp)):
+        for d in denominations:
+            if t-d >=0 and dp[t-d]:
+                dp[t] = True
+                break
+    return dp[-1]
+    
+  sort 1 Balanced Split
+  
+  def balancedSplitExists(arr):
+  # Write your code here
+    s = sum(arr)
+    if s%2==1:
+        return False
+    arr.sort()
+    cm = 0
+    i = 0
+    while cm + arr[i] <= s//2:
+        cm += arr[i]
+        i += 1
+    i-= 1
+    if cm != s//2 or arr[i] == arr[i+1]:
+        return False
+    return True
+    
+ sort 2 Counting Triangles
+ def countDistinctTriangles(arr):
+    ls = [tuple(sorted(t)) for t in arr]
+    
+    #print(ls)
+    return len(set(ls))
+    
+ stack 1
+    
+  
+  
+        
