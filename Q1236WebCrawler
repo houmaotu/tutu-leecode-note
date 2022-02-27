@@ -1,0 +1,27 @@
+实现一个网页爬虫，去模拟爬取http://www.wikipedia.org/页面，让我们简化这个问题，使用存储url替代存储网页的内容。
+
+你的爬虫应该做：
+
+调用 HtmlHelper.parseUrls(url) 从当前给出的这个url对用的网页内容中获取所有的urls
+只爬取wikipedia的界面，这个界面内容由LintCode模拟
+相同的页面不重复爬取
+初始的url为：http://www.wikipedia.org/
+
+其实就是个bfs 诡异
+
+class Solution:
+    """
+    @param url(string): a url of root page
+    @return (list): all urls
+    """
+    def crawler(self, url):
+        result = set()
+        queue = [url]
+        while len(queue):
+            url = queue.pop(0)
+            result.add(url)
+            sub_urls = HtmlHelper.parseUrls(url)
+            for sub_url in sub_urls:
+                if "wikipedia" in sub_url and not sub_url in result:
+                    queue.append(sub_url)
+        return list(result)
