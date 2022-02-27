@@ -1,0 +1,13 @@
+Given two nodes of a binary tree p and q, return their lowest common ancestor (LCA).
+Each node will have a reference to its parent node. The definition for Node is below:
+
+还是bst找到共同的祖宗 但是这回有par了
+实际上就是两个链表 第一次香蕉
+
+ * * * * * *
+            * * * * * * *
+ ***********
+ 
+ 所以就是走啊走啊就好了 走到头 从另一个开始走
+ 
+ 也可以直接存起来路径 
