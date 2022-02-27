@@ -391,7 +391,106 @@ def getMilestoneDays(revenues, milestones):
     return len(set(ls))
     
  stack 1
+    def isBalanced(s):
+  # Write your code here
+    lib = {')':'(',']':'[','}':"{"}
+    stack = []
+    for bra in s:
+        if bra in lib:
+            if not stack or lib[bra]!=stack.pop():
+                return False       
+        else:
+            stack.append(bra)
+    return not stack
+
+queue 1 Queue Removals
+
+def helper(arr,x):  #return new array, pop ele
+    n = len(arr)
+    index2 = -1
+    tmp = -1
+    m = min(n,x)
+    for i in range(m):
+        if arr[i][0]>tmp:
+            tmp = arr[i][0]
+            index2 = i
+            index = arr[i][1]
+        arr[i][0] = max(0,arr[i][0]-1)
+    arr.pop(index2)
+    #print(arr,m)
+    #print(index)
+    #if m != n-1: 
+    return (arr[m-1:]+ arr[:(m-1)],index)
+    #else:
+    #   return (arr,index)
+            
     
+
+def findPositions(arr, x):
+  # Write your code here
+    arr = [[num,i+1] for i,num in enumerate(arr)]
+    #print(arr)
+    res = []
+    for _ in range(x):
+        #print(_)
+        arr,index =  helper(arr,x)
+        res.append(index)
+    return res
   
   
+ graph 1 Minimizing Permutations  (brutal force bfs)
+     6,5,4,1,2,3     
+     654321
+     123456  greedy do not work
+     
+     
+def minOperations(arr):
+  target = "".join([str(num) for num in sorted(arr)])
+  curr = "".join([str(num) for num in arr])
+  queue = collections.deque([(0, curr)]) # In the queue we store (<level>, <permutation>)
+  visited = set([curr])
+  
+  while queue:
+    level, curr = queue.popleft()
+    
+    if curr == target:
+      return level # We are done
+    
+    for i in range(len(curr)):
+      for j in range(i, len(curr)):
+        # Reverse elements between i and j (inclusive)
+        # Note we are operating on strings here, so we create a new copy
+        permutation = curr[:i] + curr[i:j + 1][::-1] + curr[j + 1:]
         
+        if permutation not in visited:
+          visited.add(permutation)
+          queue.append((level + 1, permutation))
+          
+  return -1
+  
+  linked list 1 Reverse Operations
+  def reverse(head):
+  # Write your code here
+    dummy = Node(0)
+    dummy.next = head
+    l = dummy
+    while l and l.next:
+        if l.next.data % 2 == 1:
+            l = l.next
+            #print(l.data)
+        else:
+            r = l.next
+            while r.next and r.next.data%2 == 0:
+                r = r.next
+            #print(l.data,r.data)
+            r = r.next
+            c = l.next
+            l.next = r
+            while c!= r:
+                l.next, c.next,c =c ,l.next, c.next
+                
+            l = r
+            
+    return dummy.next
+  
+  
