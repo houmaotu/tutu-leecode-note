@@ -1,0 +1,38 @@
+给定二叉树，返回其节点值的垂直遍历顺序。 (即逐列从上到下)。
+如果两个节点在同一行和同一列中，则顺序应 从左到右。
+
+代码是抄的 就是记录一下order就好了
+
+class Solution(object):
+    def verticalOrder(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        vPosToVals = defaultdict(list)
+
+        leftMost  = 0   # the known minimum vertical position
+        rightMost = -1  # the known maximum vertical position
+
+        queue = deque() # each item is a pair (node, verticalPosition)
+        if root:
+            queue.append( (root,0) )
+            leftMost = 0
+            rightMost = 0
+
+        while queue:
+            node, vPos = queue.popleft()
+            vPosToVals[vPos].append( node.val )
+
+            if node.left:
+                queue.append( (node.left, vPos-1) )
+                leftMost = min(leftMost, vPos-1)
+            if node.right:
+                queue.append( (node.right, vPos+1) )
+                rightMost = max(rightMost, vPos+1)
+
+        ret = []
+        for pos in range(leftMost, rightMost+1):
+            ret.append( vPosToVals[pos] )
+
+        return ret
