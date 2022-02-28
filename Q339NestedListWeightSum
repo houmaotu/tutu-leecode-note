@@ -1,0 +1,20 @@
+给一个嵌套的整数列表, 返回列表中所有整数由它们的深度加权后的总和. 每一个元素可能是一个整数或一个列表(其元素也可能是整数或列表
+
+这题目纯属捣乱
+
+class Solution(object):
+    # @param {NestedInteger[]} nestedList a list of NestedInteger Object
+    # @return {int} an integer
+    def depthSum(self, nestedList):
+        self.result = 0
+        self.helper(nestedList, 1)
+        
+        return self.result
+    
+    def helper(self, nestedList, depth):
+        
+        for i in nestedList:
+            if i.isInteger():
+                self.result += depth * i.getInteger()
+            else:
+                self.helper(i.getList(), depth + 1)
