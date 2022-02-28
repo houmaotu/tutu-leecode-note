@@ -1,0 +1,29 @@
+You are playing the following Flip Game with your friend: Given a string that contains only these two characters: + and -, you and your friend take turns to flip two consecutive "++" into "--". The game ends when a person can no longer make a move and therefore the other person will be the winner.
+
+Write a function to determine if the starting player can guarantee a win.
+
+For example, given s = "++++", return true. The starting player can guarantee a win by flipping the middle "++" to become "+--+
+
+
+
+class Solution:
+    """
+    @param s: the given string
+    @return: if the starting player can guarantee a win
+    """
+    def can_win(self, s: str) -> bool:
+        # write your code here
+        lib = {} #s to T for canwin F for cannot win
+        n = len(s)
+        def dfs(s):
+            if s in lib:
+                return lib[s]
+            res = False
+            for i in range(n-1):
+                #print(s[i] == "+" and s[i+1] = "+")
+                if s[i] == "+" and s[i+1] == "+" and (not dfs(s[:i]+'--'+s[i+2:]) ):
+                    res = True
+                    break
+            lib[s] = res
+            return res
+        return dfs(s)
