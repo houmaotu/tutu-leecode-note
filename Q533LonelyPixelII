@@ -1,0 +1,33 @@
+Given a picture consisting of black and white pixels, and a positive integer N, find the number of black pixels located at some specific row R and column C that align with all the following rules:
+
+Row R and column C both contain exactly N black pixels. For all rows that have a black pixel at column C, they should be exactly the same as row R The picture is represented by a 2D char array consisting of 'B' and 'W', which means black and white pixels respectively.
+
+
+找到这样的B
+这一行B数为N 这一列B数为n 所有此位置是B的行长得一样
+几率数为N的行数 列是 长得一样的行数
+
+对于行 i 长的这样子的有n个 这一行也有n的B 然后按照列看 是否满足
+
+class Solution(object):
+    def findBlackPixel(self, picture, N):
+        """
+        :type picture: List[List[str]]
+        :type N: int
+        :rtype: int
+        """
+        rows, cols = [0] * len(picture),  [0] * len(picture[0])
+        lookup = collections.defaultdict(int)
+        for i in xrange(len(picture)):
+            for j in xrange(len(picture[0])):
+                if picture[i][j] == 'B':
+                    rows[i] += 1
+                    cols[j] += 1
+            lookup[tuple(picture[i])] += 1
+
+        result = 0
+        for i in xrange(len(picture)):
+            if rows[i] == N and lookup[tuple(picture[i])] == N:
+                for j in xrange(len(picture[0])):
+                     result += picture[i][j] == 'B' and cols[j] == N
+        return result
