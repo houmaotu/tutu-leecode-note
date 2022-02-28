@@ -1,0 +1,25 @@
+Given a binary tree, find the length of the longest consecutive sequence path.
+
+The path refers to any sequence of nodes from some starting node to any node in the tree along the parent-child connections. 
+longest consecutive path need to be from parent to child (cannot be the reverse).
+
+
+class Solution:
+    """
+    @param root: the root of binary tree
+    @return: the length of the longest consecutive sequence path
+    """
+    def longest_consecutive(self, root: TreeNode) -> int:
+        # write your code here
+        q = deque([(root,1)])
+        res = 0
+        while q:
+            node,ct = q.popleft()
+            res = max(res,ct)
+            if node.left:
+                lct = ct + 1 if node.left.val == node.val + 1 else 1
+                q.append((node.left,lct))
+            if node.right:
+                rct = ct + 1 if node.right.val == node.val + 1 else 1
+                q.append((node.right,rct))
+        return res
