@@ -1,0 +1,36 @@
+You are given an array of points in the X-Y plane points where points[i] = [xi, yi].
+
+Return the minimum area of a rectangle formed from these points, with sides parallel to the X and Y axes. If there is not any such rectangle, return 0.
+
+对角决定
+
+class Solution:
+    def minAreaRect(self, points: List[List[int]]) -> int:
+
+        #TC: O(N^2)
+        #SC: O(N^2)
+        #N number of total points, N = len(N)
+        #Each rectangle is determined by 2 points.
+        #Through loop through every two points and use these two points to determine coordinates of other two points
+
+
+        n = len(points)
+        res = sys.maxsize
+
+        Set = set()
+        for x,y in points:
+            Set.add((x,y))                 
+
+        for x1,y1 in points:
+            for x2,y2 in points:
+
+                if x1 > x2 and y1 > y2:
+
+                    if (x1,y2) in Set and (x2,y1) in Set:
+                        area = abs(y1-y2) * abs(x1-x2)
+                        res = min(res, area)
+
+        if res == sys.maxsize:
+            return 0
+        else:
+            return res
