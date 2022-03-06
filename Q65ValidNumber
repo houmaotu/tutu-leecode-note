@@ -1,3 +1,28 @@
+A valid number can be split up into these components (in order):
+
+A decimal number or an integer.
+(Optional) An 'e' or 'E', followed by an integer.
+A decimal number can be split up into these components (in order):
+
+(Optional) A sign character (either '+' or '-').
+One of the following formats:
+One or more digits, followed by a dot '.'.
+One or more digits, followed by a dot '.', followed by one or more digits.
+A dot '.', followed by one or more digits.
+An integer can be split up into these components (in order):
+
+(Optional) A sign character (either '+' or '-').
+One or more digits.
+
+比较混乱
+几率看见E 数字 小数点 符号
+看见了就更新对应
+看见数字没事
+看见+- 就去看 是不是最后一个位置？ 他是不是首位或者E之后？
+看见小数点 就去看 E有了么（有了就不能出现了）小数点之前有了么 之不是只有一个点 （最后一位且没有数字）
+看见E 就去看 E有了么 E前面有数字么 后面有数字么（最后一位么）
+
+
 class Solution:
     def isNumber(self, s: str) -> bool:
         digitFlag=dotFlag=eFlag=False
