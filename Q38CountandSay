@@ -35,3 +35,31 @@ class Solution:
         return res
     
     知识点：嗯 我能想到咧~ 不存在反复调用需要存一下的事情诶
+
+lass Solution:
+    """
+    @param n: the nth
+    @return: the nth sequence
+    """
+    def count_and_say(self, n: int) -> str:
+        # write your code here
+        if n == 1:
+            return '1'
+        res = '1'
+        for _ in range(n-1):
+            res = self.count_and_say_once(res)
+        return res
+
+    def count_and_say_once(self,s):
+        res = ""
+        i = 0
+        while i < len(s):
+            ct = 1
+            while i+1 < len(s) and s[i] == s[i+1]:
+                i += 1
+                ct += 1
+            res += str(ct)
+            res += s[i]
+
+            i+= 1
+        return res
