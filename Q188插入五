@@ -1,0 +1,39 @@
+lintcode
+
+描述
+给定一个数字，在数字的任意位置插入一个5，使得插入后的这个数字最大。
+
+注意正负
+
+class Solution:
+    """
+    @param a: A number
+    @return: Returns the maximum number after insertion
+    """
+    def insert_five(self, a: int) -> int:
+        # write your code here
+        if a>0:
+            a = str(a)
+            i = 0
+            while i < len(a):
+                if int(a[i]) < 5:
+                    break
+                i += 1
+        
+            a = a[:i] + '5' + a[i:]
+            return int(a)
+        elif a == 0:
+            return 50
+        else:
+            a = str(-a)
+            i = 0
+            while i < len(a):
+                if int(a[i]) > 5:
+                    break
+                i += 1
+            a = a[:i] + '5' + a[i:]
+            return -int(a)
+
+
+
+            
