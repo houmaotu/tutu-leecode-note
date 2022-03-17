@@ -1,0 +1,47 @@
+Write a program to solve a Sudoku puzzle by filling the empty cells.
+
+A sudoku solution must satisfy all of the following rules:
+
+Each of the digits 1-9 must occur exactly once in each row.
+Each of the digits 1-9 must occur exactly once in each column.
+Each of the digits 1-9 must occur exactly once in each of the 9 3x3 sub-boxes of the grid.
+The '.' character indicates empty cells.
+
+
+就是一个backtrack
+
+class Solution:
+    def solveSudoku(self, board: List[List[str]]) -> None:
+        self.b = board
+        self.emptyCells = []
+        
+        for i in range(9):
+            for j in range(9):
+                if board[i][j] == '.':
+                    self.emptyCells.append((i, j))
+                    
+        self.backTrack()
+    
+    def backTrack(self) -> None:
+        if not self.emptyCells: return True
+        
+        x, y = self.emptyCells.pop(0)
+        
+        for val in range(1, 10):
+            if self.isValid(x, y, str(val)):
+                self.b[x][y] = str(val)
+                if self.backTrack():
+                    return True
+                else:
+                    self.b[x][y] = '.'
+            
+        self.emptyCells.insert(0, (x, y))
+        return False
+                    
+    def isValid(self, row: int, col: int, c: str) -> bool:
+        for i in range(9):
+            if self.b[i][col] != '.' and self.b[i][col] == c: return False
+            if self.b[row][i] != '.' and self.b[row][i] == c: return False
+            if self.b[3 * (row // 3) + i // 3][ 3 * (col // 3) + i % 3] != '.' and self.b[3 * (row // 3) + i // 3][3 * (col // 3) + i % 3] == c: return False
+        
+        return True
