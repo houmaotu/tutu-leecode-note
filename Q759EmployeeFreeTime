@@ -1,0 +1,42 @@
+我们得到一个员工的schedule列表,代表每个员工工作时间。
+
+每个员工有一个不重合时段的列表 Intervals,这些时段按序排列。
+
+返回一个所有员工共有的空闲时段的列表，并按序排列。
+
+我们的Intervals是一个一维数组，其中每两个数表示一个区间，即[1,2,8,10]表示这个员工的工作时间是[1,2]和[8,10]。
+
+并且,我们的答案不会包括像[5,5]这样的,因为它们的长度是0。
+
+class Solution:
+    """
+    @param schedule: a list schedule of employees
+    @return: Return a list of finite intervals 
+    """
+    def employee_free_time(self, schedule: List[List[int]]) -> List[Interval]:
+        # Write your code here
+        ls = []
+        for personschedule in schedule:
+            ls += [ [personschedule[i],personschedule[i+1]] for i in range(len(personschedule)) if i%2 == 0]
+
+        ls.sort()
+
+        """
+        []  []
+
+        [ ]
+          [ ]
+
+        """
+        if len(ls) == 1:
+            return []
+        res = []
+        l,r = ls[0]
+        for nextl,nextr in ls[1:]:
+            if nextl > r:
+                res.append(Interval(r,nextl))
+                l,r = nextl,nextr
+            elif nextr>r:
+                r = nextr
+
+        return res
