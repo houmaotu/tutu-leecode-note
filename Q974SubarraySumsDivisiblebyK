@@ -1,0 +1,22 @@
+Given an integer array nums and an integer k, return the number of non-empty subarrays that have a sum divisible by k.
+
+A subarray is a contiguous part of an array.
+
+class Solution:
+    def subarraysDivByK(self, nums: List[int], k: int) -> int:
+        lib = {}
+        for i in range(k):
+            lib[i] = 0
+        lib[0] = 1
+        tmp = 0
+        for num in nums:
+            tmp += num
+            lib[tmp%k] += 1
+            
+        res = 0   
+        for val in lib.values():
+            res += val * (val - 1) // 2
+            
+        return res
+            
+        
