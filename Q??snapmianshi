@@ -1,0 +1,32 @@
+s = 'brother'
+lib = set(['bro', 'other', 'her'])
+# res = ['bro her','other']
+
+
+def prt(s,lib):
+    lib1 = {} # must contain first letter
+    lib2 = {} # do not require containing first letter
+    for i in range(len(s) - 1, -1, -1):
+        ct = float("inf")
+        tmp = []
+        tmp2 = []
+        for word in lib:
+            if len(word) + i - 1 < len(s) and word == s[i:i+len(word)]:
+                ct = min(ct,len(word))
+                tmp = tmp + [word] if len(word) + i not in lib2 else tmp + [word + ' ' + st for st in lib2[len(word) + i]]
+        if tmp:
+            lib1[i] = tmp
+            
+        if tmp:
+            for j in range(ct):
+                if i + j in lib1:
+                    tmp2 += lib1[i+j]
+            lib2[i] = tmp2
+            
+        elif i+1 in lib2:
+            lib2[i] = lib2[i+1]
+            
+         
+    return lib2[0]
+    
+    貌似对~嗷呜呜
