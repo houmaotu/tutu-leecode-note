@@ -1,0 +1,17 @@
+Given a string s and a dictionary of strings wordDict, add spaces in s to construct a sentence where each word is a valid dictionary word. Return all such possible sentences in any order.
+
+Note that the same word in the dictionary may be reused multiple times in the segmentation.
+
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
+        lib = defaultdict(list)
+        for i in range(len(s)):
+            for word in wordDict:
+                if i - len(word) + 1 == 0 and s[i - len(word) + 1: i+1] == word:
+                    lib[i] += [word]
+                if i - len(word) + 1 > 0 and s[i - len(word) + 1: i+1] == word and lib[i - len(word)]:
+                    lib[i] += [cur + " " + word for cur in lib[i - len(word)]]
+                    
+        #print(lib)    
+        return lib[len(s)-1]
+        
