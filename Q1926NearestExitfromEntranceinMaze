@@ -1,0 +1,36 @@
+You are given an m x n matrix maze (0-indexed) with empty cells (represented as '.') and walls (represented as '+'). You are also given the entrance of the maze, where entrance = [entrancerow, entrancecol] denotes the row and column of the cell you are initially standing at.
+
+In one step, you can move one cell up, down, left, or right. You cannot step into a cell with a wall, and you cannot step outside the maze. Your goal is to find the nearest exit from the entrance. An exit is defined as an empty cell that is at the border of the maze. The entrance does not count as an exit.
+
+Return the number of steps in the shortest path from the entrance to the nearest exit, or -1 if no such path exists.
+
+
+class Solution:
+    def nearestExit(self, maze: List[List[str]], entrance: List[int]) -> int:
+        m,n = len(maze),len(maze[0])
+        
+        def isexit(i,j):
+            return (i == 0 or i==m-1) or (j == 0 or j == n-1) and maze[i][j] == '.'
+        
+        def inrange(i,j):
+            return i >= 0 and i<=m-1 and j >= 0 and j <= n-1
+        
+        stack = deque([entrance+[0]])
+        visited = set()
+        
+        while stack:
+            i,j,step = stack.popleft()
+            
+            print(visited)
+            
+            if isexit(i,j) and step!=0:
+                return step
+            
+            visited.add((i,j))
+            
+            for newi,newj in [(i+1,j),(i-1,j),(i,j+1),(i,j-1)]:
+                if inrange(newi,newj) and maze[newi][newj] == '.' and (newi,newj) not in visited:
+                    stack.append([newi,newj,step+1])
+                    
+        
+        return -1
